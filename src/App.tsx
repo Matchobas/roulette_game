@@ -15,6 +15,15 @@ export function App() {
 
   return (
     <div className='w-full h-screen flex items-center justify-center bg-zinc-700'>
+      <div className='w-1/2 flex flex-col items-center justify-center gap-2 mr-4'>
+        {rouletteOptions.map((option, index) => {
+          return (
+            <span key={`${option}-${index}`} className='font-extrabold text-white'>
+              {option}
+            </span>
+          )
+        })}
+      </div>
       <form
         className='flex flex-col items-center justify-center gap-3'
         onSubmit={(event) => {handleAddOption(event)}}
@@ -29,9 +38,6 @@ export function App() {
           Adicionar
         </button>
       </form>
-      <div className='font-extrabold'>
-        {rouletteOptions}
-      </div>
     </div>
   )
 }
