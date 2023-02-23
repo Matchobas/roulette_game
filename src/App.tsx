@@ -10,6 +10,7 @@ export function App() {
   const [option, setOption] = useState<string>('');
   const [percentage, setPercentage] = useState<number>(100);
   const [rouletteOptions, setRouletteOptions] = useState<RoulleteOption[]>([]);
+  const [winner, setWinner] = useState('');
 
   function handleAddOption(event: FormEvent) {
     event.preventDefault();
@@ -20,14 +21,26 @@ export function App() {
   }
 
   function handleChooseWinner() {
-    console.log("Winner");
+    const roulleteChances: string[] = [];
+    rouletteOptions.forEach((roullete) => {
+      let amount = roullete.percentage;
+      while (amount > 0) {
+        roulleteChances.push(roullete.title);
+        amount -= 1;
+      }
+    });
+
+    console.log(roulleteChances.length);
+    console.log(Math.random() * roulleteChances.length);
+    setWinner(roulleteChances[Math.round(Math.random() * roulleteChances.length)]);
   }
 
   return (
     <div className='w-full h-screen flex items-center justify-center bg-zinc-700'>
       <div className='w-1/2 flex flex-col items-center justify-center gap-2 mr-4'>
+        <span className='text-3xl text-white font-extrabold'>{winner}</span>
         <button 
-          className='px-8 py-2 bg-purple-500 text-white rounded-lg font-bold' 
+          className='px-8 py-2 bg-purple-500 text-white rounded-lg font-bold hover:bg-purple-700 transition-colors' 
           type='button' 
           onClick={() => handleChooseWinner()}
         >
