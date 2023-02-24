@@ -30,9 +30,7 @@ export function App() {
       }
     });
 
-    console.log(roulleteChances.length);
-    console.log(Math.random() * roulleteChances.length);
-    setWinner(roulleteChances[Math.round(Math.random() * roulleteChances.length)]);
+    setWinner(roulleteChances[Math.floor(Math.random() * roulleteChances.length)]);
   }
 
   return (
