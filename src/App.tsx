@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useMemo, useState } from 'react';
 import './styles/global.css';
 
 interface RoulleteOption {
@@ -12,15 +12,7 @@ export function App() {
   const [rouletteOptions, setRouletteOptions] = useState<RoulleteOption[]>([]);
   const [winner, setWinner] = useState('');
 
-  function handleAddOption(event: FormEvent) {
-    event.preventDefault();
-
-    if (option) {
-      setRouletteOptions([...rouletteOptions, { title: option, percentage }]);
-    }
-  }
-
-  function handleChooseWinner() {
+  const chancesArray = useMemo(() => {
     const roulleteChances: string[] = [];
     rouletteOptions.forEach((roullete) => {
       let amount = roullete.percentage;
@@ -30,7 +22,21 @@ export function App() {
       }
     });
 
-    setWinner(roulleteChances[Math.floor(Math.random() * roulleteChances.length)]);
+    return roulleteChances;
+  }, [rouletteOptions]);
+
+  function handleAddOption(event: FormEvent) {
+    event.preventDefault();
+
+    if (option) {
+      setRouletteOptions([...rouletteOptions, { title: option, percentage }]);
+    }
+  }
+
+  function handleChooseWinner() {
+    const winnerIndex = Math.floor(Math.random() * chancesArray.length);
+
+    setWinner(chancesArray[winnerIndex]);
   }
 
   return (
