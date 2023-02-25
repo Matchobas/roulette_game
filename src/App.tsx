@@ -42,7 +42,21 @@ export function App() {
           Rolar
         </button>
       </div>
-      <AddOptionForm rouletteOptions={rouletteOptions} saveOption={handleNewOption} />
+      <div className='flex flex-col justify-center items-center gap-6'>
+        <AddOptionForm saveOption={handleNewOption} />
+        {rouletteOptions.map((option, index) => {
+            return (
+              <div key={`${option.title}-${index}`}>
+                <span className='font-extrabold text-white'>
+                  {`${option.percentage} `}
+                </span>
+                <span className='font-extrabold text-white'>
+                  {option.title}
+                </span>
+              </div>
+            )
+          })}
+      </div>
     </div>
   )
 }
