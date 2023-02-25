@@ -20,6 +20,19 @@ export function Roulette() {
 
         ctx.fillStyle = "#FFFFFF";
         ctx.fill();
+
+        ctx.fillStyle = "#000000";
+        ctx.font = "24px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.strokeStyle = "none";
+
+        const angleToRotate = 0;
+        const angleInRadians = angleToRotate * Math.PI / 180;
+
+        ctx.rotate(angleInRadians);
+        ctx.fillText("Hello, World!", centerX, centerY);
+        ctx.rotate(-angleInRadians);
       }
     }
   }, []);
