@@ -1,3 +1,4 @@
+import { X } from 'phosphor-react';
 import { useMemo, useState } from 'react';
 import { AddOptionForm } from './components/AddOptionForm';
 import { RoulleteOption } from './model/RoulleteOption';
@@ -9,6 +10,11 @@ export function App() {
 
   function handleNewOption(option: RoulleteOption) {
     setRouletteOptions([...rouletteOptions, option]);
+  }
+
+  function handleRemoveOption(index: number) {
+    const updatedOptions = rouletteOptions.filter((option) => rouletteOptions.indexOf(option) !== index);
+    setRouletteOptions(updatedOptions);
   }
 
   const chancesArray = useMemo(() => {
@@ -46,13 +52,16 @@ export function App() {
         <AddOptionForm saveOption={handleNewOption} />
         {rouletteOptions.map((option, index) => {
             return (
-              <div key={`${option.title}-${index}`}>
+              <div className='flex justify-center items-center' key={`${option.title}-${index}`}>
                 <span className='font-extrabold text-white'>
-                  {`${option.percentage} `}
+                  {option.percentage}
                 </span>
-                <span className='font-extrabold text-white'>
+                <span className='font-extrabold text-white ml-2'>
                   {option.title}
                 </span>
+                <button type='button' onClick={() => { handleRemoveOption(index) }}>
+                  <X size={14} color="white" className='ml-5'/>
+                </button>
               </div>
             )
           })}
