@@ -11,17 +11,26 @@ export function Roulette() {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const radius = 200;
-      const startAngle = 0;
-      const endAngle = (3 * Math.PI) / 4;
+      const divisor = 8;
+      let startAngle = 0;
+      let endAngle = Math.PI / divisor;
 
       if (ctx) {
-        ctx.beginPath();
-        ctx.moveTo(centerX, centerY);
-        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-        ctx.closePath();
-
-        ctx.fillStyle = "#FFFFFF";
-        ctx.fill();
+        const arcsAmount = divisor * 2;
+        for (let i = 0; i < arcsAmount; i++) {
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          if (i % 2 === 0) {
+            ctx.fillStyle = "#FFFFFF";
+          } else {
+            ctx.fillStyle = "#000000";
+          }
+          ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+          startAngle += Math.PI / divisor;
+          endAngle += Math.PI / divisor;
+          ctx.closePath();
+          ctx.fill();
+        }
 
         ctx.fillStyle = "#000000";
         ctx.font = "20px Arial";
@@ -29,7 +38,7 @@ export function Roulette() {
         ctx.textBaseline = "middle";
         ctx.strokeStyle = "none";
 
-        const angleInDegrees = 135 / 2;
+        const angleInDegrees = 90;
         const angleInRadians = angleInDegrees * Math.PI / 180;
         ctx.rotate(angleInRadians);
 
@@ -37,7 +46,8 @@ export function Roulette() {
         const x = radius * Math.cos(endAngle - angleInRadians / 2) + centerX;
         const y = radius * Math.sin(endAngle - angleInRadians / 2) + centerY;
 
-        ctx.fillText("Hello, World!", centerX + x, -centerY + 90);
+        // centerX + x, -centerY + 90
+        ctx.fillText("Hello, World!", centerX + x, -centerY);
         ctx.rotate(-angleInRadians);
       }
     }
