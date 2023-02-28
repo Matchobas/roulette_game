@@ -40,7 +40,7 @@ export function App() {
   return (
     <div className='w-full h-screen flex items-center justify-center bg-zinc-700'>
       <div className='w-1/2 flex flex-col items-center justify-center gap-2 mr-4'>
-        <Roulette />
+        <Roulette options={rouletteOptions} />
         <span className='text-3xl text-white font-extrabold'>{winner}</span>
         <button 
           className='px-8 py-2 bg-purple-500 text-white rounded-lg font-bold hover:bg-purple-700 transition-colors' 

@@ -1,7 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
+import { RoulleteOption } from "../model/RoulleteOption";
 
-export function Roulette() {
+interface RouletteProps {
+  options: RoulleteOption[];
+}
+
+export function Roulette({ options }: RouletteProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const optionsChancesSum = useMemo(() => {
+    return options.reduce((prev, cur) => {
+      return prev += cur.percentage;
+    }, 0);
+  }, [options]);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -11,12 +22,11 @@ export function Roulette() {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const radius = 200;
-      const divisor = 8;
+      const arcsAmount = options.length;
       let startAngle = 0;
-      let endAngle = Math.PI / divisor;
+      let endAngle = Math.PI;
 
       if (ctx) {
-        const arcsAmount = divisor * 2;
         for (let i = 0; i < arcsAmount; i++) {
           ctx.beginPath();
           ctx.moveTo(centerX, centerY);
@@ -26,8 +36,8 @@ export function Roulette() {
             ctx.fillStyle = "#000000";
           }
           ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-          startAngle += Math.PI / divisor;
-          endAngle += Math.PI / divisor;
+          startAngle += Math.PI;
+          endAngle += Math.PI;
           ctx.closePath();
           ctx.fill();
         }
@@ -51,7 +61,7 @@ export function Roulette() {
         ctx.rotate(-angleInRadians);
       }
     }
-  }, []);
+  }, [optionsChancesSum]);
 
   return (
     <canvas ref={canvasRef} width={400} height={400} />
