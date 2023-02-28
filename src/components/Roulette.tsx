@@ -16,18 +16,21 @@ export function Roulette({ options }: RouletteProps) {
 
   useEffect(() => {
     if (canvasRef.current) {
+      console.log(optionsChancesSum);
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
 
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const radius = 200;
-      const arcsAmount = options.length;
       let startAngle = 0;
-      let endAngle = Math.PI;
+      let endAngle = 2 * Math.PI;
 
       if (ctx) {
-        for (let i = 0; i < arcsAmount; i++) {
+        options.forEach((option, i) => {
+          console.log(i);
+          console.log(startAngle);
+          const optionAngle = (option.percentage / optionsChancesSum) * endAngle;
           ctx.beginPath();
           ctx.moveTo(centerX, centerY);
           if (i % 2 === 0) {
@@ -35,12 +38,11 @@ export function Roulette({ options }: RouletteProps) {
           } else {
             ctx.fillStyle = "#000000";
           }
-          ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-          startAngle += Math.PI;
-          endAngle += Math.PI;
+          ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
           ctx.closePath();
           ctx.fill();
-        }
+          startAngle = optionAngle;
+        });
 
         ctx.fillStyle = "#000000";
         ctx.font = "20px Arial";
