@@ -16,7 +16,7 @@ export function Roulette({ options }: RouletteProps) {
 
   useEffect(() => {
     if (canvasRef.current) {
-      console.log(optionsChancesSum);
+      const colors = ["#000000", "#ffffff", "#808080"];
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
 
@@ -25,19 +25,22 @@ export function Roulette({ options }: RouletteProps) {
       const radius = 200;
       let startAngle = 0;
       let endAngle = 2 * Math.PI;
+      let colorIndex = 0;
 
       if (ctx) {
         options.forEach((option, i) => {
-          console.log(i);
-          console.log(startAngle);
-          const optionAngle = (option.percentage / optionsChancesSum) * endAngle;
+          const optionAngle = (option.percentage / optionsChancesSum) * endAngle + startAngle;
           ctx.beginPath();
           ctx.moveTo(centerX, centerY);
-          if (i % 2 === 0) {
-            ctx.fillStyle = "#FFFFFF";
-          } else {
-            ctx.fillStyle = "#000000";
+
+          ctx.fillStyle = colors[colorIndex];
+          colorIndex = (colorIndex + 1) % colors.length;
+          if (i + 1 === options.length) {
+            if (ctx.fillStyle === colors[0]) {
+              ctx.fillStyle = colors[1];
+            }
           }
+
           ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
           ctx.closePath();
           ctx.fill();
