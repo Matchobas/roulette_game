@@ -29,6 +29,11 @@ export function Roulette({ options }: RouletteProps) {
       let colorIndex = 0;
 
       if (ctx) {
+        ctx.font = "20px Arial";
+        ctx.textAlign = "left";
+        ctx.textBaseline = "middle";
+        ctx.strokeStyle = "none";
+
         if (optionsAmount === 0) {
             ctx.beginPath();
             ctx.moveTo(centerX, centerY);
@@ -53,27 +58,35 @@ export function Roulette({ options }: RouletteProps) {
             ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
             ctx.closePath();
             ctx.fill();
+
+            // const textAngle = (endAngle - optionAngle) / 2;
+            // const rotateAmount = textAngle * Math.PI / 180;
+            // ctx.fillStyle = colors[colorIndex + 1];
+
             startAngle = optionAngle;
           }
         }
-
+        
         ctx.fillStyle = "#000000";
-        ctx.font = "20px Arial";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.strokeStyle = "none";
+        for (let a = 0; a < 360; a += 10) {
+          ctx.translate(centerX, centerY);
+          ctx.rotate(a * Math.PI / 180);
+          ctx.fillText("Hello, World!", 0, 0);
+          ctx.rotate(-a * Math.PI / 180);
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+        }
 
-        const angleInDegrees = 90;
-        const angleInRadians = angleInDegrees * Math.PI / 180;
-        ctx.rotate(angleInRadians);
+        // const angleInDegrees = 90;
+        // const angleInRadians = angleInDegrees * Math.PI / 180;
+        // ctx.rotate(angleInRadians);
 
-        // Calculate the position of the text based on the angle and radius
-        const x = radius * Math.cos(endAngle - angleInRadians / 2) + centerX;
-        const y = radius * Math.sin(endAngle - angleInRadians / 2) + centerY;
+        // // Calculate the position of the text based on the angle and radius
+        // const x = radius * Math.cos(endAngle - angleInRadians / 2) + centerX;
+        // const y = radius * Math.sin(endAngle - angleInRadians / 2) + centerY;
 
-        // centerX + x, -centerY + 90
-        ctx.fillText("Hello, World!", centerX + x, -centerY);
-        ctx.rotate(-angleInRadians);
+        // // centerX + x, -centerY + 90
+        // ctx.fillText("Hello, World!", centerX + x, -centerY);
+        // ctx.rotate(-angleInRadians);
       }
     }
   }, [optionsChancesSum]);
