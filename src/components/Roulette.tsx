@@ -14,6 +14,10 @@ export function Roulette({ options }: RouletteProps) {
     }, 0);
   }, [options]);
 
+  function convertToDegrees(angle: number) {
+    return angle * 180 / Math.PI;
+  }
+
   useEffect(() => {
     if (canvasRef.current) {
       const colors = ["#000000", "#ffffff", "#808080"];
@@ -58,35 +62,26 @@ export function Roulette({ options }: RouletteProps) {
             ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
             ctx.closePath();
             ctx.fill();
-
-            // const textAngle = (endAngle - optionAngle) / 2;
-            // const rotateAmount = textAngle * Math.PI / 180;
-            // ctx.fillStyle = colors[colorIndex + 1];
-
+            
+            const textAngle = ((optionAngle - startAngle) / 2) + startAngle;
+            ctx.fillStyle = colors[colorIndex + 1];
+            ctx.translate(centerX, centerY);
+            ctx.rotate(textAngle);
+            ctx.fillText("Hello, World!", 30, 0);
+            ctx.rotate(-textAngle);
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
             startAngle = optionAngle;
           }
         }
         
-        ctx.fillStyle = "#000000";
-        for (let a = 0; a < 360; a += 10) {
-          ctx.translate(centerX, centerY);
-          ctx.rotate(a * Math.PI / 180);
-          ctx.fillText("Hello, World!", 0, 0);
-          ctx.rotate(-a * Math.PI / 180);
-          ctx.setTransform(1, 0, 0, 1, 0, 0);
-        }
-
-        // const angleInDegrees = 90;
-        // const angleInRadians = angleInDegrees * Math.PI / 180;
-        // ctx.rotate(angleInRadians);
-
-        // // Calculate the position of the text based on the angle and radius
-        // const x = radius * Math.cos(endAngle - angleInRadians / 2) + centerX;
-        // const y = radius * Math.sin(endAngle - angleInRadians / 2) + centerY;
-
-        // // centerX + x, -centerY + 90
-        // ctx.fillText("Hello, World!", centerX + x, -centerY);
-        // ctx.rotate(-angleInRadians);
+        // ctx.fillStyle = "#000000";
+        // for (let a = 0; a < 360; a += 10) {
+        //   ctx.translate(centerX, centerY);
+        //   ctx.rotate(a * Math.PI / 180);
+        //   ctx.fillText("Hello, World!", 0, 0);
+        //   ctx.rotate(-a * Math.PI / 180);
+        //   ctx.setTransform(1, 0, 0, 1, 0, 0);
+        // }
       }
     }
   }, [optionsChancesSum]);
