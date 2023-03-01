@@ -23,29 +23,39 @@ export function Roulette({ options }: RouletteProps) {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const radius = 200;
+      const optionsAmount = options.length;
       let startAngle = 0;
       let endAngle = 2 * Math.PI;
       let colorIndex = 0;
 
       if (ctx) {
-        options.forEach((option, i) => {
-          const optionAngle = (option.percentage / optionsChancesSum) * endAngle + startAngle;
-          ctx.beginPath();
-          ctx.moveTo(centerX, centerY);
-
-          ctx.fillStyle = colors[colorIndex];
-          colorIndex = (colorIndex + 1) % colors.length;
-          if (i + 1 === options.length) {
-            if (ctx.fillStyle === colors[0]) {
-              ctx.fillStyle = colors[1];
+        if (optionsAmount === 0) {
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.fillStyle = "#808080";
+            ctx.arc(centerX, centerY, radius, startAngle, 2 * Math.PI);
+            ctx.closePath();
+            ctx.fill();
+        } else {
+          for (let i = 0; i < optionsAmount; i++) {
+            const optionAngle = (options[i].percentage / optionsChancesSum) * endAngle + startAngle;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+  
+            ctx.fillStyle = colors[colorIndex];
+            colorIndex = (colorIndex + 1) % colors.length;
+            if (i + 1 === options.length) {
+              if (ctx.fillStyle === colors[0]) {
+                ctx.fillStyle = colors[1];
+              }
             }
+  
+            ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
+            ctx.closePath();
+            ctx.fill();
+            startAngle = optionAngle;
           }
-
-          ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
-          ctx.closePath();
-          ctx.fill();
-          startAngle = optionAngle;
-        });
+        }
 
         ctx.fillStyle = "#000000";
         ctx.font = "20px Arial";
