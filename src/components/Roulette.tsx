@@ -18,6 +18,14 @@ export function Roulette({ options }: RouletteProps) {
     return angle * 180 / Math.PI;
   }
 
+  function textColor(color: string) {
+    if (color === ("#000000" || "#808080")) {
+      return "#ffffff";
+    } else {
+      return "#000000";
+    }
+  }
+
   useEffect(() => {
     if (canvasRef.current) {
       const colors = ["#000000", "#ffffff", "#808080"];
@@ -64,10 +72,11 @@ export function Roulette({ options }: RouletteProps) {
             ctx.fill();
             
             const textAngle = ((optionAngle - startAngle) / 2) + startAngle;
-            ctx.fillStyle = colors[colorIndex + 1];
+            console.log(textColor("#ffffff"));
+            ctx.fillStyle = textColor(ctx.fillStyle);
             ctx.translate(centerX, centerY);
             ctx.rotate(textAngle);
-            ctx.fillText("Hello, World!", 30, 0);
+            ctx.fillText(options[i].title, 30, 0);
             ctx.rotate(-textAngle);
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             startAngle = optionAngle;
