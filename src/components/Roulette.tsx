@@ -34,7 +34,7 @@ export function Roulette({ options }: RouletteProps) {
 
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      const radius = 200;
+      const radius = 250;
       const optionsAmount = options.length;
       let startAngle = 0;
       let endAngle = 2 * Math.PI;
@@ -70,32 +70,28 @@ export function Roulette({ options }: RouletteProps) {
             ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
             ctx.closePath();
             ctx.fill();
-            
+
             const textAngle = ((optionAngle - startAngle) / 2) + startAngle;
-            console.log(textColor("#ffffff"));
+            const textWidth = options[i].title.length;
+            const textStart = radius / 2 - (textWidth * 5) <= 0 ? 5 : radius / 2 - (textWidth * 5);
+            const adaptedFontSizeNumber = 20 - (5 * Math.floor(textWidth / 20));
+            ctx.font = `${adaptedFontSizeNumber}px Arial`;
+            
+            console.log(textWidth, radius / 2);
             ctx.fillStyle = textColor(ctx.fillStyle);
             ctx.translate(centerX, centerY);
             ctx.rotate(textAngle);
-            ctx.fillText(options[i].title, 30, 0);
+            ctx.fillText(options[i].title, textStart, 0);
             ctx.rotate(-textAngle);
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             startAngle = optionAngle;
           }
         }
-        
-        // ctx.fillStyle = "#000000";
-        // for (let a = 0; a < 360; a += 10) {
-        //   ctx.translate(centerX, centerY);
-        //   ctx.rotate(a * Math.PI / 180);
-        //   ctx.fillText("Hello, World!", 0, 0);
-        //   ctx.rotate(-a * Math.PI / 180);
-        //   ctx.setTransform(1, 0, 0, 1, 0, 0);
-        // }
       }
     }
   }, [optionsChancesSum]);
 
   return (
-    <canvas ref={canvasRef} width={400} height={400} />
+    <canvas ref={canvasRef} width={500} height={500} />
   )
 }
