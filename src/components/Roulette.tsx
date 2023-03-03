@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { RoulleteOption } from "../model/RoulleteOption";
 
 interface RouletteProps {
@@ -27,7 +27,25 @@ export function Roulette({ options, spin }: RouletteProps) {
     }
   }
 
-  let frame = 0;
+  const frame = useRef(0);
+  const [framesToSum, setFramesToSum] = useState(0.4);
+  const [startSlowdown, setStartSlowdown] = useState(true);
+
+  function rouletteSlowDown() {
+    if (startSlowdown) {
+      setTimeout(() => {
+        setFramesToSum(0.2);
+      }, 1000);
+      setTimeout(() => {
+        setFramesToSum(0.1);
+      }, 2000);
+      setTimeout(() => {
+        setFramesToSum(0);
+      }, 3000);
+      setStartSlowdown(false);
+    }
+  }
+
   function drawRoulette() {
     if (canvasRef.current) {
       const colors = ["#000000", "#ffffff", "#808080"];
@@ -38,7 +56,7 @@ export function Roulette({ options, spin }: RouletteProps) {
       const centerY = canvas.height / 2;
       const radius = 250;
       const optionsAmount = options.length;
-      let startAngle = frame;
+      let startAngle = frame.current;
       let endAngle = 2 * Math.PI;
       let colorIndex = 0;
 
@@ -90,7 +108,8 @@ export function Roulette({ options, spin }: RouletteProps) {
         }
 
         if (spin) {
-          frame += 0.3;
+          frame.current += framesToSum;
+          rouletteSlowDown();
         }
 
         requestAnimationFrame(drawRoulette);
