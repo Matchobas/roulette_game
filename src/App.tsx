@@ -8,6 +8,7 @@ import './styles/global.css';
 export function App() {
   const [rouletteOptions, setRouletteOptions] = useState<RoulleteOption[]>([]);
   const [winner, setWinner] = useState('');
+  const [spin, setSpin] = useState(false);
 
   function handleNewOption(option: RoulleteOption) {
     setRouletteOptions([...rouletteOptions, option]);
@@ -40,12 +41,15 @@ export function App() {
   return (
     <div className='w-full h-screen flex items-center justify-center bg-zinc-700'>
       <div className='w-1/2 flex flex-col items-center justify-center gap-2 mr-4'>
-        <Roulette options={rouletteOptions} />
-        <span className='text-3xl text-white font-extrabold'>{winner}</span>
+        <Roulette options={rouletteOptions} spin={spin} />
+        {/* <span className='text-3xl text-white font-extrabold'>{winner}</span> */}
         <button 
           className='px-8 py-2 bg-purple-500 text-white rounded-lg font-bold hover:bg-purple-700 transition-colors' 
           type='button' 
-          onClick={() => handleChooseWinner()}
+          onClick={() => {
+            handleChooseWinner()
+            setSpin(true)
+          }}
         >
           Rolar
         </button>

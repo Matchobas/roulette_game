@@ -3,9 +3,10 @@ import { RoulleteOption } from "../model/RoulleteOption";
 
 interface RouletteProps {
   options: RoulleteOption[];
+  spin: boolean;
 }
 
-export function Roulette({ options }: RouletteProps) {
+export function Roulette({ options, spin }: RouletteProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const optionsChancesSum = useMemo(() => {
@@ -26,7 +27,8 @@ export function Roulette({ options }: RouletteProps) {
     }
   }
 
-  useEffect(() => {
+  let frame = 0;
+  function drawRoulette() {
     if (canvasRef.current) {
       const colors = ["#000000", "#ffffff", "#808080"];
       const canvas = canvasRef.current;
@@ -36,7 +38,7 @@ export function Roulette({ options }: RouletteProps) {
       const centerY = canvas.height / 2;
       const radius = 250;
       const optionsAmount = options.length;
-      let startAngle = 0;
+      let startAngle = frame;
       let endAngle = 2 * Math.PI;
       let colorIndex = 0;
 
@@ -77,7 +79,6 @@ export function Roulette({ options }: RouletteProps) {
             const adaptedFontSizeNumber = 20 - (5 * Math.floor(textWidth / 20));
             ctx.font = `${adaptedFontSizeNumber}px Arial`;
             
-            console.log(textWidth, radius / 2);
             ctx.fillStyle = textColor(ctx.fillStyle);
             ctx.translate(centerX, centerY);
             ctx.rotate(textAngle);
@@ -87,9 +88,19 @@ export function Roulette({ options }: RouletteProps) {
             startAngle = optionAngle;
           }
         }
+
+        if (spin) {
+          frame += 0.3;
+        }
+
+        requestAnimationFrame(drawRoulette);
       }
     }
-  }, [optionsChancesSum]);
+  }
+
+  useEffect(() => {
+    drawRoulette();
+  }, [optionsChancesSum, spin]);
 
   return (
     <canvas ref={canvasRef} width={500} height={500} />
