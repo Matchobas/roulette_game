@@ -31,19 +31,19 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
             defaultValue={percentage}
             value={percentage}
             onChange={(e) => setPercentage(Number(e.target.value))}
-            className='w-12 p-2 ring-4 ring-blue-800 mr-2'
+            className='w-12 p-2 mr-[2px] rounded-l-lg'
           />
           <input
             type={'text'}
             placeholder={'Add a new roulette option'}
             value={option}
             onChange={(e) => setOption(e.target.value)}
-            className='p-2 ring-4 ring-blue-800'
+            className='p-2 h-10'
           />
+          <button type='submit' className='min-w-[60px] px-2 h-10 bg-zinc-500 text-white rounded-r-lg hover:bg-zinc-600 transition-colors'>
+            Add
+          </button>
         </div>
-        <button type='submit' className='w-40 h-10 bg-zinc-500 text-white rounded-lg hover:bg-zinc-600 transition-colors'>
-          Adicionar
-        </button>
       </form>
   )
 }
