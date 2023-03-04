@@ -16,6 +16,8 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
     if (option) {
       saveOption(newOption);
     }
+
+    setOption('');
   }
   
   return (
@@ -27,12 +29,14 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
           <input
             type={'text'}
             defaultValue={percentage}
+            value={percentage}
             onChange={(e) => setPercentage(Number(e.target.value))}
             className='w-12 p-2 ring-4 ring-blue-800 mr-2'
           />
           <input
             type={'text'}
             placeholder={'Add a new roulette option'}
+            value={option}
             onChange={(e) => setOption(e.target.value)}
             className='p-2 ring-4 ring-blue-800'
           />
