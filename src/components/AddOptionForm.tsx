@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
-import { RoulleteOption } from "../model/RoulleteOption";
+import { RouletteOptionModel } from "../model/RouletteOptionModel";
 
 interface AddOptionForm {
-  saveOption: (option: RoulleteOption) => void;
+  saveOption: (option: RouletteOptionModel) => void;
 }
 
 export function AddOptionForm({ saveOption }: AddOptionForm) {
@@ -31,7 +31,7 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
             defaultValue={percentage}
             value={percentage}
             onChange={(e) => setPercentage(Number(e.target.value))}
-            className='w-12 p-2 mr-[2px] rounded-l-lg'
+            className='w-12 p-2 mr-[2px] rounded-l-md'
           />
           <input
             type={'text'}
@@ -40,7 +40,7 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
             onChange={(e) => setOption(e.target.value)}
             className='p-2 h-10'
           />
-          <button type='submit' className='min-w-[60px] px-2 h-10 bg-zinc-500 text-white rounded-r-lg hover:bg-zinc-600 transition-colors'>
+          <button type='submit' className='min-w-[60px] px-2 h-10 bg-zinc-500 text-white rounded-r-md hover:bg-zinc-600 transition-colors'>
             Add
           </button>
         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { RoulleteOption } from "../model/RoulleteOption";
+import { RoulleteOption } from "../model/RouletteOptionModel";
 
 interface RouletteProps {
   options: RoulleteOption[];

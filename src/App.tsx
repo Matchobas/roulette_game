@@ -2,15 +2,16 @@ import { X } from 'phosphor-react';
 import { useMemo, useState } from 'react';
 import { AddOptionForm } from './components/AddOptionForm';
 import { Roulette } from './components/Roulette';
-import { RoulleteOption } from './model/RoulleteOption';
+import { RouletteOption } from './components/RouletteOption';
+import { RouletteOptionModel } from './model/RouletteOptionModel';
 import './styles/global.css';
 
 export function App() {
-  const [rouletteOptions, setRouletteOptions] = useState<RoulleteOption[]>([]);
+  const [rouletteOptions, setRouletteOptions] = useState<RouletteOptionModel[]>([]);
   const [winner, setWinner] = useState('');
   const [spin, setSpin] = useState(false);
 
-  function handleNewOption(option: RoulleteOption) {
+  function handleNewOption(option: RouletteOptionModel) {
     setRouletteOptions([...rouletteOptions, option]);
   }
 
@@ -60,21 +61,14 @@ export function App() {
       </div>
       <div className='flex flex-col justify-center items-center gap-6'>
         <AddOptionForm saveOption={handleNewOption} />
-        {rouletteOptions.map((option, index) => {
-            return (
-              <div className='flex justify-center items-center' key={`${option.title}-${index}`}>
-                <span className='font-extrabold text-white'>
-                  {option.percentage}
-                </span>
-                <span className='font-extrabold text-white ml-2'>
-                  {option.title}
-                </span>
-                <button type='button' onClick={() => { handleRemoveOption(index) }}>
-                  <X size={14} color="white" className='ml-5'/>
-                </button>
-              </div>
-            )
-          })}
+        {rouletteOptions.map((option, index) => 
+            <RouletteOption 
+              key={`${option.title}-${index}`}
+              index={index}
+              option={option} 
+              removeOption={handleRemoveOption}
+            />
+          )}
       </div>
     </div>
   )
