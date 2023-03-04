@@ -1,12 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { RoulleteOption } from "../model/RoulleteOption";
 
 interface RouletteProps {
   options: RoulleteOption[];
   spin: boolean;
+  stopSpin: () => void;
 }
 
-export function Roulette({ options, spin }: RouletteProps) {
+export function Roulette({ options, spin, stopSpin }: RouletteProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const optionsChancesSum = useMemo(() => {
@@ -28,21 +29,21 @@ export function Roulette({ options, spin }: RouletteProps) {
   }
 
   const frame = useRef(0);
-  const [framesToSum, setFramesToSum] = useState(0.4);
-  const [startSlowdown, setStartSlowdown] = useState(true);
+  const framesToSum = useRef(0.4);
 
   function rouletteSlowDown() {
-    if (startSlowdown) {
-      setTimeout(() => {
-        setFramesToSum(0.2);
-      }, 1000);
-      setTimeout(() => {
-        setFramesToSum(0.1);
-      }, 2000);
-      setTimeout(() => {
-        setFramesToSum(0);
-      }, 3000);
-      setStartSlowdown(false);
+    const rate = 0.5;
+    framesToSum.current = rate;
+    for(let t = 1; t < rate * 10 + 1; t++) {
+      setTimeout((time = t) => {
+        if (time === rate * 10) {
+          framesToSum.current = 0;
+          stopSpin();
+        } else {
+          framesToSum.current = framesToSum.current - 0.1;
+        }
+        console.log(framesToSum.current);
+      }, t * 1000);  
     }
   }
 
@@ -108,8 +109,7 @@ export function Roulette({ options, spin }: RouletteProps) {
         }
 
         if (spin) {
-          frame.current += framesToSum;
-          rouletteSlowDown();
+          frame.current += framesToSum.current;
         }
 
         requestAnimationFrame(drawRoulette);
@@ -120,6 +120,10 @@ export function Roulette({ options, spin }: RouletteProps) {
   useEffect(() => {
     drawRoulette();
   }, [optionsChancesSum, spin]);
+
+  useEffect(() => {
+    if (spin) rouletteSlowDown();
+  }, [spin]);
 
   return (
     <canvas ref={canvasRef} width={500} height={500} />
