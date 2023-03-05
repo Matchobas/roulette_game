@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { RoulleteOption } from "../model/RouletteOptionModel";
+import { RouletteOptionModel } from "../model/RouletteOptionModel";
 
 interface RouletteProps {
-  options: RoulleteOption[];
+  options: RouletteOptionModel[];
   spin: boolean;
   stopSpin: () => void;
 }
@@ -34,16 +34,16 @@ export function Roulette({ options, spin, stopSpin }: RouletteProps) {
   function rouletteSlowDown() {
     const rate = 0.5;
     framesToSum.current = rate;
-    for(let t = 1; t < rate * 10 + 1; t++) {
+    const slowLoopEnd = rate * 10 * 2 + 1 
+    for(let t = 1; t < slowLoopEnd; t++) {
       setTimeout((time = t) => {
-        if (time === rate * 10) {
+        if (time === rate * 10 * 2) {
           framesToSum.current = 0;
           stopSpin();
         } else {
-          framesToSum.current = framesToSum.current - 0.1;
+          framesToSum.current = framesToSum.current - 0.05;
         }
-        console.log(framesToSum.current);
-      }, t * 1000);  
+      }, t * 1000);
     }
   }
 
@@ -57,7 +57,7 @@ export function Roulette({ options, spin, stopSpin }: RouletteProps) {
       const centerY = canvas.height / 2;
       const radius = 250;
       const optionsAmount = options.length;
-      let startAngle = frame.current;
+      let startAngle = optionsAmount ? frame.current / optionsAmount : frame.current;
       let endAngle = 2 * Math.PI;
       let colorIndex = 0;
 

@@ -56,7 +56,7 @@ export function App() {
             setSpin(true)
           }}
         >
-          Rolar
+          Spin
         </button>
       </div>
       <div className='flex flex-col justify-center items-center gap-6'>
