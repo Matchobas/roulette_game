@@ -59,7 +59,7 @@ export function App() {
           Spin
         </button>
       </div>
-      <div className='flex flex-col justify-center items-center gap-6'>
+      <div className='flex flex-col justify-center items-center gap-2'>
         <AddOptionForm saveOption={handleNewOption} />
         {rouletteOptions.map((option, index) => 
             <RouletteOption 
