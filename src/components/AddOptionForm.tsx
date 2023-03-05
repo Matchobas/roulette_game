@@ -30,7 +30,14 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
             type={'text'}
             defaultValue={percentage}
             value={percentage}
-            onChange={(e) => setPercentage(Number(e.target.value))}
+            onChange={(e) => {
+              const valueAsNumber = Number(e.target.value);
+              if (!isNaN(valueAsNumber)) {           
+                setPercentage(valueAsNumber)
+              } else {
+                setPercentage(0);
+              }
+            }}
             className='w-12 p-2 mr-[2px] rounded-l-md'
           />
           <input
