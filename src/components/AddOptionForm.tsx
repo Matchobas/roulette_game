@@ -13,7 +13,7 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
     event.preventDefault();
 
     const newOption = { title: option, percentage };
-    if (option) {
+    if (option && percentage > 0) {
       saveOption(newOption);
     }
 
@@ -35,7 +35,7 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
               if (!isNaN(valueAsNumber)) {           
                 setPercentage(valueAsNumber)
               } else {
-                setPercentage(0);
+                setPercentage((prev) => prev);
               }
             }}
             className='w-12 p-2 mr-[2px] rounded-l-md'
