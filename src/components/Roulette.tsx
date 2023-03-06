@@ -47,6 +47,20 @@ export function Roulette({ options, spin, stopSpin }: RouletteProps) {
     }
   }
 
+  function drawWinnerIndicator(
+    draw: CanvasRenderingContext2D, 
+    x: number, 
+    y: number
+  ) {
+    draw.beginPath();
+    draw.moveTo(x, y);
+    draw.fillStyle = "#ca75fb";
+    draw.lineTo(x - 15,  y - 24);
+    draw.lineTo(x + 15,  y - 24);
+    draw.closePath();
+    draw.fill();
+  }
+
   function drawRoulette() {
     if (canvasRef.current) {
       const colors = ["#000000", "#ffffff", "#808080"];
@@ -55,7 +69,7 @@ export function Roulette({ options, spin, stopSpin }: RouletteProps) {
 
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      const radius = 250;
+      const radius = canvas.width / 2 - 20;
       const optionsAmount = options.length;
       let startAngle = optionsAmount ? frame.current / optionsAmount : frame.current;
       let endAngle = 2 * Math.PI;
@@ -108,6 +122,8 @@ export function Roulette({ options, spin, stopSpin }: RouletteProps) {
           }
         }
 
+        drawWinnerIndicator(ctx, centerX, centerY - radius + 15);
+
         if (spin) {
           frame.current += framesToSum.current;
         }
@@ -126,6 +142,6 @@ export function Roulette({ options, spin, stopSpin }: RouletteProps) {
   }, [spin]);
 
   return (
-    <canvas ref={canvasRef} width={500} height={500} />
+    <canvas ref={canvasRef} width={600} height={600} />
   )
 }
