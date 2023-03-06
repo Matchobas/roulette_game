@@ -69,7 +69,7 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
 
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      const radius = canvas.width / 2 - 20;
+      const radius = canvas.width / 2;
       const optionsAmount = options.length;
       let startAngle = optionsAmount ? frame.current / optionsAmount : frame.current;
       let endAngle = 2 * Math.PI;
@@ -103,6 +103,10 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
             }
   
             ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
+            ctx.setLineDash([1, 4]);
+            ctx.strokeStyle = "#2c2c2c";
+            ctx.stroke();
+
             ctx.closePath();
             ctx.fill();
 
@@ -122,6 +126,7 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
           }
         }
 
+        // drawBorderCircle(ctx, centerX, centerY, radius);
         drawWinnerIndicator(ctx, centerX, centerY - radius + 15);
 
         if (spin) {
@@ -142,6 +147,8 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
   }, [spin]);
 
   return (
-    <canvas ref={canvasRef} width={600} height={600} />
+    <>
+      <canvas ref={canvasRef} width={600} height={600} />
+    </>
   )
 }
