@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
-import { RouletteOptionModel } from "../model/RouletteOptionModel";
+import { WheelOptionModel } from "../model/WheelOptionModel";
 
 interface AddOptionForm {
-  saveOption: (option: RouletteOptionModel) => void;
+  saveOption: (option: WheelOptionModel) => void;
 }
 
 export function AddOptionForm({ saveOption }: AddOptionForm) {
@@ -42,7 +42,7 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
           />
           <input
             type={'text'}
-            placeholder={'Add a new roulette option'}
+            placeholder={'Add a new option to the wheel'}
             value={option}
             onChange={(e) => setOption(e.target.value)}
             className='p-2 h-10'

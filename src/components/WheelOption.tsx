@@ -1,13 +1,13 @@
 import { X } from "phosphor-react"
-import { RouletteOptionModel } from "../model/RouletteOptionModel"
+import { WheelOptionModel } from "../model/WheelOptionModel"
 
-interface RouletteOptionProps {
-  option: RouletteOptionModel;
+interface WheelOptionProps {
+  option: WheelOptionModel;
   removeOption: (index: number) => void;
   index: number;
 }
 
-export function RouletteOption({ option, removeOption, index }: RouletteOptionProps) {
+export function WheelOption({ option, removeOption, index }: WheelOptionProps) {
   return (
     <div className='w-11/12 h-8 flex justify-between items-center bg-gray-800 rounded-sm'>
       <div className="flex items-center">

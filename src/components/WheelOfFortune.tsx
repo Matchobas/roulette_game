@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { RouletteOptionModel } from "../model/RouletteOptionModel";
+import { WheelOptionModel } from "../model/WheelOptionModel";
 
-interface RouletteProps {
-  options: RouletteOptionModel[];
+interface WheelOfFortuneProps {
+  options: WheelOptionModel[];
   spin: boolean;
   stopSpin: () => void;
 }
 
-export function Roulette({ options, spin, stopSpin }: RouletteProps) {
+export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const optionsChancesSum = useMemo(() => {
@@ -31,7 +31,7 @@ export function Roulette({ options, spin, stopSpin }: RouletteProps) {
   const frame = useRef(0);
   const framesToSum = useRef(0.4);
 
-  function rouletteSlowDown() {
+  function wheelSlowDown() {
     const rate = 0.5;
     framesToSum.current = rate;
     const slowLoopEnd = rate * 10 * 2 + 1 
@@ -61,7 +61,7 @@ export function Roulette({ options, spin, stopSpin }: RouletteProps) {
     draw.fill();
   }
 
-  function drawRoulette() {
+  function drawWheel() {
     if (canvasRef.current) {
       const colors = ["#000000", "#ffffff", "#808080"];
       const canvas = canvasRef.current;
@@ -128,17 +128,17 @@ export function Roulette({ options, spin, stopSpin }: RouletteProps) {
           frame.current += framesToSum.current;
         }
 
-        requestAnimationFrame(drawRoulette);
+        requestAnimationFrame(drawWheel);
       }
     }
   }
 
   useEffect(() => {
-    drawRoulette();
+    drawWheel();
   }, [optionsChancesSum, spin]);
 
   useEffect(() => {
-    if (spin) rouletteSlowDown();
+    if (spin) wheelSlowDown();
   }, [spin]);
 
   return (
