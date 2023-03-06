@@ -1,8 +1,6 @@
-import { X } from 'phosphor-react';
 import { useMemo, useState } from 'react';
-import { AddOptionForm } from './components/AddOptionForm';
+import { OptionsMenu } from './components/OptionsMenu';
 import { WheelOfFortune } from './components/WheelOfFortune';
-import { WheelOption } from './components/WheelOption';
 import { WheelOptionModel } from './model/WheelOptionModel';
 import './styles/global.css';
 
@@ -11,13 +9,8 @@ export function App() {
   const [winner, setWinner] = useState('');
   const [spin, setSpin] = useState(false);
 
-  function handleNewOption(option: WheelOptionModel) {
-    setWheelOptions([...wheelOptions, option]);
-  }
-
-  function handleRemoveOption(index: number) {
-    const updatedOptions = wheelOptions.filter((option) => wheelOptions.indexOf(option) !== index);
-    setWheelOptions(updatedOptions);
+  function handleWheelOptions(options: WheelOptionModel[]) {
+    setWheelOptions([...options]);
   }
 
   const chancesArray = useMemo(() => {
@@ -59,17 +52,9 @@ export function App() {
           Spin
         </button>
       </div>
-      <div className='flex flex-col justify-center items-center gap-2'>
-        <AddOptionForm saveOption={handleNewOption} />
-        {wheelOptions.map((option, index) => 
-            <WheelOption 
-              key={`${option.title}-${index}`}
-              index={index}
-              option={option} 
-              removeOption={handleRemoveOption}
-            />
-          )}
-      </div>
+
+      <OptionsMenu wheelOptions={wheelOptions} handleWheelOptions={handleWheelOptions} />
+      
     </div>
   )
 }
