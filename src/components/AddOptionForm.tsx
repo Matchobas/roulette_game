@@ -1,3 +1,4 @@
+import { Plus } from "phosphor-react";
 import { FormEvent, useState } from "react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 
@@ -47,7 +48,8 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
             onChange={(e) => setOption(e.target.value)}
             className='p-2 h-10'
           />
-          <button type='submit' className='min-w-[60px] px-2 h-10 bg-zinc-500 text-white rounded-r-md hover:bg-zinc-600 transition-colors'>
+          <button type='submit' className='min-w-[60px] px-2 h-10 bg-zinc-400 text-white rounded-r-md hover:bg-zinc-500 transition-colors'>
+            {/* <Plus size={14} /> */}
             Add
           </button>
         </div>

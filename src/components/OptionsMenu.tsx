@@ -18,7 +18,8 @@ export function OptionsMenu({ wheelOptions, handleWheelOptions }: OptionMenuProp
   }
 
   return (
-    <div className='flex flex-col justify-center items-center gap-2'>
+    <div className='flex h-[600px] flex-col justify-start items-center gap-2 p-3 bg-zinc-600 border-white border-[3px] rounded-md'>
+      <b className="text-white text-xl">Options</b>
       <AddOptionForm saveOption={handleNewOption} />
       {wheelOptions.map((option, index) => 
           <WheelOption
