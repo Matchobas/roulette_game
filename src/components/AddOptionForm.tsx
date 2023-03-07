@@ -23,10 +23,10 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
   
   return (
       <form
-        className='flex flex-col items-center justify-center gap-3'
+        className='flex flex-col items-center p-1 justify-center gap-3'
         onSubmit={(event) => {handleAddOption(event)}}
       >
-        <div>
+        <div className="flex items-center justify-center">
           <input
             type={'text'}
             defaultValue={percentage}
@@ -43,14 +43,13 @@ export function AddOptionForm({ saveOption }: AddOptionForm) {
           />
           <input
             type={'text'}
-            placeholder={'Add a new option to the wheel'}
+            placeholder={'Type here your option'}
             value={option}
             onChange={(e) => setOption(e.target.value)}
-            className='p-2 h-10'
+            className='p-2 h-full'
           />
-          <button type='submit' className='min-w-[60px] px-2 h-10 bg-zinc-400 text-white rounded-r-md hover:bg-zinc-500 transition-colors'>
-            {/* <Plus size={14} /> */}
-            Add
+          <button type='submit' className='px-2 h-full bg-zinc-400 text-white rounded-r-md hover:bg-zinc-500 transition-colors'>
+            <Plus size={20} />
           </button>
         </div>
       </form>

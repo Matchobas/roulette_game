@@ -104,7 +104,7 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
   
             ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
             ctx.setLineDash([1, 4]);
-            ctx.strokeStyle = "#2c2c2c";
+            ctx.strokeStyle = "#blue";
             ctx.stroke();
 
             ctx.closePath();
