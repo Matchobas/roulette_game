@@ -9,7 +9,7 @@ interface WheelOptionProps {
 
 export function WheelOption({ option, removeOption, index }: WheelOptionProps) {
   return (
-    <div className='w-full h-10 flex justify-between items-center bg-gray-900 rounded-md'>
+    <div className='w-full min-h-[37px] flex justify-between items-center bg-gray-900 rounded-md'>
       <div className="flex items-center">
         <span className='font-extrabold text-white ml-2'>
           {option.percentage}

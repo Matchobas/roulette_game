@@ -4,6 +4,69 @@ import { WheelOfFortune } from './components/WheelOfFortune';
 import { WheelOptionModel } from './model/WheelOptionModel';
 import './styles/global.css';
 
+const optionsTest: WheelOptionModel[] = [
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+  {
+    title: "D",
+    percentage: 100
+  },
+]
+
 export function App() {
   const [wheelOptions, setWheelOptions] = useState<WheelOptionModel[]>([]);
   const [winner, setWinner] = useState('');
@@ -53,7 +116,7 @@ export function App() {
         </button>
       </div>
 
-      <OptionsMenu wheelOptions={wheelOptions} handleWheelOptions={handleWheelOptions} />
+      <OptionsMenu wheelOptions={optionsTest} handleWheelOptions={handleWheelOptions} />
       
     </div>
   )

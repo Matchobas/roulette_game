@@ -18,10 +18,11 @@ export function OptionsMenu({ wheelOptions, handleWheelOptions }: OptionMenuProp
   }
 
   return (
-    <div className='flex h-[600px] flex-col justify-start items-center gap-2 p-3 bg-zinc-600 border-white border-[3px] rounded-md'>
+    <div className='flex h-[600px] flex-col justify-start items-center p-5 bg-zinc-600 border-white border-[3px] rounded-md'>
       <b className="text-white text-xl">Options</b>
       <AddOptionForm saveOption={handleNewOption} />
-      {wheelOptions.map((option, index) => 
+      <div className="w-full flex flex-col items-center gap-2 overflow-y-auto">
+        {wheelOptions.map((option, index) => 
           <WheelOption
             key={`${option.title}-${index}`}
             index={index}
@@ -29,6 +30,7 @@ export function OptionsMenu({ wheelOptions, handleWheelOptions }: OptionMenuProp
             removeOption={handleRemoveOption}
           />
         )}
+      </div>
     </div>
   )
 }
