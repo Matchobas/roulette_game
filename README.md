@@ -13,3 +13,8 @@ yarn dev
   <li>Make the list of options to be editable after creation</li>
   <li>Change list to a modal that opens from the right side of the screen</li>
 </ul>
+
+<span>Current bugs</span>
+<ul>
+  <li>On each consecutive spin the wheels seens to get faster and stop abruptly <b></b></li>
+</ul>

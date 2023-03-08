@@ -3,12 +3,11 @@ import { WheelOptionModel } from "../model/WheelOptionModel";
 
 interface WheelOfFortuneProps {
   options: WheelOptionModel[];
-  spin: boolean;
-  stopSpin: () => void;
 }
 
-export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps) {
+export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [spin, setSpin] = useState(false);
 
   const optionsChancesSum = useMemo(() => {
     return options.reduce((prev, cur) => {
@@ -39,7 +38,7 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
       setTimeout((time = t) => {
         if (time === rate * 10 * 2) {
           framesToSum.current = 0;
-          stopSpin();
+          setSpin(false);
         } else {
           framesToSum.current = framesToSum.current - 0.05;
         }
@@ -64,16 +63,35 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
     draw.fill();
 
     draw.beginPath();
-    draw.moveTo(x, y - radius - 10);
-    draw.lineTo(x - 8, y - radius + 1);
-    draw.lineTo(x + 8,  y - radius + 1);
+    draw.moveTo(x, y - radius - 11);
+    draw.lineTo(x - 10, y - radius + 1);
+    draw.lineTo(x + 10,  y - radius + 1);
     draw.closePath();
     draw.fill();
 
     draw.fillStyle = "white";
-    draw.font = "bold 15px Arial";
+    draw.font = "bold 16px Arial";
     draw.textAlign = "center";
     draw.fillText("SPIN", x, y);
+  }
+
+  function addSpinButtonListener() {
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      const canvasHalf = canvas.width / 2;
+
+      if (ctx) {
+        const circle = new Path2D();
+        circle.arc(canvasHalf, canvasHalf, 4/36 * canvasHalf, 0, 2 * Math.PI);
+
+        canvas.addEventListener('click', function(event) {
+          if (ctx.isPointInPath(circle, event.offsetX, event.offsetY)) {
+            setSpin(true);
+          }
+        });
+      }
+    }
   }
 
   function drawWheel() {
@@ -141,7 +159,7 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
           }
         }
 
-        drawSpinButton(ctx, centerX, centerY, 1/12 * radius);
+        drawSpinButton(ctx, centerX, centerY, 4/36 * radius);
 
         if (spin) {
           frame.current += framesToSum.current;
@@ -159,6 +177,10 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
   useEffect(() => {
     if (spin) wheelSlowDown();
   }, [spin]);
+
+  useEffect(() => {
+    addSpinButtonListener();
+  }, []);
 
   return (
     <canvas ref={canvasRef} width={600} height={600} />

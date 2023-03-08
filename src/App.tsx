@@ -70,7 +70,6 @@ const optionsTest: WheelOptionModel[] = [
 export function App() {
   const [wheelOptions, setWheelOptions] = useState<WheelOptionModel[]>([]);
   const [winner, setWinner] = useState('');
-  const [spin, setSpin] = useState(false);
 
   function handleWheelOptions(options: WheelOptionModel[]) {
     setWheelOptions([...options]);
@@ -95,25 +94,11 @@ export function App() {
     setWinner(chancesArray[winnerIndex]);
   }
 
-  function stopWheel() {
-    setSpin(false);
-  }
-
   return (
     <div className='w-full h-screen flex items-center justify-center bg-zinc-700'>
       <div className='w-1/2 flex flex-col items-center justify-center gap-2 mr-4'>
-        <WheelOfFortune options={wheelOptions} spin={spin} stopSpin={stopWheel} />
+        <WheelOfFortune options={wheelOptions} />
         {/* <span className='text-3xl text-white font-extrabold'>{winner}</span> */}
-        <button 
-          className='px-8 py-2 bg-purple-500 text-white rounded-lg font-bold hover:bg-purple-700 transition-colors' 
-          type='button' 
-          onClick={() => {
-            handleChooseWinner()
-            setSpin(true)
-          }}
-        >
-          Spin
-        </button>
       </div>
 
       <OptionsMenu wheelOptions={wheelOptions} handleWheelOptions={handleWheelOptions} />
