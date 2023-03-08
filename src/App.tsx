@@ -116,7 +116,7 @@ export function App() {
         </button>
       </div>
 
-      <OptionsMenu wheelOptions={optionsTest} handleWheelOptions={handleWheelOptions} />
+      <OptionsMenu wheelOptions={wheelOptions} handleWheelOptions={handleWheelOptions} />
       
     </div>
   )

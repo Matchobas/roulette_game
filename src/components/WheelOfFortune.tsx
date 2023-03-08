@@ -47,18 +47,33 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
     }
   }
 
-  function drawWinnerIndicator(
+  function drawSpinButton(
     draw: CanvasRenderingContext2D, 
     x: number, 
-    y: number
+    y: number,
+    radius: number
   ) {
     draw.beginPath();
     draw.moveTo(x, y);
     draw.fillStyle = "#ca75fb";
-    draw.lineTo(x - 15,  y - 24);
-    draw.lineTo(x + 15,  y - 24);
+    draw.arc(x, y, radius, 0, 2 * Math.PI);
+    draw.setLineDash([]);
+    draw.strokeStyle = "#white";
+    draw.stroke();
     draw.closePath();
     draw.fill();
+
+    draw.beginPath();
+    draw.moveTo(x, y - radius - 10);
+    draw.lineTo(x - 8, y - radius + 1);
+    draw.lineTo(x + 8,  y - radius + 1);
+    draw.closePath();
+    draw.fill();
+
+    draw.fillStyle = "white";
+    draw.font = "bold 15px Arial";
+    draw.textAlign = "center";
+    draw.fillText("SPIN", x, y);
   }
 
   function drawWheel() {
@@ -126,8 +141,7 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
           }
         }
 
-        // drawBorderCircle(ctx, centerX, centerY, radius);
-        drawWinnerIndicator(ctx, centerX, centerY - radius + 15);
+        drawSpinButton(ctx, centerX, centerY, 1/12 * radius);
 
         if (spin) {
           frame.current += framesToSum.current;
@@ -147,8 +161,6 @@ export function WheelOfFortune({ options, spin, stopSpin }: WheelOfFortuneProps)
   }, [spin]);
 
   return (
-    <>
-      <canvas ref={canvasRef} width={600} height={600} />
-    </>
+    <canvas ref={canvasRef} width={600} height={600} />
   )
 }
