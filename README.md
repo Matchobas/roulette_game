@@ -17,4 +17,5 @@ yarn dev
 <span>Current bugs</span>
 <ul>
   <li>On each consecutive spin the wheels seens to get faster and stop abruptly <b></b></li>
+  <li>Options percentage and title are not aligned with different number of digits <b></b></li>
 </ul>

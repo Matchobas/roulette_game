@@ -11,10 +11,21 @@ export function WheelOption({ option, removeOption, index }: WheelOptionProps) {
   return (
     <div className='w-full min-h-[37px] flex justify-between items-center bg-gray-900 rounded-md'>
       <div className="flex items-center">
-        <span className='font-extrabold text-white ml-2'>
-          {option.percentage}
-        </span>
-        <span className='font-extrabold text-white ml-5'>
+        <input
+          type={'text'}
+          defaultValue={option.percentage}
+          value={option.percentage}
+          // onChange={(e) => {
+          //   const valueAsNumber = Number(e.target.value);
+          //   if (!isNaN(valueAsNumber)) {           
+          //     setPercentage(valueAsNumber)
+          //   } else {
+          //     setPercentage((prev) => prev);
+          //   }
+          // }}
+          className='font-extrabold text-white w-12 p-2 mr-[2px] bg-gray-900 rounded-md'
+        />
+        <span className='font-extrabold text-white'>
           {option.title}
         </span>
       </div>

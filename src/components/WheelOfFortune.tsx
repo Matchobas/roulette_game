@@ -28,10 +28,10 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   }
 
   const frame = useRef(0);
-  const framesToSum = useRef(0.4);
+  const framesToSum = useRef(1.2);
 
   function wheelSlowDown() {
-    const rate = 0.5;
+    const rate = 1.2;
     framesToSum.current = rate;
     const slowLoopEnd = rate * 10 * 2 + 1 
     for(let t = 1; t < slowLoopEnd; t++) {
@@ -57,7 +57,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
     draw.fillStyle = "#ca75fb";
     draw.arc(x, y, radius, 0, 2 * Math.PI);
     draw.setLineDash([]);
-    draw.strokeStyle = "#white";
+    draw.strokeStyle = "#blue";
     draw.stroke();
     draw.closePath();
     draw.fill();
