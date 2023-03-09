@@ -12,6 +12,13 @@ export function OptionsMenu({ wheelOptions, handleWheelOptions }: OptionMenuProp
     handleWheelOptions([...wheelOptions, option]);
   }
 
+  function handleUpdateOption(percentage: number, title: string, index: number) {
+    wheelOptions[index].percentage = percentage;
+    wheelOptions[index].title = title;
+    
+    handleWheelOptions([...wheelOptions]);
+  }
+
   function handleRemoveOption(index: number) {
     const updatedOptions = wheelOptions.filter((option) => wheelOptions.indexOf(option) !== index);
     handleWheelOptions(updatedOptions);
@@ -26,7 +33,8 @@ export function OptionsMenu({ wheelOptions, handleWheelOptions }: OptionMenuProp
           <WheelOption
             key={`${option.title}-${index}`}
             index={index}
-            option={option} 
+            option={option}
+            updateOption={handleUpdateOption}
             removeOption={handleRemoveOption}
           />
         )}
