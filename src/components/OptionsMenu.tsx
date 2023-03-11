@@ -15,7 +15,9 @@ export function OptionsMenu({ wheelOptions, handleWheelOptions }: OptionMenuProp
   function handleUpdateOption(percentage: number, title: string, index: number) {
     wheelOptions[index].percentage = percentage;
     wheelOptions[index].title = title;
-    
+
+    console.log(wheelOptions[index].title);
+  
     handleWheelOptions([...wheelOptions]);
   }
 
@@ -31,7 +33,7 @@ export function OptionsMenu({ wheelOptions, handleWheelOptions }: OptionMenuProp
       <div className="w-full flex flex-col items-center gap-2 overflow-y-auto">
         {wheelOptions.map((option, index) => 
           <WheelOption
-            key={`${option.title}-${index}`}
+            key={`option-${index}`}
             index={index}
             option={option}
             updateOption={handleUpdateOption}

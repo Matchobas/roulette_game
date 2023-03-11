@@ -26,9 +26,16 @@ export function WheelOption({ option, updateOption, removeOption, index }: Wheel
           }}
           className='font-extrabold text-white w-12 p-2 mr-[2px] bg-gray-900 rounded-md'
         />
-        <span className='font-extrabold text-white'>
-          {option.title}
-        </span>
+        <input
+          type={'text'}
+          defaultValue={option.title}
+          value={option.title}
+          onChange={(e) => {
+            const newTitle = e.target.value.toString();
+            updateOption(option.percentage, newTitle, index);
+          }}
+          className='font-extrabold w-full text-white p-2 mr-[2px] bg-gray-900 rounded-md'
+        />
       </div>
       <button 
         type='button' 
