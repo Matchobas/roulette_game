@@ -145,8 +145,9 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
 
             const textAngle = ((optionAngle - startAngle) / 2) + startAngle;
             const textWidth = options[i].title.length;
-            const textStart = radius / 2 - (textWidth * 5) <= 0 ? 5 : radius / 2 - (textWidth * 5);
-            const adaptedFontSizeNumber = 20 - (5 * Math.floor(textWidth / 20));
+            const textStart = radius / 2 - (textWidth * 5) <= 30 ? 40 : radius / 2 - (textWidth * 4);
+            const betterFontSize = 20 - (5 * Math.floor(textWidth / 20));
+            const adaptedFontSizeNumber = betterFontSize > 8 ? 20 - (5 * Math.floor(textWidth / 20)) : 8;
             ctx.font = `${adaptedFontSizeNumber}px Arial`;
             
             ctx.fillStyle = textColor(ctx.fillStyle);
