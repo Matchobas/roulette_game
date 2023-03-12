@@ -15,8 +15,6 @@ export function OptionsMenu({ wheelOptions, handleWheelOptions }: OptionMenuProp
   function handleUpdateOption(percentage: number, title: string, index: number) {
     wheelOptions[index].percentage = percentage;
     wheelOptions[index].title = title;
-
-    console.log(wheelOptions[index].title);
   
     handleWheelOptions([...wheelOptions]);
   }
