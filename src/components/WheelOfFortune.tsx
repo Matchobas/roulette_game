@@ -9,6 +9,14 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
 
+  if (options.length === 0) {
+    options = [
+      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 }, 
+      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 },
+      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 },
+    ]
+  }
+
   const optionsChancesSum = useMemo(() => {
     return options.reduce((prev, cur) => {
       return prev += cur.percentage;
