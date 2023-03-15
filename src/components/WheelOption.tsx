@@ -10,7 +10,7 @@ interface WheelOptionProps {
 
 export function WheelOption({ option, updateOption, removeOption, index }: WheelOptionProps) {
   return (
-    <div className='w-full min-h-[37px] flex justify-between items-center bg-gray-900 rounded-md'>
+    <div className='w-[98%] min-h-[37px] flex justify-between items-center p-2 bg-gray-900 rounded-md'>
       <div className="flex items-center">
         <input
           type={'text'}
@@ -24,7 +24,7 @@ export function WheelOption({ option, updateOption, removeOption, index }: Wheel
               updateOption(option.percentage, option.title, index);
             }
           }}
-          className='font-extrabold text-white w-12 p-2 mr-[2px] bg-gray-900 rounded-md'
+          className='font-extrabold text-white w-12 bg-gray-900'
         />
         <input
           type={'text'}
@@ -34,7 +34,7 @@ export function WheelOption({ option, updateOption, removeOption, index }: Wheel
             const newTitle = e.target.value.toString();
             updateOption(option.percentage, newTitle, index);
           }}
-          className='font-extrabold w-full text-white p-2 mr-[2px] bg-gray-900 rounded-md'
+          className='font-extrabold w-full text-white bg-gray-900'
         />
       </div>
       <button 
@@ -43,7 +43,7 @@ export function WheelOption({ option, updateOption, removeOption, index }: Wheel
           removeOption(index); 
         }}
       >
-        <X size={14} color="white" className='mr-2'/>
+        <X size={16} color="white"/>
       </button>
     </div>
   )

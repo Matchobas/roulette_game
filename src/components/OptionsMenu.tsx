@@ -28,7 +28,7 @@ export function OptionsMenu({ wheelOptions, handleWheelOptions }: OptionMenuProp
     <div className='flex h-[600px] flex-col justify-start items-center p-5 bg-zinc-600 border-white border-[3px] rounded-md'>
       <b className="text-white text-xl">Options</b>
       <AddOptionForm saveOption={handleNewOption} />
-      <div className="w-full flex flex-col items-center gap-2 overflow-y-auto">
+      <div className="w-full flex flex-col items-start gap-2 overflow-y-auto">
         {wheelOptions.map((option, index) => 
           <WheelOption
             key={`option-${index}`}
