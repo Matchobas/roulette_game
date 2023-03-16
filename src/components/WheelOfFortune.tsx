@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 
 interface WheelOfFortuneProps {
@@ -102,7 +102,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
     }
   }
 
-  function drawWheel() {
+  const drawWheel = useCallback(() => {
     if (canvasRef.current) {
       const colors = ["#000000", "#ffffff", "#808080"];
       const canvas = canvasRef.current;
@@ -170,21 +170,22 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
 
         drawSpinButton(ctx, centerX, centerY, 4/36 * radius);
 
-        if (spin) {
+        if (spin && framesToSum.current !== 0) {
           frame.current += framesToSum.current;
+          requestAnimationFrame(drawWheel);
         }
-
-        requestAnimationFrame(drawWheel);
       }
     }
-  }
+  }, [optionsChancesSum, spin]);
 
   useEffect(() => {
     drawWheel();
   }, [optionsChancesSum, spin]);
 
   useEffect(() => {
-    if (spin) wheelSlowDown();
+    if (spin) { 
+      wheelSlowDown();
+    }
   }, [spin]);
 
   useEffect(() => {
