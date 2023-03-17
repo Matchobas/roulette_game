@@ -99,6 +99,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
         canvas.addEventListener('click', function(event) {
           if (ctx.isPointInPath(circle, event.offsetX, event.offsetY)) {
             setSpin(true);
+            console.log(spin);
           }
         });
       }
@@ -124,51 +125,47 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
         ctx.textAlign = "left";
         ctx.textBaseline = "middle";
         ctx.strokeStyle = "none";
+        
+        for (let i = 0; i < optionsAmount; i++) {
+          const optionAngle = (options[i].percentage / optionsChancesSum) * endAngle + startAngle;
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
 
-        if (optionsAmount === 0) {
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.fillStyle = "#808080";
-            ctx.arc(centerX, centerY, radius, startAngle, 2 * Math.PI);
-            ctx.closePath();
-            ctx.fill();
-        } else {
-          for (let i = 0; i < optionsAmount; i++) {
-            const optionAngle = (options[i].percentage / optionsChancesSum) * endAngle + startAngle;
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-  
-            ctx.fillStyle = colors[colorIndex];
-            colorIndex = (colorIndex + 1) % colors.length;
-            if (i + 1 === options.length) {
-              if (ctx.fillStyle === colors[0]) {
-                ctx.fillStyle = colors[1];
-              }
+          ctx.fillStyle = colors[colorIndex];
+          colorIndex = (colorIndex + 1) % colors.length;
+          if (i + 1 === options.length) {
+            if (ctx.fillStyle === colors[0]) {
+              ctx.fillStyle = colors[1];
             }
-  
-            ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
-            ctx.setLineDash([]);
-            ctx.strokeStyle = "#blue";
-            ctx.stroke();
-
-            ctx.closePath();
-            ctx.fill();
-
-            const textAngle = ((optionAngle - startAngle) / 2) + startAngle;
-            const textWidth = options[i].title.length;
-            const textStart = radius / 2 - (textWidth * 5) <= 30 ? 40 : radius / 2 - (textWidth * 4);
-            const betterFontSize = 20 - (5 * Math.floor(textWidth / 20));
-            const adaptedFontSizeNumber = betterFontSize > 8 ? 20 - (5 * Math.floor(textWidth / 20)) : 8;
-            ctx.font = `${adaptedFontSizeNumber}px Arial`;
-            
-            ctx.fillStyle = textColor(ctx.fillStyle);
-            ctx.translate(centerX, centerY);
-            ctx.rotate(textAngle);
-            ctx.fillText(options[i].title, textStart, 0);
-            ctx.rotate(-textAngle);
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-            startAngle = optionAngle;
           }
+
+          ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
+          if (framesToSum.current === 0) {
+            console.log(
+              `option: ${options[i].title} start: ${convertToDegrees(startAngle)}, end: ${convertToDegrees(optionAngle)}`
+            );
+          }
+          ctx.setLineDash([]);
+          ctx.strokeStyle = "#blue";
+          ctx.stroke();
+
+          ctx.closePath();
+          ctx.fill();
+
+          const textAngle = ((optionAngle - startAngle) / 2) + startAngle;
+          const textWidth = options[i].title.length;
+          const textStart = radius / 2 - (textWidth * 5) <= 30 ? 40 : radius / 2 - (textWidth * 4);
+          const betterFontSize = 20 - (5 * Math.floor(textWidth / 20));
+          const adaptedFontSizeNumber = betterFontSize > 8 ? 20 - (5 * Math.floor(textWidth / 20)) : 8;
+          ctx.font = `${adaptedFontSizeNumber}px Arial`;
+          
+          ctx.fillStyle = textColor(ctx.fillStyle);
+          ctx.translate(centerX, centerY);
+          ctx.rotate(textAngle);
+          ctx.fillText(options[i].title, textStart, 0);
+          ctx.rotate(-textAngle);
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          startAngle = optionAngle;
         }
 
         drawSpinButton(ctx, centerX, centerY, 4/36 * radius);
@@ -179,17 +176,15 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
         }
       }
     }
-  }, [optionsChancesSum, spin]);
+  }, [optionsChancesSum, spin, framesToSum]);
 
   useEffect(() => {
-    drawWheel();
-  }, [optionsChancesSum, spin]);
-
-  useEffect(() => {
-    if (spin) { 
+    if (spin) {
       wheelSlowDown();
     }
-  }, [spin]);
+    console.log(spin, framesToSum.current);
+    drawWheel();
+  }, [optionsChancesSum, spin]);
 
   useEffect(() => {
     addSpinButtonListener();
