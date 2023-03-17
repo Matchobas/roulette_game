@@ -1,3 +1,4 @@
+import { ArrowArcLeft, ArrowElbowLeft, ArrowLeft, ArrowLineLeft, ArrowRight, ToggleLeft } from 'phosphor-react';
 import { useMemo, useState } from 'react';
 import { OptionsMenu } from './components/OptionsMenu';
 import { WheelOfFortune } from './components/WheelOfFortune';
@@ -70,6 +71,7 @@ const optionsTest: WheelOptionModel[] = [
 export function App() {
   const [wheelOptions, setWheelOptions] = useState<WheelOptionModel[]>([]);
   const [winner, setWinner] = useState('');
+  const [isOptionsModalOpen, setIsOptionsModalOpen] = useState(true);
 
   function handleWheelOptions(options: WheelOptionModel[]) {
     setWheelOptions([...options]);
@@ -94,6 +96,10 @@ export function App() {
     setWinner(chancesArray[winnerIndex]);
   }
 
+  function handleOptionsModal() {
+    setIsOptionsModalOpen(!isOptionsModalOpen);
+  }
+
   return (
     <div className='w-full h-screen flex items-center justify-center bg-zinc-700'>
       <div className='w-1/2 flex flex-col items-center justify-center gap-2 mr-4'>
@@ -101,7 +107,18 @@ export function App() {
         {/* <span className='text-3xl text-white font-extrabold'>{winner}</span> */}
       </div>
 
-      <OptionsMenu wheelOptions={wheelOptions} handleWheelOptions={handleWheelOptions} />
+      { isOptionsModalOpen ? (
+          <OptionsMenu 
+            wheelOptions={wheelOptions} 
+            handleWheelOptions={handleWheelOptions} 
+            handleOptionsModal={handleOptionsModal}
+          />
+        ) : (
+          <button onClick={() => handleOptionsModal()}>
+            <ArrowLeft size={32} className="text-white" />
+          </button>
+        )
+      }
       
     </div>
   )
