@@ -64,6 +64,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
     draw.moveTo(x, y);
     draw.fillStyle = "#ca75fb";
     draw.arc(x, y, radius, 0, 2 * Math.PI);
+    draw.lineWidth = 4;
     draw.setLineDash([]);
     draw.strokeStyle = "#blue";
     draw.stroke();
@@ -81,6 +82,8 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
     draw.font = "bold 16px Arial";
     draw.textAlign = "center";
     draw.fillText("SPIN", x, y);
+
+    draw.lineWidth = 1;
   }
 
   function addSpinButtonListener() {
