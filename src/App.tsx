@@ -114,7 +114,10 @@ export function App() {
             handleOptionsModal={handleOptionsModal}
           />
         ) : (
-          <button onClick={() => handleOptionsModal()}>
+          <button
+            className='fixed right-28'
+            onClick={() => handleOptionsModal()}
+          >
             <ArrowLeft size={32} className="text-white" />
           </button>
         )
