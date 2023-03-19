@@ -36,10 +36,10 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   }
 
   const frame = useRef(0);
-  const framesToSum = useRef(1.2);
+  const framesToSum = useRef(0.5);
 
   function wheelSlowDown() {
-    const rate = 1.2;
+    const rate = 0.5;
     framesToSum.current = rate;
     const slowLoopEnd = rate * 10 * 2 + 1 
     for(let t = 1; t < slowLoopEnd; t++) {
@@ -115,7 +115,8 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
       const centerY = canvas.height / 2;
       const radius = canvas.width / 2;
       const optionsAmount = options.length;
-      let startAngle = optionsAmount ? frame.current / optionsAmount : frame.current;
+      // let startAngle = optionsAmount ? frame.current / optionsAmount : frame.current;
+      let startAngle = frame.current;
       let endAngle = 2 * Math.PI;
       let colorIndex = 0;
 
@@ -141,7 +142,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
           ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
           if (framesToSum.current === 0) {
             console.log(
-              `option: ${options[i].title} start: ${convertToDegrees(startAngle)}, end: ${convertToDegrees(optionAngle)}`
+              `option: ${options[i].title} start: ${Math.floor(convertToDegrees(startAngle - frame.current))}, end: ${Math.floor(convertToDegrees(optionAngle - frame.current))}`
             );
           }
           ctx.setLineDash([]);
