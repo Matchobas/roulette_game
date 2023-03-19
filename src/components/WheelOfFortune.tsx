@@ -99,7 +99,6 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
         canvas.addEventListener('click', function(event) {
           if (ctx.isPointInPath(circle, event.offsetX, event.offsetY)) {
             setSpin(true);
-            console.log(spin);
           }
         });
       }
@@ -182,7 +181,6 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
     if (spin) {
       wheelSlowDown();
     }
-    console.log(spin, framesToSum.current);
     drawWheel();
   }, [optionsChancesSum, spin]);
 
