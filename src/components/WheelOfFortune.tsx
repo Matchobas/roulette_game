@@ -41,16 +41,22 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   function wheelSlowDown() {
     const rate = 0.5;
     framesToSum.current = rate;
-    const slowLoopEnd = rate * 10 * 2 + 1 
-    for(let t = 1; t < slowLoopEnd; t++) {
-      setTimeout((time = t) => {
-        if (time === rate * 10 * 2) {
-          framesToSum.current = 0;
-          setSpin(false);
-        } else {
-          framesToSum.current = framesToSum.current - 0.05;
-        }
-      }, t * 1000);
+    const animationDuration = 10;
+    for(let t = 1; t <= animationDuration; t++) {
+      if (t < 5) {
+        setTimeout(() => {
+          framesToSum.current = framesToSum.current - 0.1;
+        }, t * 1000);
+      } else {
+        setTimeout((time = t) => {
+          if (time === animationDuration) {
+            framesToSum.current = 0;
+            setSpin(false);
+          } else {
+            framesToSum.current = framesToSum.current - (0.1 / 6);
+          }
+        }, t * 1000);
+      }
     }
   }
 
