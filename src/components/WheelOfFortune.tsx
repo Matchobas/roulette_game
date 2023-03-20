@@ -121,9 +121,10 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
       const centerY = canvas.height / 2;
       const radius = canvas.width / 2;
       const optionsAmount = options.length;
+      const maxAngle = 2 * Math.PI;
       // let startAngle = optionsAmount ? frame.current / optionsAmount : frame.current;
       let startAngle = frame.current;
-      let endAngle = 2 * Math.PI;
+      let endAngle = maxAngle;
       let colorIndex = 0;
 
       if (ctx) {
@@ -147,9 +148,25 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
 
           ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
           if (framesToSum.current === 0) {
-            console.log(
-              `option: ${options[i].title} start: ${Math.floor(convertToDegrees(startAngle - frame.current))}, end: ${Math.floor(convertToDegrees(optionAngle - frame.current))}`
-            );
+            const rotationsAngle = Math.floor(frame.current / maxAngle) * (maxAngle);
+            // // Total de frames em rotações - o número de rotações
+            // console.log(convertToDegrees((frame.current / maxAngle) - Math.floor(frame.current / maxAngle)));
+            // console.log((frame.current / maxAngle) - Math.floor(frame.current / maxAngle));
+
+            // // Angulo inicial
+            // console.log(
+            //   convertToDegrees((startAngle - frame.current) + (frame.current / maxAngle) - Math.floor(frame.current / maxAngle))
+            // );
+
+            // Testando em graus
+            console.log(convertToDegrees(frame.current - (Math.floor(frame.current / maxAngle) * maxAngle)));
+            console.log(convertToDegrees(startAngle - frame.current));
+
+
+            console.log(rotationsAngle);
+            // console.log(
+            //   `option: ${options[i].title} start: ${Math.floor(convertToDegrees(startAngle - rotationsAngle))}, end: ${Math.floor(convertToDegrees(optionAngle - rotationsAngle))}`
+            // );
           }
           ctx.setLineDash([]);
           ctx.strokeStyle = "#blue";
