@@ -147,33 +147,26 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
           }
 
           ctx.arc(centerX, centerY, radius, startAngle, optionAngle);
-          if (framesToSum.current === 0) {
-            const rotationsAngle = Math.floor(frame.current / maxAngle) * (maxAngle);
-            // // Total de frames em rotações - o número de rotações
-            // console.log(convertToDegrees((frame.current / maxAngle) - Math.floor(frame.current / maxAngle)));
-            // console.log((frame.current / maxAngle) - Math.floor(frame.current / maxAngle));
-
-            // // Angulo inicial
-            // console.log(
-            //   convertToDegrees((startAngle - frame.current) + (frame.current / maxAngle) - Math.floor(frame.current / maxAngle))
-            // );
-
-            // Testando em graus
-            console.log(convertToDegrees(frame.current - (Math.floor(frame.current / maxAngle) * maxAngle)));
-            console.log(convertToDegrees(startAngle - frame.current));
-
-
-            console.log(rotationsAngle);
-            // console.log(
-            //   `option: ${options[i].title} start: ${Math.floor(convertToDegrees(startAngle - rotationsAngle))}, end: ${Math.floor(convertToDegrees(optionAngle - rotationsAngle))}`
-            // );
-          }
           ctx.setLineDash([]);
           ctx.strokeStyle = "#blue";
           ctx.stroke();
 
           ctx.closePath();
           ctx.fill();
+
+          if (framesToSum.current === 0) {
+            const angleOffset = frame.current - (Math.floor(frame.current / maxAngle) * maxAngle);
+            const firstStartAngle = startAngle - frame.current;
+
+            const finalArcStart = angleOffset + firstStartAngle;
+            console.log(convertToDegrees(finalArcStart));
+            const finalArcEnd = finalArcStart + (optionAngle - frame.current);
+            console.log(convertToDegrees(finalArcEnd));
+            console.log(convertToDegrees(3/4 * endAngle));
+            if (finalArcStart < 3/4 * endAngle && finalArcEnd > 3/4 * endAngle) {
+              console.log(options[i].title);
+            }
+          }
 
           const textAngle = ((optionAngle - startAngle) / 2) + startAngle;
           const textWidth = options[i].title.length;
