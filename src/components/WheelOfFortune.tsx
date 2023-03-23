@@ -11,9 +11,9 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
 
   if (options.length === 0) {
     options = [
-      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 }, 
-      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 },
-      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 },
+      { title: "1", percentage: 100 }, { title: "2", percentage: 100 }, 
+      { title: "3", percentage: 100 }, { title: "4", percentage: 100 },
+      { title: "5", percentage: 100 }, { title: "6", percentage: 100 },
     ]
   }
 
@@ -157,12 +157,22 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
           if (framesToSum.current === 0) {
             const angleOffset = frame.current - (Math.floor(frame.current / maxAngle) * maxAngle);
             const firstStartAngle = startAngle - frame.current;
+            console.log(convertToDegrees(firstStartAngle));
+            console.log(convertToDegrees(angleOffset));
 
-            const finalArcStart = angleOffset + firstStartAngle;
+            let finalArcStart = angleOffset + firstStartAngle;
+            let startLowered = false;
+            while (finalArcStart > maxAngle) {
+              finalArcStart = finalArcStart - maxAngle;
+              startLowered = true;
+            }
             console.log(convertToDegrees(finalArcStart));
-            const finalArcEnd = finalArcStart + (optionAngle - frame.current);
-            console.log(convertToDegrees(finalArcEnd));
-            console.log(convertToDegrees(3/4 * endAngle));
+            console.log(convertToDegrees(optionAngle - startAngle));
+            const finalArcEnd = finalArcStart + (optionAngle - startAngle);
+            // while (finalArcEnd > maxAngle && startLowered) {
+            //   finalArcEnd = finalArcEnd - maxAngle;
+            // }
+            console.log(convertToDegrees(finalArcEnd)); 
             if (finalArcStart < 3/4 * endAngle && finalArcEnd > 3/4 * endAngle) {
               console.log(options[i].title);
             }
