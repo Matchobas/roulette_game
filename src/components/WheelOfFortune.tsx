@@ -3,9 +3,10 @@ import { WheelOptionModel } from "../model/WheelOptionModel";
 
 interface WheelOfFortuneProps {
   options: WheelOptionModel[];
+  setWinner: (title: string) => void;
 }
 
-export function WheelOfFortune({ options }: WheelOfFortuneProps) {
+export function WheelOfFortune({ options, setWinner }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
 
@@ -157,24 +158,14 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
           if (framesToSum.current === 0) {
             const angleOffset = frame.current - (Math.floor(frame.current / maxAngle) * maxAngle);
             const firstStartAngle = startAngle - frame.current;
-            console.log(convertToDegrees(firstStartAngle));
-            console.log(convertToDegrees(angleOffset));
 
             let finalArcStart = angleOffset + firstStartAngle;
-            let startLowered = false;
             while (finalArcStart > maxAngle) {
               finalArcStart = finalArcStart - maxAngle;
-              startLowered = true;
             }
-            console.log(convertToDegrees(finalArcStart));
-            console.log(convertToDegrees(optionAngle - startAngle));
             const finalArcEnd = finalArcStart + (optionAngle - startAngle);
-            // while (finalArcEnd > maxAngle && startLowered) {
-            //   finalArcEnd = finalArcEnd - maxAngle;
-            // }
-            console.log(convertToDegrees(finalArcEnd)); 
             if (finalArcStart < 3/4 * endAngle && finalArcEnd > 3/4 * endAngle) {
-              console.log(options[i].title);
+              setWinner(options[i].title);
             }
           }
 

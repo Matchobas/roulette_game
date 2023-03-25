@@ -90,10 +90,8 @@ export function App() {
     return wheelChances;
   }, [wheelOptions]);
 
-  function handleChooseWinner() {
-    const winnerIndex = Math.floor(Math.random() * chancesArray.length);
-
-    setWinner(chancesArray[winnerIndex]);
+  function handleWheelWinner(title: string) {
+    setWinner(title);
   }
 
   function handleOptionsModal() {
@@ -103,8 +101,8 @@ export function App() {
   return (
     <div className='w-full h-screen flex items-center justify-center bg-zinc-700'>
       <div className='w-1/2 flex flex-col items-center justify-center gap-2 mr-4'>
-        <WheelOfFortune options={wheelOptions} />
-        {/* <span className='text-3xl text-white font-extrabold'>{winner}</span> */}
+        <WheelOfFortune options={wheelOptions} setWinner={handleWheelWinner} />
+        <span className='text-3xl text-white font-extrabold'>{winner}</span>
       </div>
 
       { isOptionsModalOpen ? (
