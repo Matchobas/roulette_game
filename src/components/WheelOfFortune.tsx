@@ -1,20 +1,21 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
+import * as Popover from "@radix-ui/react-popover";
 
 interface WheelOfFortuneProps {
   options: WheelOptionModel[];
-  setWinner: (title: string) => void;
 }
 
-export function WheelOfFortune({ options, setWinner }: WheelOfFortuneProps) {
+export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
+  const [winner, setWinner] = useState('');
 
   if (options.length === 0) {
     options = [
-      { title: "1", percentage: 100 }, { title: "2", percentage: 100 }, 
-      { title: "3", percentage: 100 }, { title: "4", percentage: 100 },
-      { title: "5", percentage: 100 }, { title: "6", percentage: 100 },
+      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 }, 
+      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 },
+      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 },
     ]
   }
 
@@ -123,7 +124,6 @@ export function WheelOfFortune({ options, setWinner }: WheelOfFortuneProps) {
       const radius = canvas.width / 2;
       const optionsAmount = options.length;
       const maxAngle = 2 * Math.PI;
-      // let startAngle = optionsAmount ? frame.current / optionsAmount : frame.current;
       let startAngle = frame.current;
       let endAngle = maxAngle;
       let colorIndex = 0;
@@ -207,6 +207,17 @@ export function WheelOfFortune({ options, setWinner }: WheelOfFortuneProps) {
   }, []);
 
   return (
-    <canvas ref={canvasRef} width={600} height={600} />
+    <>
+      <canvas ref={canvasRef} width={600} height={600} />
+      <Popover.Root>
+        {winner && (
+          <Popover.Portal>
+            <Popover.Content>
+              <span className='text-3xl text-white font-extrabold'>{winner}</span>
+            </Popover.Content>
+          </Popover.Portal>
+        )}
+      </Popover.Root>
+    </>
   )
 }

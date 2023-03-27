@@ -70,7 +70,6 @@ const optionsTest: WheelOptionModel[] = [
 
 export function App() {
   const [wheelOptions, setWheelOptions] = useState<WheelOptionModel[]>([]);
-  const [winner, setWinner] = useState('');
   const [isOptionsModalOpen, setIsOptionsModalOpen] = useState(true);
 
   function handleWheelOptions(options: WheelOptionModel[]) {
@@ -90,10 +89,6 @@ export function App() {
     return wheelChances;
   }, [wheelOptions]);
 
-  function handleWheelWinner(title: string) {
-    setWinner(title);
-  }
-
   function handleOptionsModal() {
     setIsOptionsModalOpen(!isOptionsModalOpen);
   }
@@ -101,8 +96,7 @@ export function App() {
   return (
     <div className='w-full h-screen flex items-center justify-center bg-zinc-700'>
       <div className='w-1/2 flex flex-col items-center justify-center gap-2 mr-4'>
-        <WheelOfFortune options={wheelOptions} setWinner={handleWheelWinner} />
-        <span className='text-3xl text-white font-extrabold'>{winner}</span>
+        <WheelOfFortune options={wheelOptions} />
       </div>
 
       { isOptionsModalOpen ? (
