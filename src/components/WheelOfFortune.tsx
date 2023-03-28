@@ -9,7 +9,7 @@ interface WheelOfFortuneProps {
 export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
-  const [winner, setWinner] = useState('');
+  const [winner, setWinner] = useState("");
 
   if (options.length === 0) {
     options = [
@@ -209,15 +209,11 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   return (
     <>
       <canvas ref={canvasRef} width={600} height={600} />
-      <Popover.Root>
-        {winner && (
-          <Popover.Portal>
-            <Popover.Content>
-              <span className='text-3xl text-white font-extrabold'>{winner}</span>
-            </Popover.Content>
-          </Popover.Portal>
-        )}
-      </Popover.Root>
+      {winner && (
+        <div className="flex items-center justify-center bg-gray-700 fixed top-1/2 left-1/2 opacity-95 px-60 py-20 transform -translate-x-1/2 -translate-y-1/2">
+          <span className='text-3xl text-white font-extrabold'>{winner}</span>
+        </div>
+      )}
     </>
   )
 }
