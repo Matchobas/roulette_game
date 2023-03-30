@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import * as Popover from "@radix-ui/react-popover";
+import { X } from "phosphor-react";
 
 interface WheelOfFortuneProps {
   options: WheelOptionModel[];
@@ -9,7 +10,7 @@ interface WheelOfFortuneProps {
 export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
-  const [winner, setWinner] = useState("");
+  const [winner, setWinner] = useState("Testing");
 
   if (options.length === 0) {
     options = [
@@ -210,8 +211,15 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
     <>
       <canvas ref={canvasRef} width={600} height={600} />
       {winner && (
-        <div className="flex items-center justify-center bg-gray-700 fixed top-1/2 left-1/2 opacity-95 px-60 py-20 transform -translate-x-1/2 -translate-y-1/2">
-          <span className='text-3xl text-white font-extrabold'>{winner}</span>
+        <div className="w-1/4 h-1/4 flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
+          <span className='text-5xl text-white font-extrabold'>{winner}</span>
+          <button 
+            type="button" 
+            className="bg-slate-300 p-2 rounded-lg mt-10"
+            onClick={() => setWinner("")}
+          >
+            Close
+          </button>
         </div>
       )}
     </>
