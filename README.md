@@ -11,7 +11,8 @@ yarn dev
 <ul>
   <li>Animate the Wheel of Fortune - <b>Done</b></li>
   <li>Make the list of options to be editable after creation - <b>Done</b></li>
-  <li>Change list to a modal that opens from the right side of the screen</li>
+  <li>Add another level of randomness to the wheel related to the speed which it spins</li>
+  <li>Create an animation with CSS for the options menu</li>
 </ul>
 
 <span>Current bugs</span>
