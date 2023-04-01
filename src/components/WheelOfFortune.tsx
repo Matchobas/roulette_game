@@ -8,7 +8,7 @@ interface WheelOfFortuneProps {
 export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
-  const [winner, setWinner] = useState("");
+  const [winner, setWinner] = useState("Test");
 
   if (options.length === 0) {
     options = [
@@ -209,7 +209,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
     <>
       <canvas ref={canvasRef} width={600} height={600} />
       {winner && (
-        <div className="w-[40%] h-[30%] flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
+        <section className="w-[40%] h-[30%] flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
           <span className='h-3/4 flex items-center text-5xl text-white font-extrabold'>{winner}</span>
           <div className="h-1/4 flex items-center">
             <button
@@ -220,7 +220,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
               Close
             </button>
           </div>
-        </div>
+        </section>
       )}
     </>
   )
