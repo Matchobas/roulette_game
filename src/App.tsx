@@ -76,19 +76,6 @@ export function App() {
     setWheelOptions([...options]);
   }
 
-  const chancesArray = useMemo(() => {
-    const wheelChances: string[] = [];
-    wheelOptions.forEach((wheel) => {
-      let amount = wheel.percentage;
-      while (amount > 0) {
-        wheelChances.push(wheel.title);
-        amount -= 1;
-      }
-    });
-
-    return wheelChances;
-  }, [wheelOptions]);
-
   function handleOptionsModal() {
     setIsOptionsModalOpen(!isOptionsModalOpen);
   }
