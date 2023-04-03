@@ -1,5 +1,5 @@
 import { Plus } from "phosphor-react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 
 interface AddOptionForm {

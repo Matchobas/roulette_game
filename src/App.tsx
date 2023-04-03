@@ -1,5 +1,5 @@
-import { ArrowArcLeft, ArrowElbowLeft, ArrowLeft, ArrowLineLeft, ArrowRight, ToggleLeft } from 'phosphor-react';
-import { useMemo, useState } from 'react';
+import { ArrowLeft} from 'phosphor-react';
+import { useEffect, useState } from 'react';
 import { OptionsMenu } from './components/OptionsMenu';
 import { WheelOfFortune } from './components/WheelOfFortune';
 import { WheelOptionModel } from './model/WheelOptionModel';
@@ -79,6 +79,19 @@ export function App() {
   function handleOptionsModal() {
     setIsOptionsModalOpen(!isOptionsModalOpen);
   }
+
+  useEffect(() => {
+    const currentSavedWheelOptions = localStorage.getItem('savedOptions');
+    if (currentSavedWheelOptions) {
+      console.log(JSON.parse(currentSavedWheelOptions));
+      setWheelOptions(JSON.parse(currentSavedWheelOptions));
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(wheelOptions);
+    if (wheelOptions.length > 0) localStorage.setItem('savedOptions', JSON.stringify(wheelOptions));
+  }, [wheelOptions]);
 
   return (
     <div className='w-full h-screen flex items-center justify-center bg-zinc-700'>
