@@ -68,8 +68,14 @@ const optionsTest: WheelOptionModel[] = [
   },
 ]
 
+const currentSavedWheelOptions = localStorage.getItem('savedOptions');
+let saved: WheelOptionModel[] = [];
+if (currentSavedWheelOptions) {
+  saved = JSON.parse(currentSavedWheelOptions);
+}
+
 export function App() {
-  const [wheelOptions, setWheelOptions] = useState<WheelOptionModel[]>([]);
+  const [wheelOptions, setWheelOptions] = useState<WheelOptionModel[]>(saved);
   const [isOptionsModalOpen, setIsOptionsModalOpen] = useState(true);
 
   function handleWheelOptions(options: WheelOptionModel[]) {
@@ -81,16 +87,8 @@ export function App() {
   }
 
   useEffect(() => {
-    const currentSavedWheelOptions = localStorage.getItem('savedOptions');
-    if (currentSavedWheelOptions) {
-      console.log(JSON.parse(currentSavedWheelOptions));
-      setWheelOptions(JSON.parse(currentSavedWheelOptions));
-    }
-  }, []);
-
-  useEffect(() => {
     console.log(wheelOptions);
-    if (wheelOptions.length > 0) localStorage.setItem('savedOptions', JSON.stringify(wheelOptions));
+    localStorage.setItem('savedOptions', JSON.stringify(wheelOptions));
   }, [wheelOptions]);
 
   return (
