@@ -1,4 +1,3 @@
-import { ArrowLeft} from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { OptionsMenu } from './components/OptionsMenu';
 import { WheelOfFortune } from './components/WheelOfFortune';
@@ -76,15 +75,14 @@ if (storagedOptions) {
 
 export function App() {
   const [wheelOptions, setWheelOptions] = useState<WheelOptionModel[]>(currentSavedWheelOptions);
-  const [isOptionsModalOpen, setIsOptionsModalOpen] = useState(true);
 
   function handleWheelOptions(options: WheelOptionModel[]) {
     setWheelOptions([...options]);
   }
 
-  function handleOptionsModal() {
-    setIsOptionsModalOpen(!isOptionsModalOpen);
-  }
+  // function handleOptionsModal() {
+  //   setIsOptionsModalOpen(!isOptionsModalOpen);
+  // }
 
   useEffect(() => {
     localStorage.setItem('savedOptions', JSON.stringify(wheelOptions));
@@ -96,8 +94,13 @@ export function App() {
         <WheelOfFortune options={wheelOptions} />
       </div>
 
-      { isOptionsModalOpen ? (
-          <OptionsMenu 
+      <OptionsMenu
+        wheelOptions={wheelOptions} 
+        handleWheelOptions={handleWheelOptions}
+      />
+
+      {/* { isOptionsModalOpen ? (
+          <OptionsMenu
             wheelOptions={wheelOptions} 
             handleWheelOptions={handleWheelOptions} 
             handleOptionsModal={handleOptionsModal}
@@ -110,7 +113,7 @@ export function App() {
             <ArrowLeft size={32} className="text-white" />
           </button>
         )
-      }
+      } */}
       
     </div>
   )
