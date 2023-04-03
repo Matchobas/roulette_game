@@ -5,7 +5,7 @@ import { WheelOfFortune } from './components/WheelOfFortune';
 import { WheelOptionModel } from './model/WheelOptionModel';
 import './styles/global.css';
 
-const optionsTest: WheelOptionModel[] = [
+const optionsTestingObject: WheelOptionModel[] = [
   {
     title: "D",
     percentage: 100
@@ -68,14 +68,14 @@ const optionsTest: WheelOptionModel[] = [
   },
 ]
 
-const currentSavedWheelOptions = localStorage.getItem('savedOptions');
-let saved: WheelOptionModel[] = [];
-if (currentSavedWheelOptions) {
-  saved = JSON.parse(currentSavedWheelOptions);
+const storagedOptions = localStorage.getItem('savedOptions');
+let currentSavedWheelOptions: WheelOptionModel[] = [];
+if (storagedOptions) {
+  currentSavedWheelOptions = JSON.parse(storagedOptions);
 }
 
 export function App() {
-  const [wheelOptions, setWheelOptions] = useState<WheelOptionModel[]>(saved);
+  const [wheelOptions, setWheelOptions] = useState<WheelOptionModel[]>(currentSavedWheelOptions);
   const [isOptionsModalOpen, setIsOptionsModalOpen] = useState(true);
 
   function handleWheelOptions(options: WheelOptionModel[]) {
@@ -87,7 +87,6 @@ export function App() {
   }
 
   useEffect(() => {
-    console.log(wheelOptions);
     localStorage.setItem('savedOptions', JSON.stringify(wheelOptions));
   }, [wheelOptions]);
 

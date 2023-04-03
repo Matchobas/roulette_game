@@ -205,7 +205,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
     <>
       <canvas ref={canvasRef} width={600} height={600} />
       {winner && (
-        <section className="w-[40%] h-[30%] flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
+        <section className="min-w-[40%] h-[30%] flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
           <span className='h-3/4 flex items-center text-5xl text-white font-extrabold'>{winner}</span>
           <div className="h-1/4 flex items-center">
             <button
