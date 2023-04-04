@@ -75,28 +75,38 @@ if (storagedOptions) {
 
 export function App() {
   const [wheelOptions, setWheelOptions] = useState<WheelOptionModel[]>(currentSavedWheelOptions);
+  const [isOptionsModalOpen, setIsOptionsModalOpen] = useState(true);
 
   function handleWheelOptions(options: WheelOptionModel[]) {
     setWheelOptions([...options]);
   }
 
-  // function handleOptionsModal() {
-  //   setIsOptionsModalOpen(!isOptionsModalOpen);
-  // }
+  function handleOpenModal() {
+    setIsOptionsModalOpen(true);
+  }
+
+  function handleCloseModal() {
+    setIsOptionsModalOpen(false);
+  }
 
   useEffect(() => {
     localStorage.setItem('savedOptions', JSON.stringify(wheelOptions));
   }, [wheelOptions]);
 
   return (
-    <div className='w-full h-screen flex items-center justify-center bg-zinc-700'>
-      <div className='w-1/2 flex flex-col items-center justify-center gap-2 mr-4'>
+    <div className='w-screen h-screen flex items-center justify-center bg-zinc-700'>
+      <div className={`flex w-1/2 flex-col items-center justify-center gap-2 mr-4 transition-all duration-300 ${
+        isOptionsModalOpen ? '-translate-x-0' : 'translate-x-1/4'
+      }`}>
         <WheelOfFortune options={wheelOptions} />
       </div>
 
       <OptionsMenu
         wheelOptions={wheelOptions} 
         handleWheelOptions={handleWheelOptions}
+        isModalOpen={isOptionsModalOpen}
+        handleOpenModal={handleOpenModal}
+        handleCloseModal={handleCloseModal}
       />
 
       {/* { isOptionsModalOpen ? (
