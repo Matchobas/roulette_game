@@ -81,12 +81,8 @@ export function App() {
     setWheelOptions([...options]);
   }
 
-  function handleOpenModal() {
-    setIsOptionsModalOpen(true);
-  }
-
-  function handleCloseModal() {
-    setIsOptionsModalOpen(false);
+  function handleOptionsModal(state: boolean) {
+    setIsOptionsModalOpen(state);
   }
 
   useEffect(() => {
@@ -105,26 +101,8 @@ export function App() {
         wheelOptions={wheelOptions} 
         handleWheelOptions={handleWheelOptions}
         isModalOpen={isOptionsModalOpen}
-        handleOpenModal={handleOpenModal}
-        handleCloseModal={handleCloseModal}
+        handleOptionsModal={handleOptionsModal}
       />
-
-      {/* { isOptionsModalOpen ? (
-          <OptionsMenu
-            wheelOptions={wheelOptions} 
-            handleWheelOptions={handleWheelOptions} 
-            handleOptionsModal={handleOptionsModal}
-          />
-        ) : (
-          <button
-            className='fixed right-28'
-            onClick={() => handleOptionsModal()}
-          >
-            <ArrowLeft size={32} className="text-white" />
-          </button>
-        )
-      } */}
-      
     </div>
   )
 }

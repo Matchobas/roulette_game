@@ -1,5 +1,4 @@
 import { ArrowLeft, Minus } from "phosphor-react";
-import { useState } from "react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { AddOptionForm } from "./AddOptionForm";
 import { WheelOption } from "./WheelOption";
@@ -8,16 +7,14 @@ interface OptionMenuProps {
   wheelOptions: WheelOptionModel[];
   handleWheelOptions: (options: WheelOptionModel[]) => void;
   isModalOpen: boolean;
-  handleOpenModal: () => void;
-  handleCloseModal: () => void;
+  handleOptionsModal: (state: boolean) => void;
 }
 
 export function OptionsMenu({ 
   wheelOptions,
   handleWheelOptions,
   isModalOpen,
-  handleOpenModal,
-  handleCloseModal 
+  handleOptionsModal
 }: OptionMenuProps) {
   function handleNewOption(option: WheelOptionModel) {
     handleWheelOptions([...wheelOptions, option]);
@@ -44,7 +41,7 @@ export function OptionsMenu({
       >
         <header className="w-full flex justify-between items-start">
           <b className="text-white text-xl">Options</b>
-          <button onClick={() => handleCloseModal()}>
+          <button onClick={() => handleOptionsModal(false)}>
             <Minus size={20} weight="bold" className="text-white" />
           </button>
         </header>
@@ -66,7 +63,7 @@ export function OptionsMenu({
         className={`fixed right-28 transition-all ease-in transform ${
           isModalOpen ? 'duration-300 translate-x-full opacity-0' : 'duration-500 translate-x-0 opacity-100'
         }`}
-        onClick={() => handleOpenModal()}
+        onClick={() => handleOptionsModal(true)}
         disabled={isModalOpen}
       >
         <ArrowLeft size={32} className="text-white" />
