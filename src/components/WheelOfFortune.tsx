@@ -8,7 +8,7 @@ interface WheelOfFortuneProps {
 export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
-  const [winner, setWinner] = useState("T");
+  const [winner, setWinner] = useState("");
 
   if (options.length === 0) {
     options = [
@@ -42,13 +42,14 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   function wheelSlowDown() {
     const rate = 0.3;
     framesToSum.current = rate;
-    const animationDurationInSeconds = 10;
+    const animationDurationInSeconds = Math.floor(Math.random() * 8 + 6);
     const smoothnessIndicator = 10;
     const slowdownTicks = animationDurationInSeconds * smoothnessIndicator;
+    const speedToReduceByTick = rate / (slowdownTicks - 1);
     for(let t = 1; t <= slowdownTicks; t++) {
       setTimeout(() => {
-        if (framesToSum.current - (0.3 / slowdownTicks) > 0) {
-          framesToSum.current = framesToSum.current - (0.3 / slowdownTicks);
+        if (framesToSum.current - speedToReduceByTick > 0) {
+          framesToSum.current = framesToSum.current - speedToReduceByTick;
         } else {
           framesToSum.current = 0;
           setSpin(false);
