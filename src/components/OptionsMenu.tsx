@@ -1,4 +1,4 @@
-import { ArrowLeft, Minus } from "phosphor-react";
+import { ArrowLeft, FloppyDisk, Minus } from "phosphor-react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { AddOptionForm } from "./AddOptionForm";
 import { WheelOption } from "./WheelOption";
@@ -41,9 +41,14 @@ export function OptionsMenu({
       >
         <header className="w-full flex justify-between items-start">
           <b className="text-white text-xl">Options</b>
-          <button onClick={() => handleOptionsModal(false)}>
-            <Minus size={20} weight="bold" className="text-white" />
-          </button>
+          <div>
+            <button disabled={true} onClick={() => console.log("Salvar")}>
+              <FloppyDisk size={20} weight="bold" className="text-white mr-4 opacity-30" />
+            </button>
+            <button onClick={() => handleOptionsModal(false)}>
+              <Minus size={20} weight="bold" className="text-white" />
+            </button>
+          </div>
         </header>
         <AddOptionForm saveOption={handleNewOption} />
         <div className="w-full flex flex-col items-start gap-2 overflow-y-auto">
