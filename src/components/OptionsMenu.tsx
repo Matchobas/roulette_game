@@ -2,6 +2,7 @@ import { ArrowLeft, FloppyDisk, Minus } from "phosphor-react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { AddOptionForm } from "./AddOptionForm";
 import { WheelOption } from "./WheelOption";
+import { api } from "../utils/api";
 
 interface OptionMenuProps {
   wheelOptions: WheelOptionModel[];
@@ -31,6 +32,10 @@ export function OptionsMenu({
     const updatedOptions = wheelOptions.filter((option) => wheelOptions.indexOf(option) !== index);
     handleWheelOptions(updatedOptions);
   }
+  
+  function handleOptionsSaveFile() {
+    api.get("/").then((response) => response.data).then((data) => console.log(data));
+  }
 
   return (
     <>
@@ -42,7 +47,7 @@ export function OptionsMenu({
         <header className="w-full flex justify-between items-start">
           <b className="text-white text-xl">Options</b>
           <div>
-            <button disabled={true} onClick={() => console.log("Salvar")}>
+            <button onClick={() => handleOptionsSaveFile()}>
               <FloppyDisk size={20} weight="bold" className="text-white mr-4 opacity-30" />
             </button>
             <button onClick={() => handleOptionsModal(false)}>
