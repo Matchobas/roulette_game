@@ -47,8 +47,10 @@ export function OptionsMenu({
         <header className="w-full flex justify-between items-start">
           <b className="text-white text-xl">Options</b>
           <div>
-            <button onClick={() => handleOptionsSaveFile()}>
-              <FloppyDisk size={20} weight="bold" className="text-white mr-4 opacity-30" />
+            <button disabled={wheelOptions.length ? false : true} onClick={() => handleOptionsSaveFile()}>
+              <FloppyDisk size={20} weight="bold" className={`text-white mr-4 ${
+                wheelOptions.length ? 'opacity-100' : 'opacity-30'
+              }`} />
             </button>
             <button onClick={() => handleOptionsModal(false)}>
               <Minus size={20} weight="bold" className="text-white" />
