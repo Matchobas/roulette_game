@@ -34,7 +34,11 @@ export function OptionsMenu({
   }
   
   function handleOptionsSaveFile() {
-    api.get("/").then((response) => response.data).then((data) => console.log(data));
+    const data = {
+      name: "Test_name",
+      options: wheelOptions
+    }
+    api.post("/", data).then((response) => response.data).then((data) => console.log(data));
   }
 
   return (
