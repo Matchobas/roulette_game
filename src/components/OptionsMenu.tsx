@@ -1,4 +1,4 @@
-import { ArrowLeft, FloppyDisk, Minus } from "phosphor-react";
+import { ArrowLeft, FloppyDisk, Minus, Trash } from "phosphor-react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { AddOptionForm } from "./AddOptionForm";
 import { WheelOption } from "./WheelOption";
@@ -48,6 +48,7 @@ export function OptionsMenu({
       link.setAttribute('download', `${saveOptionsData.name}.csv`);
       document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
     });
   }
 
@@ -63,6 +64,11 @@ export function OptionsMenu({
           <div>
             <button disabled={wheelOptions.length ? false : true} onClick={() => handleOptionsSaveFile()}>
               <FloppyDisk size={20} weight="bold" className={`text-white mr-4 ${
+                wheelOptions.length ? 'opacity-100' : 'opacity-30'
+              }`} />
+            </button>
+            <button disabled={wheelOptions.length ? false : true} onClick={() => handleWheelOptions([])}>
+              <Trash size={20} weight="bold" className={`text-white mr-4 ${
                 wheelOptions.length ? 'opacity-100' : 'opacity-30'
               }`} />
             </button>
