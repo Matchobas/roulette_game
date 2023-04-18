@@ -34,11 +34,21 @@ export function OptionsMenu({
   }
   
   function handleOptionsSaveFile() {
-    const data = {
+    const saveOptionsData = {
       name: "Test_name",
       options: wheelOptions
     }
-    api.post("/", data).then((response) => response.data).then((data) => console.log(data));
+    api
+    .post("/", saveOptionsData, { responseType: "blob" })
+    .then((response) => response.data)
+    .then((data) => {
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${saveOptionsData.name}.csv`);
+      document.body.appendChild(link);
+      link.click();
+    });
   }
 
   return (
