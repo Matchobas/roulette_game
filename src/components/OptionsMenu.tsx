@@ -40,7 +40,7 @@ export function OptionsMenu({
       options: wheelOptions
     }
     api
-    .post("/", saveOptionsData, { responseType: "blob" })
+    .post("/export", saveOptionsData, { responseType: "blob" })
     .then((response) => response.data)
     .then((data) => {
       const url = window.URL.createObjectURL(new Blob([data]));
