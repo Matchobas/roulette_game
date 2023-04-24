@@ -56,14 +56,14 @@ export function OptionsMenu({
   return (
     <>
       <div 
-        className={`flex h-[600px] flex-col justify-start items-center p-5 bg-zinc-600 border-white border-[3px] rounded-md transition-all duration-300 ease-out transform ${
-          isModalOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
+        className={`flex h-[600px] flex-col justify-start items-center p-5 bg-zinc-600 border-white border-[3px] rounded-md transition-all duration-300 ease-out ${
+          isModalOpen ? 'opacity-100' : 'translate-x-full opacity-0'
         }`}
       >
         <header className="w-full flex justify-between items-start">
           <b className="text-white text-xl">Options</b>
           <div>
-            <ImportFormDropzone handleWheelOptions={handleWheelOptions} />
+            <ImportFormDropzone handleWheelOptions={handleWheelOptions} isModalOpen={isModalOpen} />
             <button disabled={wheelOptions.length ? false : true} onClick={() => handleOptionsSaveFile()}>
               <FloppyDisk size={20} weight="bold" className={`text-white mr-4 ${
                 wheelOptions.length ? 'opacity-100' : 'opacity-30'

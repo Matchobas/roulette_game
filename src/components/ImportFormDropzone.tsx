@@ -1,16 +1,20 @@
 import { FileArrowDown } from "phosphor-react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { useDropzone } from "react-dropzone";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ImportFormDropzoneProps {
   handleWheelOptions: (options: WheelOptionModel[]) => void;
+  isModalOpen: boolean;
 }
 
-export function ImportFormDropzone({ handleWheelOptions }: ImportFormDropzoneProps) {
+export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFormDropzoneProps) {
   const [isDropzoneOpen, setIsDropzoneOpen] = useState(false);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
-  // transform -translate-x-1/2 -translate-y-1/2
+
+  useEffect(() => {
+    setIsDropzoneOpen(false);
+  }, [isModalOpen]);
 
   return (
     <>
@@ -22,12 +26,12 @@ export function ImportFormDropzone({ handleWheelOptions }: ImportFormDropzonePro
         <p>Testando div fixada</p>
       </div> */}
 
-      {/* {isDropzoneOpen && (
-        <div {...getRootProps({className: 'fixed inset-0 top-1/2 left-1/2 text-white'})}>
+      {isDropzoneOpen && (
+        <div {...getRootProps({className: 'fixed inset-0 top-1/2 left-1/2 text-white transform -translate-x-1/4'})}>
           <input {...getInputProps()} />
           <p>Drag 'n' drop some files here, or click to select files</p>
         </div>
-      )} */}
+      )}
     </>
   )
 }
