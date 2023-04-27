@@ -2,6 +2,7 @@ import { FileArrowDown } from "phosphor-react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { useDropzone } from "react-dropzone";
 import { useEffect, useState } from "react";
+import { api } from "../utils/api";
 
 interface ImportFormDropzoneProps {
   handleWheelOptions: (options: WheelOptionModel[]) => void;
@@ -11,7 +12,8 @@ interface ImportFormDropzoneProps {
 export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFormDropzoneProps) {
   const [isDropzoneOpen, setIsDropzoneOpen] = useState(false);
   const [isDrozoneDisabled, setIsDropzoneDisabled] = useState(false);
-  const [file, setFile] = useState<JSX.Element[]>([]);
+  const [file, setFile] = useState<File>();
+  const [fileComponent, setFileComponent] = useState<JSX.Element[]>([]);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: {
       'text/csv': ['.csv']
@@ -19,14 +21,27 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
     maxFiles: 1
   });
 
+  function handleSendCsvFile() {
+    if (acceptedFiles.length > 0) {
+      api.post("/import", {
+        file: acceptedFiles[0]
+      }, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+      .then((res) => res.data)
+      .then((data) => console.log(data));
+    }
+  }
+
   useEffect(() => {
-    const files = acceptedFiles.map((file) => 
+    const fileParagraphs = acceptedFiles.map((file) => 
       <p className="text-white text-lg" key={file.name}>{file.name}</p>
     )
 
-    if (files.length > 0) {
-      console.log("Changing");
-      setFile(files);
+    if (fileParagraphs.length > 0) {
+      setFileComponent(fileParagraphs);
       setIsDropzoneDisabled(true);
     };
   }, [acceptedFiles]);
@@ -46,13 +61,13 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
           className: 'fixed w-1/2 h-1/4 flex flex-col items-center justify-center border-2 border-gray-400 border-dashed bg-slate-600 inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
         })}>
           <input {...getInputProps({disabled: isDrozoneDisabled})} />
-          {file.length > 0 ? file : (
+          {fileComponent.length > 0 ? fileComponent : (
             <p className="text-white text-lg">Drag 'n' drop a csv file here, or click to select one</p>
           )}
           
           {acceptedFiles.length > 0 && (
             <button
-              onClick={() => console.log("Clicked")}
+              onClick={handleSendCsvFile}
               className="px-2 bg-zinc-400 text-white rounded-md mt-6 hover:bg-zinc-500 transition-colors opacity-100"
             >
               Load options
