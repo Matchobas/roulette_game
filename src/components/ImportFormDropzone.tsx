@@ -9,7 +9,9 @@ interface ImportFormDropzoneProps {
 }
 
 export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFormDropzoneProps) {
-  const [isDropzoneOpen, setIsDropzoneOpen] = useState(true);
+  const [isDropzoneOpen, setIsDropzoneOpen] = useState(false);
+  const [isDrozoneDisabled, setIsDropzoneDisabled] = useState(false);
+  const [file, setFile] = useState<JSX.Element[]>([]);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: {
       'text/csv': ['.csv']
@@ -17,14 +19,20 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
     maxFiles: 1
   });
 
-  const file = acceptedFiles.map((file) => 
-    (
+  useEffect(() => {
+    const files = acceptedFiles.map((file) => 
       <p className="text-white text-lg" key={file.name}>{file.name}</p>
     )
-  )
+
+    if (files.length > 0) {
+      console.log("Changing");
+      setFile(files);
+      setIsDropzoneDisabled(true);
+    };
+  }, [acceptedFiles]);
 
   useEffect(() => {
-    // setIsDropzoneOpen(false);
+    setIsDropzoneOpen(false);
   }, [isModalOpen]);
 
   return (
@@ -37,7 +45,7 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
         <div {...getRootProps({
           className: 'fixed w-1/2 h-1/4 flex flex-col items-center justify-center border-2 border-gray-400 border-dashed bg-slate-600 inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
         })}>
-          <input {...getInputProps()} />
+          <input {...getInputProps({disabled: isDrozoneDisabled})} />
           {file.length > 0 ? file : (
             <p className="text-white text-lg">Drag 'n' drop a csv file here, or click to select one</p>
           )}
