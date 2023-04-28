@@ -17,6 +17,9 @@ yarn dev
 
 <span>Current bugs</span>
 <ul>
-  <li>On each consecutive spin the wheels seens to get faster and stop abruptly <b></b></li>
+  <li>On each consecutive spin the wheels seens to get faster and stop abruptly - <b>Fixed</b></li>
   <li>Options percentage and title are not aligned with different number of digits - <b>Fixed</b></li>
+  <ul>- Import bugs:
+    <li>Send options button vanishes if you click outside of it</li>
+  </ul>
 </ul>

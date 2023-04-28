@@ -12,7 +12,6 @@ interface ImportFormDropzoneProps {
 export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFormDropzoneProps) {
   const [isDropzoneOpen, setIsDropzoneOpen] = useState(false);
   const [isDrozoneDisabled, setIsDropzoneDisabled] = useState(false);
-  const [file, setFile] = useState<File>();
   const [fileComponent, setFileComponent] = useState<JSX.Element[]>([]);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -31,7 +30,11 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
         }
       })
       .then((res) => res.data)
-      .then((data) => console.log(data));
+      .then((data: WheelOptionModel[]) => {
+        handleWheelOptions(data);
+        setFileComponent([]);
+        setIsDropzoneOpen(false);
+      });
     }
   }
 
