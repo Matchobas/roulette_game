@@ -74,20 +74,20 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
           )}
           
           {fileComponent && (
-            <>
-              <button
-                onClick={handleSendCsvFile}
-                className="px-2 bg-zinc-400 text-white rounded-md mt-6 hover:bg-zinc-500 transition-colors opacity-100"
-              >
-                Load options
-              </button>
+            <div className="flex items-center gap-3">
               <button
                 onClick={handleChangeFile}
                 className="px-2 bg-zinc-400 text-white rounded-md mt-6 hover:bg-zinc-500 transition-colors opacity-100"
               >
                 Change file
               </button>
-            </>
+              <button
+                onClick={handleSendCsvFile}
+                className="px-2 bg-zinc-400 text-white rounded-md mt-6 hover:bg-zinc-500 transition-colors opacity-100"
+              >
+                Load options
+              </button>
+            </div>
           )}
         </div>
       )}

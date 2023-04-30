@@ -22,5 +22,6 @@ yarn dev
   <li>Winner modal only closes if you click on close button</li>
   <ul>- Import bugs:
     <li>Send options button vanishes if you click outside of it - <b>Fixed</b></li>
+    <li>Dont warn when service is not available</li>
   </ul>
 </ul>
