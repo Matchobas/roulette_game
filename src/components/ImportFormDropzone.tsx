@@ -40,6 +40,11 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
     }
   }
 
+  function handleChangeFile() {
+    setFileComponent(undefined);
+    setIsDropzoneDisabled(false);
+  }
+
   useEffect(() => {
     if (acceptedFiles.length > 0) {
       const currentFile = acceptedFiles[0];
@@ -69,12 +74,20 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
           )}
           
           {fileComponent && (
-            <button
-              onClick={handleSendCsvFile}
-              className="px-2 bg-zinc-400 text-white rounded-md mt-6 hover:bg-zinc-500 transition-colors opacity-100"
-            >
-              Load options
-            </button>
+            <>
+              <button
+                onClick={handleSendCsvFile}
+                className="px-2 bg-zinc-400 text-white rounded-md mt-6 hover:bg-zinc-500 transition-colors opacity-100"
+              >
+                Load options
+              </button>
+              <button
+                onClick={handleChangeFile}
+                className="px-2 bg-zinc-400 text-white rounded-md mt-6 hover:bg-zinc-500 transition-colors opacity-100"
+              >
+                Change file
+              </button>
+            </>
           )}
         </div>
       )}

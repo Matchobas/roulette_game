@@ -21,6 +21,6 @@ yarn dev
   <li>Options percentage and title are not aligned with different number of digits - <b>Fixed</b></li>
   <li>Winner modal only closes if you click on close button</li>
   <ul>- Import bugs:
-    <li>Send options button vanishes if you click outside of it</li>
+    <li>Send options button vanishes if you click outside of it - <b>Fixed</b></li>
   </ul>
 </ul>
