@@ -21,6 +21,13 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
     maxFiles: 1
   });
 
+  function handleCloseDropzone(event: React.KeyboardEvent<HTMLInputElement>) {
+    console.log(event.code);
+    if (event.code === "Escape") {
+      setIsDropzoneOpen(false);
+    }
+  }
+
   function handleSendCsvFile() {
     if (fileComponent) {
       api.post("/import", {
@@ -68,7 +75,7 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
         <div {...getRootProps({
           className: 'fixed w-1/2 h-1/4 flex flex-col items-center justify-center border-2 border-gray-400 border-dashed bg-slate-600 inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
         })}>
-          <input {...getInputProps({disabled: isDrozoneDisabled})} />
+          <input {...getInputProps({disabled: isDrozoneDisabled, onKeyDown: (e) => handleCloseDropzone(e)})} />
           {fileComponent ? fileComponent : (
             <p className="text-white text-lg">Drag 'n' drop a csv file here, or click to select one</p>
           )}
