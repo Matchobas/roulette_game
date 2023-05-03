@@ -1,4 +1,4 @@
-import { ArrowLeft, FloppyDisk, Minus, Trash } from "phosphor-react";
+import { ArrowLeft, FloppyDisk, Minus, Shuffle, Trash } from "phosphor-react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { AddOptionForm } from "./AddOptionForm";
 import { WheelOption } from "./WheelOption";
@@ -63,6 +63,9 @@ export function OptionsMenu({
         <header className="w-full flex justify-between items-start">
           <b className="text-white text-xl">Options</b>
           <div>
+            <button onClick={() => console.log("Shuffle")}>
+              <Shuffle size={20} weight="bold" className='text-white mr-4' />
+            </button>
             <ImportFormDropzone handleWheelOptions={handleWheelOptions} isModalOpen={isModalOpen} />
             <button disabled={wheelOptions.length ? false : true} onClick={() => handleOptionsSaveFile()}>
               <FloppyDisk size={20} weight="bold" className={`text-white mr-4 ${
