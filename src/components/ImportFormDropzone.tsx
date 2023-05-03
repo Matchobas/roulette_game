@@ -21,8 +21,7 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
     maxFiles: 1
   });
 
-  function handleCloseDropzone(event: React.KeyboardEvent<HTMLInputElement>) {
-    console.log(event.code);
+  function handleCloseDropzone(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.code === "Escape") {
       setIsDropzoneOpen(false);
     }
@@ -73,24 +72,27 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
 
       {isDropzoneOpen && (
         <div {...getRootProps({
-          className: 'fixed w-1/2 h-1/4 flex flex-col items-center justify-center border-2 border-gray-400 border-dashed bg-slate-600 inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+          className: `fixed w-1/2 h-1/4 flex flex-col items-center justify-center border-2 border-dashed bg-slate-600 inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
+            fileComponent ? 'border-green-400' : 'border-gray-400'
+          }`,
+          onKeyDown:  (e) => handleCloseDropzone(e)
         })}>
-          <input {...getInputProps({disabled: isDrozoneDisabled, onKeyDown: (e) => handleCloseDropzone(e)})} />
+          <input {...getInputProps({ disabled: isDrozoneDisabled })} />
           {fileComponent ? fileComponent : (
             <p className="text-white text-lg">Drag 'n' drop a csv file here, or click to select one</p>
           )}
           
           {fileComponent && (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-5">
               <button
                 onClick={handleChangeFile}
-                className="px-2 bg-zinc-400 text-white rounded-md mt-6 hover:bg-zinc-500 transition-colors opacity-100"
+                className="px-4 bg-zinc-200 text-black rounded-md mt-6 hover:bg-zinc-300 transition-colors opacity-100"
               >
                 Change file
               </button>
               <button
                 onClick={handleSendCsvFile}
-                className="px-2 bg-zinc-400 text-white rounded-md mt-6 hover:bg-zinc-500 transition-colors opacity-100"
+                className="px-4 bg-zinc-200 text-black rounded-md mt-6 hover:bg-zinc-300 transition-colors opacity-100"
               >
                 Load options
               </button>
