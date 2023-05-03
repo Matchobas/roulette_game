@@ -53,6 +53,16 @@ export function OptionsMenu({
     });
   }
 
+  function handleShuffleCards() {
+    const rearrengedOptions = wheelOptions;
+    for(let i = rearrengedOptions.length - 1; i > 0; i--) {
+      const toChange = Math.floor(Math.random() * (i + 1));
+      [rearrengedOptions[i], rearrengedOptions[toChange]] = [rearrengedOptions[toChange], rearrengedOptions[i]]
+    }
+
+    handleWheelOptions(rearrengedOptions);
+  }
+
   return (
     <>
       <div 
@@ -63,7 +73,7 @@ export function OptionsMenu({
         <header className="w-full flex justify-between items-start">
           <b className="text-white text-xl">Options</b>
           <div>
-            <button onClick={() => console.log("Shuffle")}>
+            <button onClick={() => handleShuffleCards()}>
               <Shuffle size={20} weight="bold" className='text-white mr-4' />
             </button>
             <ImportFormDropzone handleWheelOptions={handleWheelOptions} isModalOpen={isModalOpen} />
