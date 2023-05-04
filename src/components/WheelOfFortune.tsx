@@ -52,7 +52,6 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
           framesToSum.current = framesToSum.current - speedToReduceByTick;
         } else {
           framesToSum.current = 0;
-          setSpin(false);
         }
       }, t * 1000 / smoothnessIndicator);
     }
@@ -151,7 +150,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
           ctx.closePath();
           ctx.fill();
 
-          if (framesToSum.current === 0) {
+          if (framesToSum.current === 0 && spin) {
             const angleOffset = frame.current - (Math.floor(frame.current / maxAngle) * maxAngle);
             const firstStartAngle = startAngle - frame.current;
 
@@ -162,6 +161,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
             const finalArcEnd = finalArcStart + (optionAngle - startAngle);
             if (finalArcStart < 3/4 * endAngle && finalArcEnd > 3/4 * endAngle) {
               setWinner(options[i].title);
+              setSpin(false);
             }
           }
 
