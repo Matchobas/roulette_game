@@ -1,9 +1,10 @@
-import { ArrowLeft, FloppyDisk, Minus, Shuffle, Trash } from "phosphor-react";
+import { ArrowLeft, FloppyDisk, Minus, Shuffle } from "phosphor-react";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { AddOptionForm } from "./AddOptionForm";
 import { WheelOption } from "./WheelOption";
 import { api } from "../utils/api";
 import { ImportFormDropzone } from "./ImportFormDropzone";
+import { DeleteAllOptions } from "./DeleteAllOptions";
 
 interface OptionMenuProps {
   wheelOptions: WheelOptionModel[];
@@ -53,7 +54,7 @@ export function OptionsMenu({
     });
   }
 
-  function handleShuffleCards() {
+  function handleShuffleOptions() {
     const rearrengedOptions = wheelOptions;
     for(let i = rearrengedOptions.length - 1; i > 0; i--) {
       const toChange = Math.floor(Math.random() * (i + 1));
@@ -73,7 +74,7 @@ export function OptionsMenu({
         <header className="w-full flex justify-between items-start">
           <b className="text-white text-xl">Options</b>
           <div>
-            <button onClick={() => handleShuffleCards()}>
+            <button onClick={() => handleShuffleOptions()}>
               <Shuffle size={20} weight="bold" className='text-white mr-4' />
             </button>
             <ImportFormDropzone handleWheelOptions={handleWheelOptions} isModalOpen={isModalOpen} />
@@ -82,11 +83,7 @@ export function OptionsMenu({
                 wheelOptions.length ? 'opacity-100' : 'opacity-30'
               }`} />
             </button>
-            <button disabled={wheelOptions.length ? false : true} onClick={() => handleWheelOptions([])}>
-              <Trash size={20} weight="bold" className={`text-white mr-4 ${
-                wheelOptions.length ? 'opacity-100' : 'opacity-30'
-              }`} />
-            </button>
+            <DeleteAllOptions wheelOptions={wheelOptions} handleWheelOptions={handleWheelOptions} />
             <button onClick={() => handleOptionsModal(false)}>
               <Minus size={20} weight="bold" className="text-white" />
             </button>

@@ -13,7 +13,7 @@ yarn dev
   <li>Make the list of options to be editable after creation - <b>Done</b></li>
   <li>Add another level of randomness to the wheel related to the speed which it spins</li>
   <li>Create an animation with CSS for the options menu - <b>Done</b></li>
-  <li>Create a shuffle button that changes the options order</li>
+  <li>Create a shuffle button that changes the options order - <b>Done</b></li>
   <li>Introduce a confirmation pop up for the delete all options button</li>
 </ul>
 
