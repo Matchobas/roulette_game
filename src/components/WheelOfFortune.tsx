@@ -189,14 +189,14 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
         }
       }
     }
-  }, [optionsChancesSum, spin, framesToSum]);
+  }, [options, spin, framesToSum]);
 
   useEffect(() => {
     if (spin) {
       wheelSlowDown();
     }
     drawWheel();
-  }, [optionsChancesSum, spin]);
+  }, [options, spin]);
 
   useEffect(() => {
     addSpinButtonListener();

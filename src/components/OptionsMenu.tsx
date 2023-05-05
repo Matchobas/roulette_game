@@ -89,6 +89,7 @@ export function OptionsMenu({
             </button>
           </div>
         </header>
+
         <AddOptionForm saveOption={handleNewOption} />
         <div className="w-full flex flex-col items-start gap-2 overflow-y-auto">
           {wheelOptions.map((option, index) => 

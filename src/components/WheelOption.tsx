@@ -34,6 +34,10 @@ export function WheelOption({ option, updateOption, removeOption, index }: Wheel
             const newTitle = e.target.value.toString();
             updateOption(option.percentage, newTitle, index);
           }}
+          // onBlur={(e) => {
+          //   const newTitle = e.target.value.toString();
+          //   updateOption(option.percentage, newTitle, index);
+          // }}
           className='font-extrabold w-full text-white bg-gray-900'
         />
       </div>
