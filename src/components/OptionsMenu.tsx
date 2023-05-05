@@ -36,8 +36,9 @@ export function OptionsMenu({
   }
   
   function handleOptionsSaveFile() {
+    const now = new Date;
     const saveOptionsData = {
-      name: "Test_name",
+      name: now.getTime(),
       options: wheelOptions
     }
     api
