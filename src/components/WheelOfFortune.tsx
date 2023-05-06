@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
 import { WheelOptionModel } from "../model/WheelOptionModel";
 
 interface WheelOfFortuneProps {
@@ -12,28 +13,30 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
 
   if (options.length === 0) {
     options = [
-      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 }, 
-      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 },
-      { title: "Yes", percentage: 100 }, { title: "No", percentage: 100 },
-    ]
+      { title: "Yes", percentage: 100 },
+      { title: "No", percentage: 100 },
+      { title: "Yes", percentage: 100 },
+      { title: "No", percentage: 100 },
+      { title: "Yes", percentage: 100 },
+      { title: "No", percentage: 100 }
+    ];
   }
 
   const optionsChancesSum = useMemo(() => {
     return options.reduce((prev, cur) => {
-      return prev += cur.percentage;
+      return (prev += cur.percentage);
     }, 0);
   }, [options]);
 
   function convertToDegrees(angle: number) {
-    return angle * 180 / Math.PI;
+    return (angle * 180) / Math.PI;
   }
 
   function textColor(color: string) {
     if (color === ("#000000" || "#808080")) {
       return "#ffffff";
-    } else {
-      return "#000000";
     }
+    return "#000000";
   }
 
   const frame = useRef(0);
@@ -46,20 +49,20 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
     const smoothnessIndicator = 10;
     const slowdownTicks = animationDurationInSeconds * smoothnessIndicator;
     const speedToReduceByTick = rate / (slowdownTicks - 1);
-    for(let t = 1; t <= slowdownTicks; t++) {
+    for (let t = 1; t <= slowdownTicks; t += 1) {
       setTimeout(() => {
         if (framesToSum.current - speedToReduceByTick > 0) {
-          framesToSum.current = framesToSum.current - speedToReduceByTick;
+          framesToSum.current -= speedToReduceByTick;
         } else {
           framesToSum.current = 0;
         }
-      }, t * 1000 / smoothnessIndicator);
+      }, (t * 1000) / smoothnessIndicator);
     }
   }
 
   function drawSpinButton(
-    draw: CanvasRenderingContext2D, 
-    x: number, 
+    draw: CanvasRenderingContext2D,
+    x: number,
     y: number,
     radius: number
   ) {
@@ -77,7 +80,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
     draw.beginPath();
     draw.moveTo(x, y - radius - 11);
     draw.lineTo(x - 10, y - radius + 1);
-    draw.lineTo(x + 10,  y - radius + 1);
+    draw.lineTo(x + 10, y - radius + 1);
     draw.closePath();
     draw.fill();
 
@@ -97,9 +100,15 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
 
       if (ctx) {
         const circle = new Path2D();
-        circle.arc(canvasHalf, canvasHalf, 4/36 * canvasHalf, 0, 2 * Math.PI);
+        circle.arc(
+          canvasHalf,
+          canvasHalf,
+          (4 / 36) * canvasHalf,
+          0,
+          2 * Math.PI
+        );
 
-        canvas.addEventListener('click', function(event) {
+        canvas.addEventListener("click", (event) => {
           if (ctx.isPointInPath(circle, event.offsetX, event.offsetY)) {
             setSpin(true);
           }
@@ -120,7 +129,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
       const optionsAmount = options.length;
       const maxAngle = 2 * Math.PI;
       let startAngle = frame.current;
-      let endAngle = maxAngle;
+      const endAngle = maxAngle;
       let colorIndex = 0;
 
       if (ctx) {
@@ -128,9 +137,10 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
         ctx.textAlign = "left";
         ctx.textBaseline = "middle";
         ctx.strokeStyle = "none";
-        
+
         for (let i = 0; i < optionsAmount; i++) {
-          const optionAngle = (options[i].percentage / optionsChancesSum) * endAngle + startAngle;
+          const optionAngle =
+            (options[i].percentage / optionsChancesSum) * endAngle + startAngle;
           ctx.beginPath();
           ctx.moveTo(centerX, centerY);
 
@@ -151,27 +161,33 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
           ctx.fill();
 
           if (framesToSum.current === 0 && spin) {
-            const angleOffset = frame.current - (Math.floor(frame.current / maxAngle) * maxAngle);
+            const angleOffset =
+              frame.current - Math.floor(frame.current / maxAngle) * maxAngle;
             const firstStartAngle = startAngle - frame.current;
 
             let finalArcStart = angleOffset + firstStartAngle;
             while (finalArcStart > maxAngle) {
-              finalArcStart = finalArcStart - maxAngle;
+              finalArcStart -= maxAngle;
             }
             const finalArcEnd = finalArcStart + (optionAngle - startAngle);
-            if (finalArcStart < 3/4 * endAngle && finalArcEnd > 3/4 * endAngle) {
+            if (
+              finalArcStart < (3 / 4) * endAngle &&
+              finalArcEnd > (3 / 4) * endAngle
+            ) {
               setWinner(options[i].title);
               setSpin(false);
             }
           }
 
-          const textAngle = ((optionAngle - startAngle) / 2) + startAngle;
+          const textAngle = (optionAngle - startAngle) / 2 + startAngle;
           const textWidth = options[i].title.length;
-          const textStart = radius / 2 - (textWidth * 5) <= 30 ? 40 : radius / 2 - (textWidth * 4);
-          const betterFontSize = 20 - (5 * Math.floor(textWidth / 20));
-          const adaptedFontSizeNumber = betterFontSize > 8 ? 20 - (5 * Math.floor(textWidth / 20)) : 8;
+          const textStart =
+            radius / 2 - textWidth * 5 <= 30 ? 40 : radius / 2 - textWidth * 4;
+          const betterFontSize = 20 - 5 * Math.floor(textWidth / 20);
+          const adaptedFontSizeNumber =
+            betterFontSize > 8 ? 20 - 5 * Math.floor(textWidth / 20) : 8;
           ctx.font = `${adaptedFontSizeNumber}px Arial`;
-          
+
           ctx.fillStyle = textColor(ctx.fillStyle);
           ctx.translate(centerX, centerY);
           ctx.rotate(textAngle);
@@ -181,7 +197,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
           startAngle = optionAngle;
         }
 
-        drawSpinButton(ctx, centerX, centerY, 4/36 * radius);
+        drawSpinButton(ctx, centerX, centerY, (4 / 36) * radius);
 
         if (spin && framesToSum.current !== 0) {
           frame.current += framesToSum.current;
@@ -207,10 +223,12 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
       <canvas ref={canvasRef} width={600} height={600} />
       {winner && (
         <section className="min-w-[50%] h-[30%] flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
-          <span className='h-3/4 flex items-center text-5xl text-white font-extrabold'>{winner}</span>
+          <span className="h-3/4 flex items-center text-5xl text-white font-extrabold">
+            {winner}
+          </span>
           <div className="h-1/4 flex items-center">
             <button
-              type="button" 
+              type="button"
               className="bg-slate-200 p-2 rounded-lg mb-8 font-medium"
               onClick={() => setWinner("")}
             >
@@ -220,5 +238,5 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
         </section>
       )}
     </>
-  )
+  );
 }

@@ -1,8 +1,9 @@
 import { ArrowLeft } from "phosphor-react";
+
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { AddOptionForm } from "./AddOptionForm";
-import { WheelOption } from "./WheelOption";
 import { OptionsHeader } from "./OptionsHeader";
+import { WheelOption } from "./WheelOption";
 
 interface OptionMenuProps {
   wheelOptions: WheelOptionModel[];
@@ -11,7 +12,7 @@ interface OptionMenuProps {
   handleOptionsModal: (state: boolean) => void;
 }
 
-export function OptionsMenu({ 
+export function OptionsMenu({
   wheelOptions,
   handleWheelOptions,
   isModalOpen,
@@ -21,35 +22,41 @@ export function OptionsMenu({
     handleWheelOptions([...wheelOptions, option]);
   }
 
-  function handleUpdateOption(percentage: number, title: string, index: number) {
+  function handleUpdateOption(
+    percentage: number,
+    title: string,
+    index: number
+  ) {
     wheelOptions[index].percentage = percentage;
     wheelOptions[index].title = title;
-  
+
     handleWheelOptions([...wheelOptions]);
   }
 
   function handleRemoveOption(index: number) {
-    const updatedOptions = wheelOptions.filter((option) => wheelOptions.indexOf(option) !== index);
+    const updatedOptions = wheelOptions.filter(
+      (option) => wheelOptions.indexOf(option) !== index
+    );
     handleWheelOptions(updatedOptions);
   }
 
   return (
     <>
-      <div 
+      <div
         className={`flex h-[600px] flex-col justify-start items-center p-5 bg-zinc-600 border-white border-[3px] rounded-md transition-all duration-300 ease-out ${
-          isModalOpen ? 'opacity-100' : 'translate-x-full opacity-0'
+          isModalOpen ? "opacity-100" : "translate-x-full opacity-0"
         }`}
       >
-        <OptionsHeader 
+        <OptionsHeader
           isModalOpen={isModalOpen}
-          wheelOptions={wheelOptions} 
+          wheelOptions={wheelOptions}
           handleWheelOptions={handleWheelOptions}
           handleOptionsModal={handleOptionsModal}
         />
 
         <AddOptionForm saveOption={handleNewOption} />
         <div className="w-full flex flex-col items-start gap-2 overflow-y-auto">
-          {wheelOptions.map((option, index) => 
+          {wheelOptions.map((option, index) => (
             <WheelOption
               key={`option-${index}`}
               index={index}
@@ -57,13 +64,15 @@ export function OptionsMenu({
               updateOption={handleUpdateOption}
               removeOption={handleRemoveOption}
             />
-          )}
+          ))}
         </div>
       </div>
 
       <button
         className={`fixed right-28 transition-all ease-in transform ${
-          isModalOpen ? 'duration-300 translate-x-full opacity-0' : 'duration-500 translate-x-0 opacity-100'
+          isModalOpen
+            ? "duration-300 translate-x-full opacity-0"
+            : "duration-500 translate-x-0 opacity-100"
         }`}
         onClick={() => handleOptionsModal(true)}
         disabled={isModalOpen}
@@ -71,5 +80,5 @@ export function OptionsMenu({
         <ArrowLeft size={32} className="text-white" />
       </button>
     </>
-  )
+  );
 }

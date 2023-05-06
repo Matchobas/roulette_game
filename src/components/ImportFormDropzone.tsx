@@ -1,7 +1,8 @@
 import { FileArrowDown } from "phosphor-react";
-import { WheelOptionModel } from "../model/WheelOptionModel";
-import { useDropzone } from "react-dropzone";
 import { useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
+
+import { WheelOptionModel } from "../model/WheelOptionModel";
 import { api } from "../utils/api";
 
 interface ImportFormDropzoneProps {
@@ -9,14 +10,17 @@ interface ImportFormDropzoneProps {
   isModalOpen: boolean;
 }
 
-export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFormDropzoneProps) {
+export function ImportFormDropzone({
+  handleWheelOptions,
+  isModalOpen
+}: ImportFormDropzoneProps) {
   const [isDropzoneOpen, setIsDropzoneOpen] = useState(false);
   const [isDrozoneDisabled, setIsDropzoneDisabled] = useState(false);
   const [file, setFile] = useState<File>();
   const [fileComponent, setFileComponent] = useState<JSX.Element>();
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: {
-      'text/csv': ['.csv']
+      "text/csv": [".csv"]
     },
     maxFiles: 1
   });
@@ -29,20 +33,25 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
 
   function handleSendCsvFile() {
     if (fileComponent) {
-      api.post("/import", {
-        file: file
-      }, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        }
-      })
-      .then((res) => res.data)
-      .then((data: WheelOptionModel[]) => {
-        handleWheelOptions(data);
-        setFileComponent(undefined);
-        setIsDropzoneOpen(false);
-        setIsDropzoneDisabled(false);
-      });
+      api
+        .post(
+          "/import",
+          {
+            file
+          },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          }
+        )
+        .then((res) => res.data)
+        .then((data: WheelOptionModel[]) => {
+          handleWheelOptions(data);
+          setFileComponent(undefined);
+          setIsDropzoneOpen(false);
+          setIsDropzoneDisabled(false);
+        });
     }
   }
 
@@ -55,9 +64,13 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
     if (acceptedFiles.length > 0) {
       const currentFile = acceptedFiles[0];
       setFile(currentFile);
-      setFileComponent(<p className="text-white text-lg" key={currentFile.name}>{currentFile.name}</p>)
+      setFileComponent(
+        <p className="text-white text-lg" key={currentFile.name}>
+          {currentFile.name}
+        </p>
+      );
       setIsDropzoneDisabled(true);
-    };
+    }
   }, [acceptedFiles]);
 
   useEffect(() => {
@@ -67,21 +80,29 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
   return (
     <>
       <button onClick={() => setIsDropzoneOpen(!isDropzoneOpen)}>
-        <FileArrowDown size={20} weight="bold" className="text-white mr-4 text-" />
+        <FileArrowDown
+          size={20}
+          weight="bold"
+          className="text-white mr-4 text-"
+        />
       </button>
 
       {isDropzoneOpen && (
-        <div {...getRootProps({
-          className: `fixed w-1/2 h-1/4 flex flex-col items-center justify-center border-2 border-dashed bg-slate-600 inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
-            fileComponent ? 'border-green-400' : 'border-gray-400'
-          }`,
-          onKeyDown:  (e) => handleCloseDropzone(e)
-        })}>
+        <div
+          {...getRootProps({
+            className: `fixed w-1/2 h-1/4 flex flex-col items-center justify-center border-2 border-dashed bg-slate-600 inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
+              fileComponent ? "border-green-400" : "border-gray-400"
+            }`,
+            onKeyDown: (e) => handleCloseDropzone(e)
+          })}
+        >
           <input {...getInputProps({ disabled: isDrozoneDisabled })} />
-          {fileComponent ? fileComponent : (
-            <p className="text-white text-lg">Drag 'n' drop a csv file here, or click to select one</p>
+          {fileComponent || (
+            <p className="text-white text-lg">
+              Drag 'n' drop a csv file here, or click to select one
+            </p>
           )}
-          
+
           {fileComponent && (
             <div className="flex items-center gap-5">
               <button
@@ -101,5 +122,5 @@ export function ImportFormDropzone({ handleWheelOptions, isModalOpen }: ImportFo
         </div>
       )}
     </>
-  )
+  );
 }
