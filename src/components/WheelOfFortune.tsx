@@ -11,7 +11,8 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   const [spin, setSpin] = useState(false);
   const [winner, setWinner] = useState("");
 
-  if (options.length === 0) {
+  if (options.length) {
+    // eslint-disable-next-line no-param-reassign
     options = [
       { title: "Yes", percentage: 100 },
       { title: "No", percentage: 100 },
@@ -24,7 +25,8 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
 
   const optionsChancesSum = useMemo(() => {
     return options.reduce((prev, cur) => {
-      return (prev += cur.percentage);
+      const sum = prev + cur.percentage;
+      return sum;
     }, 0);
   }, [options]);
 
@@ -138,7 +140,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
         ctx.textBaseline = "middle";
         ctx.strokeStyle = "none";
 
-        for (let i = 0; i < optionsAmount; i++) {
+        for (let i = 0; i < optionsAmount; i += 1) {
           const optionAngle =
             (options[i].percentage / optionsChancesSum) * endAngle + startAngle;
           ctx.beginPath();
@@ -147,8 +149,9 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
           ctx.fillStyle = colors[colorIndex];
           colorIndex = (colorIndex + 1) % colors.length;
           if (i + 1 === options.length) {
-            if (ctx.fillStyle === colors[0]) {
-              ctx.fillStyle = colors[1];
+            const [firstColor, secondColor] = colors;
+            if (ctx.fillStyle === firstColor) {
+              ctx.fillStyle = secondColor;
             }
           }
 

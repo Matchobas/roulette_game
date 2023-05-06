@@ -36,11 +36,11 @@ export function WheelOption({
           type={"text"}
           defaultValue={option.title}
           value={option.title}
+          className="font-extrabold w-full text-white bg-gray-900"
           onChange={(e) => {
             const newTitle = e.target.value.toString();
             updateOption(option.percentage, newTitle, index);
           }}
-          className="font-extrabold w-full text-white bg-gray-900"
         />
       </div>
       <button

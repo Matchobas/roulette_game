@@ -52,6 +52,12 @@
     "no-useless-constructor": "off",
     "no-empty-function": "off",
     "lines-between-class-members": "off",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",
