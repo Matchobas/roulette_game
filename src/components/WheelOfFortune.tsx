@@ -11,7 +11,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
   const [spin, setSpin] = useState(false);
   const [winner, setWinner] = useState("");
 
-  if (options.length) {
+  if (options.length === 0) {
     // eslint-disable-next-line no-param-reassign
     options = [
       { title: "Yes", percentage: 100 },
