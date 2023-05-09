@@ -120,6 +120,17 @@ export function WheelOfFortune({ options, canvasSize }: WheelOfFortuneProps) {
     }
   }
 
+  function drawBackground(
+    draw: CanvasRenderingContext2D,
+    w: number,
+    h: number
+  ) {
+    draw.clearRect(0, 0, w, h);
+
+    draw.fillStyle = "rgba(63,63,70,1)";
+    draw.fillRect(0, 0, w, h);
+  }
+
   const drawWheel = useCallback(() => {
     if (canvasRef.current) {
       const colors = ["#000000", "#ffffff", "#808080"];
@@ -140,6 +151,7 @@ export function WheelOfFortune({ options, canvasSize }: WheelOfFortuneProps) {
         ctx.textAlign = "left";
         ctx.textBaseline = "middle";
         ctx.strokeStyle = "none";
+        drawBackground(ctx, canvas.width, canvas.height);
 
         for (let i = 0; i < optionsAmount; i += 1) {
           const optionAngle =
@@ -186,8 +198,11 @@ export function WheelOfFortune({ options, canvasSize }: WheelOfFortuneProps) {
           const textAngle = (optionAngle - startAngle) / 2 + startAngle;
           const textWidth = options[i].title.length;
           const textStart =
-            radius / 2 - textWidth * 5 <= 30 ? 40 : radius / 2 - textWidth * 4;
+            radius / 2 - textWidth * 5 <= 30 ? 50 : radius / 2 - textWidth * 4;
           const betterFontSize = 20 - 5 * Math.floor(textWidth / 20);
+          console.log(betterFontSize);
+          console.log(textWidth * betterFontSize);
+          console.log(radius);
           const adaptedFontSizeNumber =
             betterFontSize > 8 ? 20 - 5 * Math.floor(textWidth / 20) : 8;
           ctx.font = `${adaptedFontSizeNumber}px Arial`;
