@@ -4,69 +4,6 @@ import { OptionsMenu } from "../components/OptionsMenu";
 import { WheelOfFortune } from "../components/WheelOfFortune";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 
-const optionsTestingObject: WheelOptionModel[] = [
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  },
-  {
-    title: "D",
-    percentage: 100
-  }
-];
-
 const storagedOptions = localStorage.getItem("savedOptions");
 let currentSavedWheelOptions: WheelOptionModel[] = [];
 if (storagedOptions) {
@@ -98,7 +35,7 @@ export function MainPage() {
           isOptionsModalOpen ? "translate-x-0" : "translate-x-1/4"
         }`}
       >
-        <WheelOfFortune options={wheelOptions} />
+        <WheelOfFortune options={wheelOptions} canvasSize={650} />
       </div>
 
       <OptionsMenu

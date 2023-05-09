@@ -4,6 +4,8 @@
 
 This is an app to create a online Wheel of Fortune, with it you are able to add your own options with each one with their own weighs and then spin the wheel and see who wins.
 
+You can access the server side for this application <a href="https://github.com/matheus-alexandria/wheel_of_fortune_server">here</a>.
+
 To run this you have to clone this repositorie and run this command in terminal:
 ```
 yarn dev

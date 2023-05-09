@@ -4,9 +4,10 @@ import { WheelOptionModel } from "../model/WheelOptionModel";
 
 interface WheelOfFortuneProps {
   options: WheelOptionModel[];
+  canvasSize: number;
 }
 
-export function WheelOfFortune({ options }: WheelOfFortuneProps) {
+export function WheelOfFortune({ options, canvasSize }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
   const [winner, setWinner] = useState("");
@@ -223,7 +224,7 @@ export function WheelOfFortune({ options }: WheelOfFortuneProps) {
 
   return (
     <>
-      <canvas ref={canvasRef} width={600} height={600} />
+      <canvas ref={canvasRef} width={canvasSize} height={canvasSize} />
       {winner && (
         <section className="min-w-[50%] h-[30%] flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
           <span className="h-3/4 flex items-center text-5xl text-white font-extrabold">
