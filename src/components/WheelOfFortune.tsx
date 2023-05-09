@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
+import { adaptWheelTitle } from "../utils/adaptWheelTitle";
 
 interface WheelOfFortuneProps {
   options: WheelOptionModel[];
@@ -195,16 +196,12 @@ export function WheelOfFortune({ options, canvasSize }: WheelOfFortuneProps) {
             }
           }
 
-          const textAngle = (optionAngle - startAngle) / 2 + startAngle;
-          const textWidth = options[i].title.length;
-          const textStart =
-            radius / 2 - textWidth * 5 <= 30 ? 50 : radius / 2 - textWidth * 4;
-          const betterFontSize = 20 - 5 * Math.floor(textWidth / 20);
-          console.log(betterFontSize);
-          console.log(textWidth * betterFontSize);
-          console.log(radius);
-          const adaptedFontSizeNumber =
-            betterFontSize > 8 ? 20 - 5 * Math.floor(textWidth / 20) : 8;
+          const [textAngle, textStart, adaptedFontSizeNumber] = adaptWheelTitle(
+            options[i].title,
+            startAngle,
+            optionAngle,
+            radius
+          );
           ctx.font = `${adaptedFontSizeNumber}px Arial`;
 
           ctx.fillStyle = textColor(ctx.fillStyle);
