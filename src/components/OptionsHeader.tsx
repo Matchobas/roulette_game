@@ -1,4 +1,5 @@
 import { FloppyDisk, Minus, Shuffle } from "phosphor-react";
+import { useEffect, useState } from "react";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { api } from "../utils/api";
@@ -18,6 +19,8 @@ export function OptionsHeader({
   handleWheelOptions,
   handleOptionsModal
 }: OptionsHeaderProps) {
+  const [isServerOnline, setIsServerOnline] = useState(true);
+
   function handleOptionsSaveFile() {
     const now = new Date();
     const saveOptionsData = {
@@ -51,6 +54,15 @@ export function OptionsHeader({
     handleWheelOptions(rearrengedOptions);
   }
 
+  useEffect(() => {
+    api
+      .get("/healthcheck")
+      .then((res) => console.log(res))
+      .catch(() => {
+        setIsServerOnline(false);
+      });
+  }, []);
+
   return (
     <header className="w-full flex justify-between items-start">
       <b className="text-white text-xl">Options</b>
@@ -58,22 +70,26 @@ export function OptionsHeader({
         <button onClick={() => handleShuffleOptions()}>
           <Shuffle size={20} weight="bold" className="text-white mr-4" />
         </button>
-        <ImportFormDropzone
-          handleWheelOptions={handleWheelOptions}
-          isModalOpen={isModalOpen}
-        />
-        <button
-          disabled={!wheelOptions.length}
-          onClick={() => handleOptionsSaveFile()}
-        >
-          <FloppyDisk
-            size={20}
-            weight="bold"
-            className={`text-white mr-4 ${
-              wheelOptions.length ? "opacity-100" : "opacity-30"
-            }`}
-          />
-        </button>
+        {isServerOnline && (
+          <>
+            <ImportFormDropzone
+              handleWheelOptions={handleWheelOptions}
+              isModalOpen={isModalOpen}
+            />
+            <button
+              disabled={!wheelOptions.length}
+              onClick={() => handleOptionsSaveFile()}
+            >
+              <FloppyDisk
+                size={20}
+                weight="bold"
+                className={`text-white mr-4 ${
+                  wheelOptions.length ? "opacity-100" : "opacity-30"
+                }`}
+              />
+            </button>
+          </>
+        )}
         <DeleteAllOptions
           wheelOptions={wheelOptions}
           handleWheelOptions={handleWheelOptions}

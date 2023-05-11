@@ -10,7 +10,6 @@ export function adaptWheelTitle(
     radius / 2 - textWidth * 5 <= 30 ? 50 : radius / 2 - textWidth * 4;
   const betterFontSize = 20 - 5 * Math.floor(textWidth / 20);
   const radiusFontLimit = radius + 130;
-  console.log(textWidth * betterFontSize > radius + 130);
   let adaptedFontSizeNumber = 10;
   if (betterFontSize > 7) {
     adaptedFontSizeNumber = 20 - 5 * Math.floor(textWidth / 20);

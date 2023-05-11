@@ -25,12 +25,6 @@ export function ImportFormDropzone({
     maxFiles: 1
   });
 
-  function handleCloseDropzone(event: React.KeyboardEvent<HTMLDivElement>) {
-    if (event.code === "Escape") {
-      setIsDropzoneOpen(false);
-    }
-  }
-
   function handleSendCsvFile() {
     if (fileComponent) {
       api
@@ -51,6 +45,9 @@ export function ImportFormDropzone({
           setFileComponent(undefined);
           setIsDropzoneOpen(false);
           setIsDropzoneDisabled(false);
+        })
+        .catch((reason) => {
+          console.log(reason.message);
         });
     }
   }
@@ -92,8 +89,7 @@ export function ImportFormDropzone({
           {...getRootProps({
             className: `fixed w-1/2 h-1/4 flex flex-col items-center justify-center border-2 border-dashed bg-slate-600 inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
               fileComponent ? "border-green-400" : "border-gray-400"
-            }`,
-            onKeyDown: (e) => handleCloseDropzone(e)
+            }`
           })}
         >
           <input {...getInputProps({ disabled: isDrozoneDisabled })} />
