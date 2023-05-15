@@ -76,10 +76,10 @@ export function WheelOfFortune({ options, canvasSize }: WheelOfFortuneProps) {
     draw.arc(x, y, radius, 0, 2 * Math.PI);
     draw.lineWidth = 4;
     draw.setLineDash([]);
-    draw.strokeStyle = "#5f46a5";
+    draw.strokeStyle = "#ff88ff";
     draw.stroke();
     draw.lineWidth = 2;
-    draw.strokeStyle = "#ff88ff";
+    draw.strokeStyle = "#5f46a5";
     draw.stroke();
     draw.closePath();
     draw.fill();

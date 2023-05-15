@@ -23,21 +23,6 @@ Within the app you're also able to:
 
 <span>What to do next:</span>
 <ul>
-  <li>Animate the Wheel of Fortune - <b>Done</b></li>
-  <li>Make the list of options to be editable after creation - <b>Done</b></li>
-  <li>Add another level of randomness to the wheel related to the speed which it spins</li>
-  <li>Create an animation with CSS for the options menu - <b>Done</b></li>
-  <li>Create a shuffle button that changes the options order - <b>Done</b></li>
-  <li>Introduce a confirmation pop up for the delete all options button</li>
-</ul>
-
-<span>Current bugs</span>
-<ul>
-  <li>On each consecutive spin the wheels seens to get faster and stop abruptly - <b>Fixed</b></li>
-  <li>Options percentage and title are not aligned with different number of digits - <b>Fixed</b></li>
-  <li>Winner modal only closes if you click on close button</li>
-  <ul>- Import bugs:
-    <li>Send options button vanishes if you click outside of it - <b>Fixed</b></li>
-    <li>Dont warn when service is not available</li>
-  </ul>
+  <li>Add a method to change the base colors of the wheel</li>
+  <li>Add sounds to the wheel spinning and for the winner</li>
 </ul>
