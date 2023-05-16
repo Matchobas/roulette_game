@@ -2,6 +2,7 @@ import { FileArrowDown } from "phosphor-react";
 import { useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
+import { useDetectClickOut } from "../hooks/useDetectClickOut";
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { api } from "../utils/api";
 
@@ -14,7 +15,8 @@ export function ImportFormDropzone({
   handleWheelOptions,
   isModalOpen
 }: ImportFormDropzoneProps) {
-  const [isDropzoneOpen, setIsDropzoneOpen] = useState(false);
+  const { triggerRef, nodeRef, isDropzoneOpen, setIsDropzoneOpen } =
+    useDetectClickOut(false);
   const [isDrozoneDisabled, setIsDropzoneDisabled] = useState(false);
   const [file, setFile] = useState<File>();
   const [fileComponent, setFileComponent] = useState<JSX.Element>();
@@ -89,7 +91,10 @@ export function ImportFormDropzone({
 
   return (
     <>
-      <button onClick={() => setIsDropzoneOpen(!isDropzoneOpen)}>
+      <button
+        ref={triggerRef}
+        // onClick={() => setIsDropzoneOpen(!isDropzoneOpen)}
+      >
         <FileArrowDown
           size={20}
           weight="bold"
@@ -103,7 +108,7 @@ export function ImportFormDropzone({
             className: `fixed w-1/2 h-1/4 flex flex-col items-center justify-center border-2 border-dashed bg-slate-600 inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
               fileComponent ? "border-green-400" : "border-gray-400"
             }`,
-            ref: dropzoneRef
+            ref: nodeRef
           })}
         >
           <input {...getInputProps({ disabled: isDrozoneDisabled })} />
