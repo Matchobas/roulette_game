@@ -15,8 +15,12 @@ export function ImportFormDropzone({
   handleWheelOptions,
   isModalOpen
 }: ImportFormDropzoneProps) {
-  const { triggerRef, nodeRef, isDropzoneOpen, setIsDropzoneOpen } =
-    useDetectClickOut(false);
+  const {
+    triggerRef,
+    nodeRef,
+    show: isDropzoneOpen,
+    setShow: setIsDropzoneOpen
+  } = useDetectClickOut(false);
   const [isDrozoneDisabled, setIsDropzoneDisabled] = useState(false);
   const [file, setFile] = useState<File>();
   const [fileComponent, setFileComponent] = useState<JSX.Element>();

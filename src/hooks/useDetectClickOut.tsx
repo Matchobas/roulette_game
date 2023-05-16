@@ -29,7 +29,7 @@ export function useDetectClickOut(initState: boolean) {
   return {
     triggerRef,
     nodeRef,
-    isDropzoneOpen: show,
-    setIsDropzoneOpen: setShow
+    show,
+    setShow
   };
 }
