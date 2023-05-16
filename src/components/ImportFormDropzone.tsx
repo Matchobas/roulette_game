@@ -1,5 +1,5 @@
 import { FileArrowDown } from "phosphor-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
@@ -24,6 +24,8 @@ export function ImportFormDropzone({
     },
     maxFiles: 1
   });
+
+  const dropzoneRef = useRef<HTMLDivElement>(null);
 
   function handleSendCsvFile() {
     if (fileComponent) {
@@ -58,6 +60,17 @@ export function ImportFormDropzone({
   }
 
   useEffect(() => {
+    document.addEventListener("click", (event) => {
+      const nodeTarget = event.target as Node;
+      if (dropzoneRef.current) {
+        if (!dropzoneRef.current.contains(nodeTarget)) {
+          console.log("close");
+        }
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     if (acceptedFiles.length > 0) {
       const currentFile = acceptedFiles[0];
       setFile(currentFile);
@@ -89,7 +102,8 @@ export function ImportFormDropzone({
           {...getRootProps({
             className: `fixed w-1/2 h-1/4 flex flex-col items-center justify-center border-2 border-dashed bg-slate-600 inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
               fileComponent ? "border-green-400" : "border-gray-400"
-            }`
+            }`,
+            ref: dropzoneRef
           })}
         >
           <input {...getInputProps({ disabled: isDrozoneDisabled })} />
