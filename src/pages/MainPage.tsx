@@ -15,6 +15,7 @@ export function MainPage() {
     currentSavedWheelOptions
   );
   const [isOptionsModalOpen, setIsOptionsModalOpen] = useState(true);
+  const [colors, setColors] = useState(["#000000", "#ffffff", "#808080"]);
 
   function handleWheelOptions(options: WheelOptionModel[]) {
     setWheelOptions([...options]);
@@ -35,7 +36,11 @@ export function MainPage() {
           isOptionsModalOpen ? "translate-x-0" : "translate-x-1/4"
         }`}
       >
-        <WheelOfFortune options={wheelOptions} canvasSize={650} />
+        <WheelOfFortune
+          options={wheelOptions}
+          canvasSize={650}
+          colors={colors}
+        />
       </div>
 
       <OptionsMenu

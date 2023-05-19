@@ -75,10 +75,10 @@ export function OptionsHeader({
         </button>
         <button onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}>
           <PaintBrush size={20} weight="bold" className="text-white mr-4" />
-          {isColorPickerOpen && (
-            <HexColorPicker color={color} onChange={setColor} />
-          )}
         </button>
+        {isColorPickerOpen && (
+          <HexColorPicker color={color} onChange={setColor} />
+        )}
         {isServerOnline && (
           <>
             <ImportFormDropzone

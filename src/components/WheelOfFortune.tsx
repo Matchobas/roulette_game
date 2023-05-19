@@ -6,9 +6,14 @@ import { adaptWheelTitle } from "../utils/adaptWheelTitle";
 interface WheelOfFortuneProps {
   options: WheelOptionModel[];
   canvasSize: number;
+  colors: string[];
 }
 
-export function WheelOfFortune({ options, canvasSize }: WheelOfFortuneProps) {
+export function WheelOfFortune({
+  options,
+  canvasSize,
+  colors
+}: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
   const [winner, setWinner] = useState("");
@@ -36,11 +41,18 @@ export function WheelOfFortune({ options, canvasSize }: WheelOfFortuneProps) {
     return (angle * 180) / Math.PI;
   }
 
-  function textColor(color: string) {
-    if (color === ("#000000" || "#808080")) {
-      return "#ffffff";
+  function textColor(backgroundColor: string) {
+    const red = parseInt(backgroundColor.slice(1, 3), 16);
+    const green = parseInt(backgroundColor.slice(3, 5), 16);
+    const blue = parseInt(backgroundColor.slice(5, 7), 16);
+
+    const brightness = (red * 299 + green * 587 + blue * 114) / 1000;
+
+    if (brightness > 128) {
+      return "#000000";
     }
-    return "#000000";
+
+    return "#ffffff";
   }
 
   const frame = useRef(0);
@@ -137,7 +149,6 @@ export function WheelOfFortune({ options, canvasSize }: WheelOfFortuneProps) {
 
   const drawWheel = useCallback(() => {
     if (canvasRef.current) {
-      const colors = ["#000000", "#ffffff", "#808080"];
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
 
