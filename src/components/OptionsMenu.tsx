@@ -7,16 +7,18 @@ import { WheelOption } from "./WheelOption";
 
 interface OptionMenuProps {
   wheelOptions: WheelOptionModel[];
-  handleWheelOptions: (options: WheelOptionModel[]) => void;
   isModalOpen: boolean;
+  wheelColors: string[];
+  handleWheelOptions: (options: WheelOptionModel[]) => void;
   handleOptionsModal: (state: boolean) => void;
   handleWheelColors: (colors: string[]) => void;
 }
 
 export function OptionsMenu({
   wheelOptions,
-  handleWheelOptions,
   isModalOpen,
+  wheelColors,
+  handleWheelOptions,
   handleOptionsModal,
   handleWheelColors
 }: OptionMenuProps) {
@@ -52,6 +54,7 @@ export function OptionsMenu({
         <OptionsHeader
           isModalOpen={isModalOpen}
           wheelOptions={wheelOptions}
+          wheelColors={wheelColors}
           handleWheelOptions={handleWheelOptions}
           handleOptionsModal={handleOptionsModal}
           handleWheelColors={handleWheelColors}

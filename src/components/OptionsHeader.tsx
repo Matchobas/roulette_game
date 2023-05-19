@@ -10,6 +10,7 @@ import { ImportFormDropzone } from "./ImportFormDropzone";
 interface OptionsHeaderProps {
   isModalOpen: boolean;
   wheelOptions: WheelOptionModel[];
+  wheelColors: string[];
   handleWheelOptions: (options: WheelOptionModel[]) => void;
   handleOptionsModal: (state: boolean) => void;
   handleWheelColors: (colors: string[]) => void;
@@ -18,6 +19,7 @@ interface OptionsHeaderProps {
 export function OptionsHeader({
   isModalOpen,
   wheelOptions,
+  wheelColors,
   handleWheelOptions,
   handleOptionsModal,
   handleWheelColors
@@ -83,7 +85,22 @@ export function OptionsHeader({
           <PaintBrush size={20} weight="bold" className="text-white mr-4" />
         </button>
         {isColorPickerOpen && (
-          <HexColorPicker color={color} onChange={setColor} />
+          <div className="fixed">
+            <div className="flex items-start gap-3">
+              {wheelColors.map((color, index) => {
+                console.log(color);
+                return (
+                  <button
+                    key={index}
+                    className={`w-10 h-10 flex items-center justify-center bg-black rounded-full p-3 text-white text-xl`}
+                  >
+                    {index}
+                  </button>
+                );
+              })}
+            </div>
+            <HexColorPicker color={color} onChange={setColor} />
+          </div>
         )}
         {isServerOnline && (
           <>
