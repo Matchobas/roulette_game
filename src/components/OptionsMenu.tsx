@@ -10,13 +10,15 @@ interface OptionMenuProps {
   handleWheelOptions: (options: WheelOptionModel[]) => void;
   isModalOpen: boolean;
   handleOptionsModal: (state: boolean) => void;
+  handleWheelColors: (colors: string[]) => void;
 }
 
 export function OptionsMenu({
   wheelOptions,
   handleWheelOptions,
   isModalOpen,
-  handleOptionsModal
+  handleOptionsModal,
+  handleWheelColors
 }: OptionMenuProps) {
   function handleNewOption(option: WheelOptionModel) {
     handleWheelOptions([...wheelOptions, option]);
@@ -52,6 +54,7 @@ export function OptionsMenu({
           wheelOptions={wheelOptions}
           handleWheelOptions={handleWheelOptions}
           handleOptionsModal={handleOptionsModal}
+          handleWheelColors={handleWheelColors}
         />
 
         <AddOptionForm saveOption={handleNewOption} />

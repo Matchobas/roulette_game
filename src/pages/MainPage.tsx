@@ -25,6 +25,10 @@ export function MainPage() {
     setIsOptionsModalOpen(state);
   }
 
+  function handleWheelColors(colors: string[]) {
+    setColors([...colors]);
+  }
+
   useEffect(() => {
     localStorage.setItem("savedOptions", JSON.stringify(wheelOptions));
   }, [wheelOptions]);
@@ -48,6 +52,7 @@ export function MainPage() {
         handleWheelOptions={handleWheelOptions}
         isModalOpen={isOptionsModalOpen}
         handleOptionsModal={handleOptionsModal}
+        handleWheelColors={handleWheelColors}
       />
     </div>
   );

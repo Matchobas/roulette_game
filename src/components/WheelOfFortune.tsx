@@ -242,7 +242,7 @@ export function WheelOfFortune({
       wheelSlowDown();
     }
     drawWheel();
-  }, [options, spin]);
+  }, [options, spin, colors]);
 
   useEffect(() => {
     addSpinButtonListener();

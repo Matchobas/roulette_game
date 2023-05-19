@@ -12,13 +12,15 @@ interface OptionsHeaderProps {
   wheelOptions: WheelOptionModel[];
   handleWheelOptions: (options: WheelOptionModel[]) => void;
   handleOptionsModal: (state: boolean) => void;
+  handleWheelColors: (colors: string[]) => void;
 }
 
 export function OptionsHeader({
   isModalOpen,
   wheelOptions,
   handleWheelOptions,
-  handleOptionsModal
+  handleOptionsModal,
+  handleWheelColors
 }: OptionsHeaderProps) {
   const [isServerOnline, setIsServerOnline] = useState(true);
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
@@ -65,6 +67,10 @@ export function OptionsHeader({
         setIsServerOnline(false);
       });
   }, []);
+
+  useEffect(() => {
+    handleWheelColors([color, "#ffffff", "#808080"]);
+  }, [color]);
 
   return (
     <header className="w-full flex justify-between items-start">
