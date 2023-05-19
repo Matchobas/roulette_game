@@ -1,5 +1,6 @@
-import { FloppyDisk, Minus, Shuffle } from "phosphor-react";
+import { FloppyDisk, Minus, PaintBrush, Shuffle } from "phosphor-react";
 import { useEffect, useState } from "react";
+import { HexColorPicker } from "react-colorful";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { api } from "../utils/api";
@@ -20,6 +21,8 @@ export function OptionsHeader({
   handleOptionsModal
 }: OptionsHeaderProps) {
   const [isServerOnline, setIsServerOnline] = useState(true);
+  const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
+  const [color, setColor] = useState("#aabbcc");
 
   function handleOptionsSaveFile() {
     const now = new Date();
@@ -69,6 +72,12 @@ export function OptionsHeader({
       <div>
         <button onClick={() => handleShuffleOptions()}>
           <Shuffle size={20} weight="bold" className="text-white mr-4" />
+        </button>
+        <button onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}>
+          <PaintBrush size={20} weight="bold" className="text-white mr-4" />
+          {isColorPickerOpen && (
+            <HexColorPicker color={color} onChange={setColor} />
+          )}
         </button>
         {isServerOnline && (
           <>
