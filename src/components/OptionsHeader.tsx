@@ -4,6 +4,7 @@ import { HexColorPicker } from "react-colorful";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { api } from "../utils/api";
+import { ColorPickerMenu } from "./ColorPickerMenu";
 import { DeleteAllOptions } from "./DeleteAllOptions";
 import { ImportFormDropzone } from "./ImportFormDropzone";
 
@@ -26,8 +27,6 @@ export function OptionsHeader({
 }: OptionsHeaderProps) {
   const [isServerOnline, setIsServerOnline] = useState(true);
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
-  const [color, setColor] = useState("#000000");
-  const [colorOptionSelected, setColorOptionSelected] = useState(0);
 
   function handleOptionsSaveFile() {
     const now = new Date();
@@ -71,14 +70,6 @@ export function OptionsHeader({
       });
   }, []);
 
-  useEffect(() => {
-    const newColors = wheelColors.map((c, i) => {
-      if (i === colorOptionSelected) return color;
-      return c;
-    });
-    handleWheelColors(newColors);
-  }, [color]);
-
   return (
     <header className="w-full flex justify-between items-start">
       <b className="text-white text-xl">Options</b>
@@ -90,26 +81,10 @@ export function OptionsHeader({
           <PaintBrush size={20} weight="bold" className="text-white mr-4" />
         </button>
         {isColorPickerOpen && (
-          <div className="fixed">
-            <div className="flex items-start gap-3">
-              {wheelColors.map((color, index) => {
-                return (
-                  <button
-                    key={index}
-                    className={`w-10 h-10 flex items-center justify-center rounded-full p-3 text-white text-xl bg-black ${
-                      colorOptionSelected === index
-                        ? "opacity-100"
-                        : "opacity-50"
-                    }`}
-                    onClick={() => setColorOptionSelected(index)}
-                  >
-                    {index}
-                  </button>
-                );
-              })}
-            </div>
-            <HexColorPicker color={color} onChange={setColor} />
-          </div>
+          <ColorPickerMenu
+            wheelColors={wheelColors}
+            handleWheelColors={handleWheelColors}
+          />
         )}
         {isServerOnline && (
           <>
