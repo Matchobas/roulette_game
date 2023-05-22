@@ -22,13 +22,13 @@ export function ColorPickerMenu({
   }, [color]);
 
   return (
-    <div className="fixed">
+    <div className="fixed bg-gray-300 p-3 pb-5 rounded-md">
       <div className="flex items-start gap-3">
         {wheelColors.map((_, index) => {
           return (
             <button
               key={index}
-              className={`w-10 h-10 flex items-center justify-center rounded-full p-3 text-white text-xl bg-black ${
+              className={`h-8 w-8 flex items-center justify-center rounded-full p-3 text-white text-xl bg-black ${
                 colorOptionSelected === index ? "opacity-100" : "opacity-50"
               }`}
               onClick={() => setColorOptionSelected(index)}
@@ -39,6 +39,7 @@ export function ColorPickerMenu({
         })}
       </div>
       <HexColorPicker
+        className="top-2"
         color={wheelColors[colorOptionSelected]}
         onChange={setColor}
       />
