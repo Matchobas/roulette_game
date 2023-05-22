@@ -27,6 +27,7 @@ export function OptionsHeader({
   const [isServerOnline, setIsServerOnline] = useState(true);
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   const [color, setColor] = useState("#aabbcc");
+  const [colorOptionSelected, setColorOptionSelected] = useState(0);
 
   function handleOptionsSaveFile() {
     const now = new Date();
@@ -88,11 +89,15 @@ export function OptionsHeader({
           <div className="fixed">
             <div className="flex items-start gap-3">
               {wheelColors.map((color, index) => {
-                console.log(color);
                 return (
                   <button
                     key={index}
-                    className={`w-10 h-10 flex items-center justify-center bg-black rounded-full p-3 text-white text-xl`}
+                    className={`w-10 h-10 flex items-center justify-center rounded-full p-3 text-white text-xl bg-black ${
+                      colorOptionSelected === index
+                        ? "opacity-100"
+                        : "opacity-50"
+                    }`}
+                    onClick={() => setColorOptionSelected(index)}
                   >
                     {index}
                   </button>
