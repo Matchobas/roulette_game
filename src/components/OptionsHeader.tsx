@@ -72,7 +72,11 @@ export function OptionsHeader({
   }, []);
 
   useEffect(() => {
-    handleWheelColors([color, "#ffffff", "#808080"]);
+    const newColors = wheelColors.map((c, i) => {
+      if (i === colorOptionSelected) return color;
+      return c;
+    });
+    handleWheelColors(newColors);
   }, [color]);
 
   return (
