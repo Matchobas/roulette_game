@@ -15,7 +15,7 @@ export function MainPage() {
     currentSavedWheelOptions
   );
   const [isOptionsModalOpen, setIsOptionsModalOpen] = useState(true);
-  const [colors, setColors] = useState(["#000000", "#ffff00", "#808080"]);
+  const [colors, setColors] = useState(["#000000", "#ffffff", "#808080"]);
 
   function handleWheelOptions(options: WheelOptionModel[]) {
     setWheelOptions([...options]);

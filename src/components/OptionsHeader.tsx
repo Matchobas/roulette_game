@@ -26,7 +26,7 @@ export function OptionsHeader({
 }: OptionsHeaderProps) {
   const [isServerOnline, setIsServerOnline] = useState(true);
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
-  const [color, setColor] = useState("#aabbcc");
+  const [color, setColor] = useState("#000000");
   const [colorOptionSelected, setColorOptionSelected] = useState(0);
 
   function handleOptionsSaveFile() {
