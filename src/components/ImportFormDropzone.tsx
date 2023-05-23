@@ -31,8 +31,6 @@ export function ImportFormDropzone({
     maxFiles: 1
   });
 
-  const dropzoneRef = useRef<HTMLDivElement>(null);
-
   function handleSendCsvFile() {
     if (fileComponent) {
       api
@@ -66,17 +64,6 @@ export function ImportFormDropzone({
   }
 
   useEffect(() => {
-    document.addEventListener("click", (event) => {
-      const nodeTarget = event.target as Node;
-      if (dropzoneRef.current) {
-        if (!dropzoneRef.current.contains(nodeTarget)) {
-          console.log("close");
-        }
-      }
-    });
-  }, []);
-
-  useEffect(() => {
     if (acceptedFiles.length > 0) {
       const currentFile = acceptedFiles[0];
       setFile(currentFile);
@@ -95,10 +82,7 @@ export function ImportFormDropzone({
 
   return (
     <>
-      <button
-        ref={triggerRef}
-        // onClick={() => setIsDropzoneOpen(!isDropzoneOpen)}
-      >
+      <button ref={triggerRef}>
         <FileArrowDown
           size={20}
           weight="bold"

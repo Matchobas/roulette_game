@@ -28,13 +28,13 @@ export function MainPage() {
     setColors([...colors]);
   }
 
-  // useEffect(() => {
-  //   const storageColors = localStorage.getItem("savedWheelColors");
-  //   if (storageColors) {
-  //     const cs = JSON.parse(storageColors);
-  //     setColors(cs);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const storageColors = localStorage.getItem("savedWheelColors");
+    if (storageColors) {
+      const cs = JSON.parse(storageColors);
+      setColors(cs);
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("savedOptions", JSON.stringify(wheelOptions));

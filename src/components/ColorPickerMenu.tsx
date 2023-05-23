@@ -18,6 +18,7 @@ export function ColorPickerMenu({
       if (i === colorOptionSelected) return color;
       return c;
     });
+    localStorage.setItem("savedWheelColors", JSON.stringify(newColors));
     handleWheelColors(newColors);
   }
 
