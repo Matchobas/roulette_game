@@ -6,9 +6,8 @@ import { WheelOptionModel } from "../model/WheelOptionModel";
 
 const storagedOptions = localStorage.getItem("savedOptions");
 let currentSavedWheelOptions: WheelOptionModel[] = [];
-if (storagedOptions) {
-  currentSavedWheelOptions = JSON.parse(storagedOptions);
-}
+
+if (storagedOptions) currentSavedWheelOptions = JSON.parse(storagedOptions);
 
 export function MainPage() {
   const [wheelOptions, setWheelOptions] = useState<WheelOptionModel[]>(
@@ -28,6 +27,14 @@ export function MainPage() {
   function handleWheelColors(colors: string[]) {
     setColors([...colors]);
   }
+
+  // useEffect(() => {
+  //   const storageColors = localStorage.getItem("savedWheelColors");
+  //   if (storageColors) {
+  //     const cs = JSON.parse(storageColors);
+  //     setColors(cs);
+  //   }
+  // }, []);
 
   useEffect(() => {
     localStorage.setItem("savedOptions", JSON.stringify(wheelOptions));

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { HexColorPicker } from "react-colorful";
+import { useState } from "react";
+import { HexColorPicker, HexColorInput } from "react-colorful";
 
 interface ColorPickerMenuProps {
   wheelColors: string[];
@@ -13,16 +13,16 @@ export function ColorPickerMenu({
   const [color, setColor] = useState("#000000");
   const [colorOptionSelected, setColorOptionSelected] = useState(0);
 
-  useEffect(() => {
+  function handleNewWheelColors() {
     const newColors = wheelColors.map((c, i) => {
       if (i === colorOptionSelected) return color;
       return c;
     });
     handleWheelColors(newColors);
-  }, [color]);
+  }
 
   return (
-    <div className="fixed bg-gray-300 p-3 pb-5 rounded-md">
+    <div className="fixed flex-col bg-gray-300 p-3 rounded-md">
       <div className="flex items-start gap-3">
         {wheelColors.map((_, index) => {
           return (
@@ -38,11 +38,25 @@ export function ColorPickerMenu({
           );
         })}
       </div>
-      <HexColorPicker
-        className="top-2"
-        color={wheelColors[colorOptionSelected]}
-        onChange={setColor}
-      />
+      <div className="flex flex-col items-start gap-5">
+        <HexColorPicker
+          className="top-2"
+          color={wheelColors[colorOptionSelected]}
+          onChange={setColor}
+        />
+
+        <HexColorInput
+          className="w-[200px]"
+          color={wheelColors[colorOptionSelected]}
+          onChange={setColor}
+        />
+      </div>
+      <button
+        className="p-2 rounded-md bg-green-500 text-white font-bold hover:bg-green-600 transition-colors mt-3"
+        onClick={() => handleNewWheelColors()}
+      >
+        Apply
+      </button>
     </div>
   );
 }
