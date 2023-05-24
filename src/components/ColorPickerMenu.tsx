@@ -10,16 +10,21 @@ export function ColorPickerMenu({
   wheelColors,
   handleWheelColors
 }: ColorPickerMenuProps) {
-  const [color, setColor] = useState("#000000");
+  const [colors, setColors] = useState(wheelColors);
   const [colorOptionSelected, setColorOptionSelected] = useState(0);
 
-  function handleNewWheelColors() {
+  function handleApplyNewColors() {
+    localStorage.setItem("savedWheelColors", JSON.stringify(colors));
+    handleWheelColors(colors);
+  }
+
+  function handlePickerColors(newColor: string) {
     const newColors = wheelColors.map((c, i) => {
-      if (i === colorOptionSelected) return color;
+      if (i === colorOptionSelected) return newColor;
       return c;
     });
-    localStorage.setItem("savedWheelColors", JSON.stringify(newColors));
-    handleWheelColors(newColors);
+
+    setColors(newColors);
   }
 
   return (
@@ -43,18 +48,18 @@ export function ColorPickerMenu({
         <HexColorPicker
           className="top-2"
           color={wheelColors[colorOptionSelected]}
-          onChange={setColor}
+          onChange={handlePickerColors}
         />
 
         <HexColorInput
           className="w-[200px]"
           color={wheelColors[colorOptionSelected]}
-          onChange={setColor}
+          onChange={handlePickerColors}
         />
       </div>
       <button
         className="p-2 rounded-md bg-green-500 text-white font-bold hover:bg-green-600 transition-colors mt-3"
-        onClick={() => handleNewWheelColors()}
+        onClick={() => handleApplyNewColors()}
       >
         Apply
       </button>

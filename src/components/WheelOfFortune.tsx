@@ -175,6 +175,7 @@ export function WheelOfFortune({
           ctx.moveTo(centerX, centerY);
 
           ctx.fillStyle = colors[colorIndex];
+          console.log(ctx.fillStyle);
           colorIndex = (colorIndex + 1) % colors.length;
           if (i + 1 === options.length) {
             const [firstColor, secondColor] = colors;
@@ -235,7 +236,7 @@ export function WheelOfFortune({
         }
       }
     }
-  }, [options, spin, framesToSum]);
+  }, [options, spin, framesToSum, colors]);
 
   useEffect(() => {
     if (spin) {
