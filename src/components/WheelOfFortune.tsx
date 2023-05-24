@@ -16,7 +16,7 @@ export function WheelOfFortune({
 }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
-  const [winner, setWinner] = useState("");
+  const [winner, setWinner] = useState("Postar no Linkedin");
 
   if (options.length === 0) {
     // eslint-disable-next-line no-param-reassign
@@ -253,8 +253,8 @@ export function WheelOfFortune({
     <>
       <canvas ref={canvasRef} width={canvasSize} height={canvasSize} />
       {winner && (
-        <section className="min-w-[50%] h-[30%] flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
-          <span className="h-3/4 flex items-center text-5xl text-white font-extrabold">
+        <section className="min-w-[50%] h-[30%] px-6 whitespace-nowrap flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
+          <span className="h-3/4 flex items-center justify-center text-5xl text-white font-extrabold">
             {winner}
           </span>
           <div className="h-1/4 flex items-center">
