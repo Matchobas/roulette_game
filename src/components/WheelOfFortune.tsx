@@ -16,7 +16,7 @@ export function WheelOfFortune({
 }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
-  const [winner, setWinner] = useState("Postar no Linkedin");
+  const [winner, setWinner] = useState("");
 
   if (options.length === 0) {
     // eslint-disable-next-line no-param-reassign
