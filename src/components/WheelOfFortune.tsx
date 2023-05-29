@@ -175,7 +175,6 @@ export function WheelOfFortune({
           ctx.moveTo(centerX, centerY);
 
           ctx.fillStyle = colors[colorIndex];
-          console.log(ctx.fillStyle);
           colorIndex = (colorIndex + 1) % colors.length;
           if (i + 1 === options.length) {
             const [firstColor, secondColor] = colors;
@@ -244,6 +243,17 @@ export function WheelOfFortune({
     }
     drawWheel();
   }, [options, spin, colors]);
+
+  /**
+   * This works when there are actual user options, the default options bug because the options are being change at the start
+   * of the page
+   */
+  useEffect(() => {
+    if (spin) {
+      console.log("Stop");
+      framesToSum.current = 0;
+    }
+  }, [options]);
 
   useEffect(() => {
     addSpinButtonListener();
