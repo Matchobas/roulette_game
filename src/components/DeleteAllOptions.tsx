@@ -29,25 +29,25 @@ export function DeleteAllOptions({
         />
       </button>
       {isDeleteConfirmationOpen && (
-        <div className="fixed w-[40%] h-1/4 flex flex-col items-center justify-center border-2 bg-slate-600 inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="fixed w-[35%] h-[20%] flex flex-col items-center justify-center border-2 rounded-lg bg-slate-600 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <p className="text-white text-xl">
             Are you sure you want to delete all current options?
           </p>
-          <div className="flex items-center gap-32">
+          <div className="w-1/2 flex items-center justify-between">
+            <button
+              onClick={() => setIsDeleteConfirmationOpen(false)}
+              className="px-4 bg-zinc-200 text-black text-lg rounded-md mt-6 hover:bg-gray-400 transition-colors"
+            >
+              Cancel
+            </button>
             <button
               onClick={() => {
                 handleWheelOptions([]);
                 setIsDeleteConfirmationOpen(false);
               }}
-              className="px-4 bg-zinc-200 text-black text-lg rounded-md mt-6 hover:bg-gray-400 transition-colors opacity-100"
+              className="px-4 bg-red-500 text-white text-lg rounded-md mt-6 hover:bg-red-700 transition-colors"
             >
-              Yes
-            </button>
-            <button
-              onClick={() => setIsDeleteConfirmationOpen(false)}
-              className="px-4 bg-zinc-200 text-black text-lg rounded-md mt-6 hover:bg-gray-400 transition-colors opacity-100"
-            >
-              No
+              Delete
             </button>
           </div>
         </div>
