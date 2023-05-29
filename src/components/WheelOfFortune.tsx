@@ -4,31 +4,28 @@ import { WheelOptionModel } from "../model/WheelOptionModel";
 import { adaptWheelTitle } from "../utils/adaptWheelTitle";
 
 interface WheelOfFortuneProps {
-  options: WheelOptionModel[];
   canvasSize: number;
   colors: string[];
+  options?: WheelOptionModel[];
 }
 
+const defaultOptions = [
+  { title: "Yes", percentage: 100 },
+  { title: "No", percentage: 100 },
+  { title: "Yes", percentage: 100 },
+  { title: "No", percentage: 100 },
+  { title: "Yes", percentage: 100 },
+  { title: "No", percentage: 100 }
+];
+
 export function WheelOfFortune({
-  options,
   canvasSize,
-  colors
+  colors,
+  options = defaultOptions
 }: WheelOfFortuneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
   const [winner, setWinner] = useState("");
-
-  if (options.length === 0) {
-    // eslint-disable-next-line no-param-reassign
-    options = [
-      { title: "Yes", percentage: 100 },
-      { title: "No", percentage: 100 },
-      { title: "Yes", percentage: 100 },
-      { title: "No", percentage: 100 },
-      { title: "Yes", percentage: 100 },
-      { title: "No", percentage: 100 }
-    ];
-  }
 
   const optionsChancesSum = useMemo(() => {
     return options.reduce((prev, cur) => {

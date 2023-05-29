@@ -48,9 +48,9 @@ export function MainPage() {
         }`}
       >
         <WheelOfFortune
-          options={wheelOptions}
           canvasSize={650}
           colors={colors}
+          options={wheelOptions.length > 0 ? wheelOptions : undefined}
         />
       </div>
 
