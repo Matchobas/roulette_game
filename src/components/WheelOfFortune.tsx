@@ -26,6 +26,8 @@ export function WheelOfFortune({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
   const [winner, setWinner] = useState("");
+  const earlyStop = useRef(false);
+  const timeoutIds = useRef<number[]>([]);
 
   const optionsChancesSum = useMemo(() => {
     return options.reduce((prev, cur) => {
@@ -63,13 +65,16 @@ export function WheelOfFortune({
     const slowdownTicks = animationDurationInSeconds * smoothnessIndicator;
     const speedToReduceByTick = rate / (slowdownTicks - 1);
     for (let t = 1; t <= slowdownTicks; t += 1) {
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         if (framesToSum.current - speedToReduceByTick > 0) {
+          timeoutIds.current.shift();
           framesToSum.current -= speedToReduceByTick;
         } else {
           framesToSum.current = 0;
         }
       }, (t * 1000) / smoothnessIndicator);
+
+      timeoutIds.current.push(timeoutId);
     }
   }
 
@@ -202,7 +207,7 @@ export function WheelOfFortune({
               finalArcStart < (3 / 4) * endAngle &&
               finalArcEnd > (3 / 4) * endAngle
             ) {
-              setWinner(options[i].title);
+              if (!earlyStop.current) setWinner(options[i].title);
               setSpin(false);
             }
           }
@@ -234,23 +239,27 @@ export function WheelOfFortune({
     }
   }, [options, spin, framesToSum, colors]);
 
+  function stopWheelEarly() {
+    earlyStop.current = true;
+    framesToSum.current = 0;
+    timeoutIds.current.forEach((id) => {
+      clearTimeout(id);
+    });
+  }
+
   useEffect(() => {
     if (spin) {
+      earlyStop.current = false;
       wheelSlowDown();
     }
     drawWheel();
   }, [options, spin, colors]);
 
-  /**
-   * This works when there are actual user options, the default options bug because the options are being change at the start
-   * of the page
-   */
   useEffect(() => {
     if (spin) {
-      console.log("Stop");
-      framesToSum.current = 0;
+      stopWheelEarly();
     }
-  }, [options]);
+  }, [options, colors]);
 
   useEffect(() => {
     addSpinButtonListener();
