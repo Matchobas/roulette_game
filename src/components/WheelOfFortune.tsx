@@ -1,3 +1,4 @@
+import { Howl } from "howler";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
@@ -30,6 +31,12 @@ export function WheelOfFortune({
   const [winner, setWinner] = useState("");
   const earlyStop = useRef(false);
   const timeoutIds = useRef<number[]>([]);
+  const wheelTickSound = useRef(
+    new Howl({
+      src: ["src/sounds/57126__loofa__castanet-014.wav"],
+      volume: 0.2
+    })
+  );
 
   const optionsChancesSum = useMemo(() => {
     return options.reduce((prev, cur) => {
@@ -57,7 +64,7 @@ export function WheelOfFortune({
   }
 
   const frame = useRef(0);
-  const framesToSum = useRef(0.5);
+  const framesToSum = useRef(0.4);
 
   function wheelSlowDown() {
     const rate = 0.3;
@@ -68,6 +75,7 @@ export function WheelOfFortune({
     const speedToReduceByTick = rate / (slowdownTicks - 1);
     for (let t = 1; t <= slowdownTicks; t += 1) {
       const timeoutId = setTimeout(() => {
+        if (t % 2 === 0) wheelTickSound.current.play();
         if (framesToSum.current - speedToReduceByTick > 0) {
           timeoutIds.current.shift();
           framesToSum.current -= speedToReduceByTick;
