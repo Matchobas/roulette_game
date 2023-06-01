@@ -15,6 +15,8 @@ const defaultOptions = [
   { title: "Yes", percentage: 100 },
   { title: "No", percentage: 100 },
   { title: "Yes", percentage: 100 },
+  { title: "No", percentage: 100 },
+  { title: "Yes", percentage: 100 },
   { title: "No", percentage: 100 }
 ];
 
