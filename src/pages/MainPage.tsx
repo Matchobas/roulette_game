@@ -28,12 +28,26 @@ export function MainPage() {
     setColors([...colors]);
   }
 
+  function adaptScreen() {
+    if (window.innerWidth < 1250) {
+      setIsOptionsModalOpen(false);
+    } else {
+      setIsOptionsModalOpen(true);
+    }
+  }
+
   useEffect(() => {
     const storageColors = localStorage.getItem("savedWheelColors");
     if (storageColors) {
       const cs = JSON.parse(storageColors);
       setColors(cs);
     }
+
+    window.addEventListener("resize", adaptScreen);
+
+    return () => {
+      window.removeEventListener("resize", adaptScreen);
+    };
   }, []);
 
   useEffect(() => {
