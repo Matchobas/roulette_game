@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { adaptWheelTitle } from "../utils/adaptWheelTitle";
+import { tickSoundAngle } from "../utils/tickSoundAngle";
 
 interface WheelOfFortuneProps {
   canvasSize: number;
@@ -34,14 +35,14 @@ export function WheelOfFortune({
   const wheelTickSound = useRef(
     new Howl({
       src: ["src/sounds/57126__loofa__castanet-014.wav"],
-      volume: 0.2
+      volume: 0.1
     })
   );
   const spinningSong = useRef(
     new Howl({
       src: ["src/sounds/MISTERY_BOX.wav"],
       loop: true,
-      volume: 0.5
+      volume: 0.4
     })
   );
 
@@ -51,10 +52,6 @@ export function WheelOfFortune({
       return sum;
     }, 0);
   }, [options]);
-
-  function convertToDegrees(angle: number) {
-    return (angle * 180) / Math.PI;
-  }
 
   function textColor(backgroundColor: string) {
     const red = parseInt(backgroundColor.slice(1, 3), 16);
@@ -78,6 +75,7 @@ export function WheelOfFortune({
     framesToSum.current = rate;
     spinningSong.current.play();
     const animationDurationInSeconds = Math.floor(Math.random() * 8 + 6);
+    // const animationDurationInSeconds = 3;
     const smoothnessIndicator = 10;
     const slowdownTicks = animationDurationInSeconds * smoothnessIndicator;
     const speedToReduceByTick = rate / (slowdownTicks - 1);
@@ -186,6 +184,11 @@ export function WheelOfFortune({
         drawBackground(ctx, canvas.width, canvas.height);
 
         for (let i = 0; i < optionsAmount; i += 1) {
+          // tickSoundAngle(
+          //   startAngle,
+          //   wheelTickSound.current,
+          //   framesToSum.current
+          // );
           const optionAngle =
             (options[i].percentage / optionsChancesSum) * endAngle + startAngle;
           ctx.beginPath();
