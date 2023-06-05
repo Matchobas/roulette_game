@@ -83,7 +83,6 @@ export function WheelOfFortune({
     const speedToReduceByTick = rate / (slowdownTicks - 1);
     for (let t = 1; t <= slowdownTicks; t += 1) {
       const timeoutId = setTimeout(() => {
-        if (t % 2 === 0) wheelTickSound.current.play();
         if (framesToSum.current - speedToReduceByTick > 0) {
           timeoutIds.current.shift();
           framesToSum.current -= speedToReduceByTick;
@@ -107,11 +106,8 @@ export function WheelOfFortune({
     draw.moveTo(x, y);
     draw.fillStyle = "#ca75fb";
     draw.arc(x, y, radius, 0, 2 * Math.PI);
-    draw.lineWidth = 5;
+    draw.lineWidth = 6;
     draw.setLineDash([]);
-    draw.strokeStyle = "#ff88ff";
-    draw.stroke();
-    draw.lineWidth = 3;
     draw.strokeStyle = "#5f46a5";
     draw.stroke();
     draw.closePath();
@@ -226,7 +222,9 @@ export function WheelOfFortune({
               finalArcStart < (3 / 4) * endAngle &&
               finalArcEnd > (3 / 4) * endAngle
             ) {
-              if (!earlyStop.current) setWinner(options[i].title);
+              if (!earlyStop.current) {
+                setWinner(options[i].title);
+              }
               setSpin(false);
             }
           }

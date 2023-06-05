@@ -60,7 +60,7 @@ export function MainPage() {
         }`}
       >
         <WheelOfFortune
-          canvasSize={650}
+          canvasSize={800}
           colors={colors}
           options={wheelOptions.length > 0 ? wheelOptions : undefined}
         />
