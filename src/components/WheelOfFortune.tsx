@@ -37,6 +37,13 @@ export function WheelOfFortune({
       volume: 0.2
     })
   );
+  const spinningSong = useRef(
+    new Howl({
+      src: ["src/sounds/MISTERY_BOX.wav"],
+      loop: true,
+      volume: 0.5
+    })
+  );
 
   const optionsChancesSum = useMemo(() => {
     return options.reduce((prev, cur) => {
@@ -69,6 +76,7 @@ export function WheelOfFortune({
   function wheelSlowDown() {
     const rate = 0.3;
     framesToSum.current = rate;
+    spinningSong.current.play();
     const animationDurationInSeconds = Math.floor(Math.random() * 8 + 6);
     const smoothnessIndicator = 10;
     const slowdownTicks = animationDurationInSeconds * smoothnessIndicator;
@@ -80,6 +88,7 @@ export function WheelOfFortune({
           timeoutIds.current.shift();
           framesToSum.current -= speedToReduceByTick;
         } else {
+          spinningSong.current.stop();
           framesToSum.current = 0;
         }
       }, (t * 1000) / smoothnessIndicator);
@@ -251,6 +260,7 @@ export function WheelOfFortune({
 
   function stopWheelEarly() {
     earlyStop.current = true;
+    spinningSong.current.stop();
     framesToSum.current = 0;
     timeoutIds.current.forEach((id) => {
       clearTimeout(id);

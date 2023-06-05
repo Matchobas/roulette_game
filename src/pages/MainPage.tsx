@@ -31,8 +31,6 @@ export function MainPage() {
   function adaptScreen() {
     if (window.innerWidth < 1250) {
       setIsOptionsModalOpen(false);
-    } else {
-      setIsOptionsModalOpen(true);
     }
   }
 
