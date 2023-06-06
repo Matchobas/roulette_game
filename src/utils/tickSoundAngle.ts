@@ -7,16 +7,20 @@ function convertToDegrees(angle: number) {
 export function tickSoundAngle(
   startAngle: number,
   sound: Howl,
-  framesUpdateRate: number
+  framesUpdateRate: number,
+  newRotation = true
 ) {
-  console.log(convertToDegrees(framesUpdateRate));
+  const framesOffset = convertToDegrees(framesUpdateRate);
   const endAngle = 2 * Math.PI;
-  const fullRotations = startAngle / endAngle;
-  const reducedStartAngle = Math.floor(
-    convertToDegrees(startAngle - Math.floor(fullRotations) * endAngle)
+  const fullRotations = Math.floor(startAngle / endAngle);
+  const reducedStartAngle = convertToDegrees(
+    startAngle - fullRotations * endAngle
   );
-  // const framesInDegrees = convertToDegrees(framesUpdateRate);
-  if (reducedStartAngle <= 271 && reducedStartAngle >= 269) {
+  if (
+    reducedStartAngle <= 270 &&
+    reducedStartAngle > 269 - framesOffset / 200 &&
+    newRotation
+  ) {
     sound.play();
   }
 }

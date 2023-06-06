@@ -42,7 +42,7 @@ export function WheelOfFortune({
     new Howl({
       src: ["src/sounds/MISTERY_BOX.wav"],
       loop: true,
-      volume: 0.4
+      volume: 0.2
     })
   );
 
@@ -74,8 +74,8 @@ export function WheelOfFortune({
     const rate = 0.3;
     framesToSum.current = rate;
     spinningSong.current.play();
-    const animationDurationInSeconds = Math.floor(Math.random() * 8 + 6);
-    // const animationDurationInSeconds = 3;
+    const animationDurationInSeconds = Math.floor(Math.random() * 8 + 16);
+    // const animationDurationInSeconds = 2;
     const smoothnessIndicator = 10;
     const slowdownTicks = animationDurationInSeconds * smoothnessIndicator;
     const speedToReduceByTick = rate / (slowdownTicks - 1);
@@ -184,11 +184,11 @@ export function WheelOfFortune({
         drawBackground(ctx, canvas.width, canvas.height);
 
         for (let i = 0; i < optionsAmount; i += 1) {
-          // tickSoundAngle(
-          //   startAngle,
-          //   wheelTickSound.current,
-          //   framesToSum.current
-          // );
+          tickSoundAngle(
+            startAngle,
+            wheelTickSound.current,
+            framesToSum.current
+          );
           const optionAngle =
             (options[i].percentage / optionsChancesSum) * endAngle + startAngle;
           ctx.beginPath();
