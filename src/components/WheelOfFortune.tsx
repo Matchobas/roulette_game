@@ -1,4 +1,5 @@
 import { Howl } from "howler";
+import { SpeakerHigh, SpeakerX } from "phosphor-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
@@ -30,6 +31,7 @@ export function WheelOfFortune({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
   const [winner, setWinner] = useState("");
+  const [audioVolume, setAudioVolume] = useState(5);
   const earlyStop = useRef(false);
   const timeoutIds = useRef<number[]>([]);
   const wheelTickSound = useRef(
@@ -268,6 +270,14 @@ export function WheelOfFortune({
     });
   }
 
+  function handleAudioVolume() {
+    if (audioVolume > 0) {
+      setAudioVolume(0);
+    } else {
+      setAudioVolume(10);
+    }
+  }
+
   useEffect(() => {
     if (spin) {
       earlyStop.current = false;
@@ -289,6 +299,16 @@ export function WheelOfFortune({
   return (
     <>
       <canvas ref={canvasRef} width={canvasSize} height={canvasSize} />
+      <button
+        onClick={() => handleAudioVolume()}
+        className="p-1 rounded-full bg-gray-500"
+      >
+        {audioVolume > 0 ? (
+          <SpeakerHigh size={32} className="text-white" />
+        ) : (
+          <SpeakerX size={32} className="text-white" />
+        )}
+      </button>
       {winner && (
         <section className="min-w-[50%] h-[30%] px-6 whitespace-nowrap flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
           <span className="h-3/4 flex items-center justify-center text-5xl text-white font-extrabold">
