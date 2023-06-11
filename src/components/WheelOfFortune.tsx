@@ -301,7 +301,7 @@ export function WheelOfFortune({
       <canvas ref={canvasRef} width={canvasSize} height={canvasSize} />
       <button
         onClick={() => handleAudioVolume()}
-        className="p-1 rounded-full bg-gray-500"
+        className="fixed p-1 rounded-full bg-gray-500 bottom-0 -left-[40%]"
       >
         {audioVolume > 0 ? (
           <SpeakerHigh size={32} className="text-white" />
