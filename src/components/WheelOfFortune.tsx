@@ -31,20 +31,20 @@ export function WheelOfFortune({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
   const [winner, setWinner] = useState("");
-  const [audioVolume, setAudioVolume] = useState(5);
+  const [audioVolume, setAudioVolume] = useState(0.2);
   const earlyStop = useRef(false);
   const timeoutIds = useRef<number[]>([]);
   const wheelTickSound = useRef(
     new Howl({
       src: ["src/sounds/57126__loofa__castanet-014.wav"],
-      volume: 0.1
+      volume: audioVolume
     })
   );
   const spinningSong = useRef(
     new Howl({
       src: ["src/sounds/MISTERY_BOX.wav"],
       loop: true,
-      volume: 0.2
+      volume: audioVolume
     })
   );
 
@@ -273,8 +273,12 @@ export function WheelOfFortune({
   function handleAudioVolume() {
     if (audioVolume > 0) {
       setAudioVolume(0);
+      spinningSong.current.volume(0);
+      wheelTickSound.current.volume(0);
     } else {
-      setAudioVolume(10);
+      setAudioVolume(1);
+      spinningSong.current.volume(0.2);
+      wheelTickSound.current.volume(0.2);
     }
   }
 
