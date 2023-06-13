@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { OptionsMenu } from "../components/OptionsMenu";
 import { WheelOfFortune } from "../components/WheelOfFortune";
 import { WheelOptionModel } from "../model/WheelOptionModel";
+import { changeSoundVolume } from "../sounds";
 
 const storagedOptions = localStorage.getItem("savedOptions");
 let currentSavedWheelOptions: WheelOptionModel[] = [];
@@ -51,16 +52,13 @@ export function MainPage() {
   }, []);
 
   function handleAudioVolume() {
-    console.log("change");
-    // if (audioVolume > 0) {
-    //   setAudioVolume(0);
-    //   spinningSong.current.volume(0);
-    //   wheelTickSound.current.volume(0);
-    // } else {
-    //   setAudioVolume(1);
-    //   spinningSong.current.volume(0.2);
-    //   wheelTickSound.current.volume(0.2);
-    // }
+    if (audioVolume > 0) {
+      changeSoundVolume(0);
+      setAudioVolume(0);
+    } else {
+      changeSoundVolume(0.1);
+      setAudioVolume(1);
+    }
   }
 
   useEffect(() => {
