@@ -1,8 +1,7 @@
-import { Howl } from "howler";
-import { SpeakerHigh, SpeakerX } from "phosphor-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
+import { useSoundEffects } from "../sounds";
 import { adaptWheelTitle } from "../utils/adaptWheelTitle";
 import { tickSoundAngle } from "../utils/tickSoundAngle";
 
@@ -33,19 +32,8 @@ export function WheelOfFortune({
   const [winner, setWinner] = useState("");
   const earlyStop = useRef(false);
   const timeoutIds = useRef<number[]>([]);
-  const wheelTickSound = useRef(
-    new Howl({
-      src: ["src/sounds/57126__loofa__castanet-014.wav"],
-      volume: 0.1
-    })
-  );
-  const spinningSong = useRef(
-    new Howl({
-      src: ["src/sounds/MISTERY_BOX.wav"],
-      loop: true,
-      volume: 0.2
-    })
-  );
+  const { wheelTick: wheelTickSound, spinningMusic: spinningSong } =
+    useSoundEffects({ sounds: ["spinningMusic", "wheelTick"] });
 
   const optionsChancesSum = useMemo(() => {
     return options.reduce((prev, cur) => {
