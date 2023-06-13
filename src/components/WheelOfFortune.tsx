@@ -269,17 +269,17 @@ export function WheelOfFortune({
     });
   }
 
-  function handleAudioVolume() {
-    if (audioVolume > 0) {
-      setAudioVolume(0);
-      spinningSong.current.volume(0);
-      wheelTickSound.current.volume(0);
-    } else {
-      setAudioVolume(1);
-      spinningSong.current.volume(0.2);
-      wheelTickSound.current.volume(0.2);
-    }
-  }
+  // function handleAudioVolume() {
+  //   if (audioVolume > 0) {
+  //     setAudioVolume(0);
+  //     spinningSong.current.volume(0);
+  //     wheelTickSound.current.volume(0);
+  //   } else {
+  //     setAudioVolume(1);
+  //     spinningSong.current.volume(0.2);
+  //     wheelTickSound.current.volume(0.2);
+  //   }
+  // }
 
   useEffect(() => {
     if (spin) {
