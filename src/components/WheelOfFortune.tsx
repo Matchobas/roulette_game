@@ -31,20 +31,19 @@ export function WheelOfFortune({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [spin, setSpin] = useState(false);
   const [winner, setWinner] = useState("");
-  const [audioVolume, setAudioVolume] = useState(0.2);
   const earlyStop = useRef(false);
   const timeoutIds = useRef<number[]>([]);
   const wheelTickSound = useRef(
     new Howl({
       src: ["src/sounds/57126__loofa__castanet-014.wav"],
-      volume: audioVolume
+      volume: 0.1
     })
   );
   const spinningSong = useRef(
     new Howl({
       src: ["src/sounds/MISTERY_BOX.wav"],
       loop: true,
-      volume: audioVolume
+      volume: 0.2
     })
   );
 
@@ -303,16 +302,6 @@ export function WheelOfFortune({
   return (
     <>
       <canvas ref={canvasRef} width={canvasSize} height={canvasSize} />
-      <button
-        onClick={() => handleAudioVolume()}
-        className="fixed p-1 rounded-full bg-gray-500 bottom-0 -left-[20%] hover:bg-gray-600 transition-colors"
-      >
-        {audioVolume > 0 ? (
-          <SpeakerHigh size={32} className="text-white" />
-        ) : (
-          <SpeakerX size={32} className="text-white" />
-        )}
-      </button>
       {winner && (
         <section className="min-w-[50%] h-[30%] px-6 whitespace-nowrap flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
           <span className="h-3/4 flex items-center justify-center text-5xl text-white font-extrabold">
