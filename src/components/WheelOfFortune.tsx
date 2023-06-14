@@ -63,7 +63,7 @@ export function WheelOfFortune({
     const rate = 0.3;
     framesToSum.current = rate;
     spinningSong.current.play();
-    const animationDurationInSeconds = Math.floor(Math.random() * 8 + 16);
+    const animationDurationInSeconds = Math.floor(Math.random() * 8 + 6);
     // const animationDurationInSeconds = 2;
     const smoothnessIndicator = 10;
     const slowdownTicks = animationDurationInSeconds * smoothnessIndicator;

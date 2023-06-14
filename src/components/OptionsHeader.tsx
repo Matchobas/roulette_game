@@ -78,15 +78,6 @@ export function OptionsHeader({
         <button onClick={() => handleShuffleOptions()}>
           <Shuffle size={20} weight="bold" className="text-white mr-4" />
         </button>
-        {/* <button onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}>
-          <PaintBrush size={20} weight="bold" className="text-white mr-4" />
-        </button>
-        {isColorPickerOpen && (
-          <ColorPickerMenu
-            wheelColors={wheelColors}
-            handleWheelColors={handleWheelColors}
-          />
-        )} */}
         <ColorPicker
           handleWheelColors={handleWheelColors}
           wheelColors={wheelColors}
