@@ -1,5 +1,5 @@
 import { FileArrowDown } from "phosphor-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 import { useDetectClickOut } from "../hooks/useDetectClickOut";
@@ -83,11 +83,7 @@ export function ImportFormDropzone({
   return (
     <>
       <button ref={triggerRef}>
-        <FileArrowDown
-          size={20}
-          weight="bold"
-          className="text-white mr-4 text-"
-        />
+        <FileArrowDown size={20} weight="bold" className="text-white mr-4" />
       </button>
 
       {isDropzoneOpen && (

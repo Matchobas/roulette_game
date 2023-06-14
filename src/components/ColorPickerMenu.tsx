@@ -4,11 +4,13 @@ import { HexColorPicker, HexColorInput } from "react-colorful";
 interface ColorPickerMenuProps {
   wheelColors: string[];
   handleWheelColors: (colors: string[]) => void;
+  customRef: React.RefObject<HTMLDivElement>;
 }
 
 export function ColorPickerMenu({
   wheelColors,
-  handleWheelColors
+  handleWheelColors,
+  customRef
 }: ColorPickerMenuProps) {
   const [colors, setColors] = useState(wheelColors);
   const [colorOptionSelected, setColorOptionSelected] = useState(0);
@@ -28,7 +30,7 @@ export function ColorPickerMenu({
   }
 
   return (
-    <div className="fixed flex-col bg-gray-300 p-3 rounded-md">
+    <div className="fixed flex-col bg-gray-400 p-3 rounded-md" ref={customRef}>
       <div className="flex items-start gap-3">
         {wheelColors.map((_, index) => {
           return (

@@ -4,6 +4,7 @@ import { HexColorPicker } from "react-colorful";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { api } from "../utils/api";
+import { ColorPicker } from "./ColorPicker";
 import { ColorPickerMenu } from "./ColorPickerMenu";
 import { DeleteAllOptions } from "./DeleteAllOptions";
 import { ImportFormDropzone } from "./ImportFormDropzone";
@@ -77,7 +78,7 @@ export function OptionsHeader({
         <button onClick={() => handleShuffleOptions()}>
           <Shuffle size={20} weight="bold" className="text-white mr-4" />
         </button>
-        <button onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}>
+        {/* <button onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}>
           <PaintBrush size={20} weight="bold" className="text-white mr-4" />
         </button>
         {isColorPickerOpen && (
@@ -85,7 +86,11 @@ export function OptionsHeader({
             wheelColors={wheelColors}
             handleWheelColors={handleWheelColors}
           />
-        )}
+        )} */}
+        <ColorPicker
+          handleWheelColors={handleWheelColors}
+          wheelColors={wheelColors}
+        />
         {isServerOnline && (
           <>
             <ImportFormDropzone
