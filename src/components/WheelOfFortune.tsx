@@ -64,7 +64,7 @@ export function WheelOfFortune({
     framesToSum.current = rate;
     spinningSong.current.play();
     const animationDurationInSeconds = Math.floor(Math.random() * 8 + 6);
-    // const animationDurationInSeconds = 2;
+    // const animationDurationInSeconds = 1;
     const smoothnessIndicator = 10;
     const slowdownTicks = animationDurationInSeconds * smoothnessIndicator;
     const speedToReduceByTick = rate / (slowdownTicks - 1);
@@ -257,18 +257,6 @@ export function WheelOfFortune({
     });
   }
 
-  // function handleAudioVolume() {
-  //   if (audioVolume > 0) {
-  //     setAudioVolume(0);
-  //     spinningSong.current.volume(0);
-  //     wheelTickSound.current.volume(0);
-  //   } else {
-  //     setAudioVolume(1);
-  //     spinningSong.current.volume(0.2);
-  //     wheelTickSound.current.volume(0.2);
-  //   }
-  // }
-
   useEffect(() => {
     if (spin) {
       earlyStop.current = false;
@@ -291,14 +279,16 @@ export function WheelOfFortune({
     <>
       <canvas ref={canvasRef} width={canvasSize} height={canvasSize} />
       {winner && (
-        <section className="min-w-[50%] h-[30%] px-6 whitespace-nowrap flex flex-col items-center justify-center bg-gray-800 fixed top-1/2 left-1/2 opacity-95 rounded-md transform -translate-x-1/2 -translate-y-1/2">
-          <span className="h-3/4 flex items-center justify-center text-5xl text-white font-extrabold">
-            {winner}
-          </span>
-          <div className="h-1/4 flex items-center">
+        <section className="fixed top-1/2 left-1/2 rounded-md transform -translate-x-1/2 -translate-y-1/2">
+          <div className="px-28 py-14 whitespace-nowrap flex flex-col items-center justify-center rounded-lg bg-gray-800">
+            <span className="h-3/4 flex items-center justify-center text-5xl text-white font-extrabold">
+              {winner}
+            </span>
+          </div>
+          <div className="flex items-center justify-center mt-4">
             <button
               type="button"
-              className="bg-slate-200 p-2 rounded-lg mb-8 font-medium"
+              className="bg-yellow-400 px-6 p-2 rounded-lg font-medium hover:bg-yellow-600 transition-colors"
               onClick={() => setWinner("")}
             >
               Close
