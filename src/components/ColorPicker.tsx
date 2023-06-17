@@ -16,7 +16,7 @@ export function ColorPicker({
     nodeRef,
     triggerRef,
     show: isColorMenuOpen,
-    setShow: setIsColorMenuOpen
+    setShow
   } = useDetectClickOut(false);
 
   return (

@@ -63,8 +63,8 @@ export function WheelOfFortune({
     const rate = 0.3;
     framesToSum.current = rate;
     spinningSong.current.play();
-    const animationDurationInSeconds = Math.floor(Math.random() * 8 + 6);
-    // const animationDurationInSeconds = 1;
+    // const animationDurationInSeconds = Math.floor(Math.random() * 8 + 6);
+    const animationDurationInSeconds = 1;
     const smoothnessIndicator = 10;
     const slowdownTicks = animationDurationInSeconds * smoothnessIndicator;
     const speedToReduceByTick = rate / (slowdownTicks - 1);
@@ -279,16 +279,16 @@ export function WheelOfFortune({
     <>
       <canvas ref={canvasRef} width={canvasSize} height={canvasSize} />
       {winner && (
-        <section className="fixed top-1/2 left-1/2 rounded-md transform -translate-x-1/2 -translate-y-1/2">
-          <div className="px-28 py-14 whitespace-nowrap flex flex-col items-center justify-center rounded-lg bg-gray-800">
-            <span className="h-3/4 flex items-center justify-center text-5xl text-white font-extrabold">
+        <section className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="px-48 py-20 whitespace-nowrap flex flex-col items-center justify-center rounded-lg bg-gray-800">
+            <span className="h-3/4 flex items-center justify-center text-7xl text-white font-extrabold">
               {winner}
             </span>
           </div>
           <div className="flex items-center justify-center mt-4">
             <button
               type="button"
-              className="bg-yellow-400 px-6 p-2 rounded-lg font-medium hover:bg-yellow-600 transition-colors"
+              className="bg-yellow-400 px-16 p-2 border-none hover:border-2 hover:border-red-800 rounded-lg font-medium text-xl hover:bg-yellow-500 transition-colors"
               onClick={() => setWinner("")}
             >
               Close

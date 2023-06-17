@@ -1,11 +1,9 @@
-import { FloppyDisk, Minus, PaintBrush, Shuffle } from "phosphor-react";
+import { FloppyDisk, Minus, Shuffle } from "phosphor-react";
 import { useEffect, useState } from "react";
-import { HexColorPicker } from "react-colorful";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
 import { api } from "../utils/api";
 import { ColorPicker } from "./ColorPicker";
-import { ColorPickerMenu } from "./ColorPickerMenu";
 import { DeleteAllOptions } from "./DeleteAllOptions";
 import { ImportFormDropzone } from "./ImportFormDropzone";
 
@@ -27,7 +25,6 @@ export function OptionsHeader({
   handleWheelColors
 }: OptionsHeaderProps) {
   const [isServerOnline, setIsServerOnline] = useState(true);
-  const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
 
   function handleOptionsSaveFile() {
     const now = new Date();
