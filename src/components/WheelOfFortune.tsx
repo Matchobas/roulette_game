@@ -280,12 +280,12 @@ export function WheelOfFortune({
       <canvas ref={canvasRef} width={canvasSize} height={canvasSize} />
       {winner && (
         <section className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div className="px-48 py-20 whitespace-nowrap flex flex-col items-center justify-center rounded-lg bg-gray-800">
+          <div className="px-44 py-20 whitespace-nowrap flex flex-col items-center justify-center rounded-lg bg-gray-800 shadow-lg shadow-gray-900">
             <span className="h-3/4 flex items-center justify-center text-7xl text-white font-extrabold">
               {winner}
             </span>
           </div>
-          <div className="flex items-center justify-center mt-4">
+          <div className="flex items-center justify-center mt-5">
             <button
               type="button"
               className="bg-yellow-400 px-16 p-2 border-none hover:border-2 hover:border-red-800 rounded-lg font-medium text-xl hover:bg-yellow-500 transition-colors"
