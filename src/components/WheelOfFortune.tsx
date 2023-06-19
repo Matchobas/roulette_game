@@ -63,8 +63,8 @@ export function WheelOfFortune({
     const rate = 0.3;
     framesToSum.current = rate;
     spinningSong.current.play();
-    // const animationDurationInSeconds = Math.floor(Math.random() * 8 + 6);
-    const animationDurationInSeconds = 1;
+    const animationDurationInSeconds = Math.floor(Math.random() * 8 + 6);
+    // const animationDurationInSeconds = 1;
     const smoothnessIndicator = 10;
     const slowdownTicks = animationDurationInSeconds * smoothnessIndicator;
     const speedToReduceByTick = rate / (slowdownTicks - 1);
@@ -288,7 +288,7 @@ export function WheelOfFortune({
           <div className="flex items-center justify-center mt-5">
             <button
               type="button"
-              className="bg-yellow-400 px-16 p-2 border-none hover:border-2 hover:border-red-800 rounded-lg font-medium text-xl hover:bg-yellow-500 transition-colors"
+              className="bg-yellow-400 px-16 ring-yellow-500 hover:ring-1 p-2 rounded-lg font-medium text-xl hover:bg-yellow-500 transition-colors"
               onClick={() => setWinner("")}
             >
               Close
