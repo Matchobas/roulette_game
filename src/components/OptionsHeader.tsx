@@ -1,4 +1,4 @@
-import { FloppyDisk, Minus, Shuffle } from "phosphor-react";
+import { DotsThree, Eye, FloppyDisk, Minus, Shuffle } from "phosphor-react";
 import { useEffect, useState } from "react";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";
@@ -71,10 +71,16 @@ export function OptionsHeader({
   return (
     <header className="w-full flex justify-between items-start">
       <b className="text-white text-xl">Options</b>
-      <div>
-        <button onClick={() => handleShuffleOptions()}>
-          <Shuffle size={20} weight="bold" className="text-white mr-4" />
+      <div className="flex gap-4">
+        <button onClick={() => handleOptionsModal(false)}>
+          <Eye size={20} weight="bold" className="text-white" />
         </button>
+        <button onClick={() => handleShuffleOptions()}>
+          <Shuffle size={20} weight="bold" className="text-white" />
+        </button>
+        {/* <button>
+          <DotsThree className="text-white" size={26} weight="bold" />
+        </button> */}
         <ColorPicker
           handleWheelColors={handleWheelColors}
           wheelColors={wheelColors}
@@ -92,7 +98,7 @@ export function OptionsHeader({
               <FloppyDisk
                 size={20}
                 weight="bold"
-                className={`text-white mr-4 ${
+                className={`text-white ${
                   wheelOptions.length ? "opacity-100" : "opacity-30"
                 }`}
               />
@@ -103,9 +109,6 @@ export function OptionsHeader({
           wheelOptions={wheelOptions}
           handleWheelOptions={handleWheelOptions}
         />
-        <button onClick={() => handleOptionsModal(false)}>
-          <Minus size={20} weight="bold" className="text-white" />
-        </button>
       </div>
     </header>
   );

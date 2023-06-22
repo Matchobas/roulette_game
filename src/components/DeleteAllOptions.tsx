@@ -23,7 +23,7 @@ export function DeleteAllOptions({
         <Trash
           size={20}
           weight="bold"
-          className={`text-white mr-4 ${
+          className={`text-white ${
             wheelOptions.length ? "opacity-100" : "opacity-30"
           }`}
         />

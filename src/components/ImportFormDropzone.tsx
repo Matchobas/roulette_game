@@ -83,7 +83,7 @@ export function ImportFormDropzone({
   return (
     <>
       <button ref={triggerRef}>
-        <FileArrowDown size={20} weight="bold" className="text-white mr-4" />
+        <FileArrowDown size={20} weight="bold" className="text-white" />
       </button>
 
       {isDropzoneOpen && (

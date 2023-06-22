@@ -22,7 +22,7 @@ export function ColorPicker({
   return (
     <>
       <button ref={triggerRef}>
-        <PaintBrush size={20} weight="bold" className="text-white mr-4" />
+        <PaintBrush size={20} weight="bold" className="text-white" />
       </button>
       {isColorMenuOpen && (
         <ColorPickerMenu
