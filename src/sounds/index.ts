@@ -7,12 +7,20 @@ interface SoundEffects {
 
 const soundEffects: Record<string, Howl> = {
   spinningMusic: new Howl({
-    src: ["src/sounds/MISTERY_BOX.wav"],
+    src: [
+      "https://github.com/matheus-alexandria/wheel_of_fortune_game/releases/download/game/MISTERY_BOX.wav"
+    ],
     loop: true,
-    volume: 0.2
+    volume: 0.2,
+    preload: true,
+    sprite: {
+      toLoop: [0, 2000]
+    }
   }),
   wheelTick: new Howl({
-    src: ["src/sounds/57126__loofa__castanet-014.wav"],
+    src: [
+      "https://github.com/matheus-alexandria/wheel_of_fortune_game/releases/download/game/57126__loofa__castanet-014.wav"
+    ],
     volume: 0.1
   })
 };
@@ -27,7 +35,6 @@ export function useSoundEffects({ sounds }: SoundEffects) {
   const requiredSounds: Record<string, React.MutableRefObject<Howl>> = {};
   sounds.forEach((sound) => {
     if (soundEffects[sound]) {
-      console.log(soundEffects[sound].volume());
       requiredSounds[sound] = useRef(soundEffects[sound]);
     }
   });
