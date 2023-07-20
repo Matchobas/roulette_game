@@ -1,4 +1,4 @@
-import { DotsThree, Eye, FloppyDisk, Minus, Shuffle } from "phosphor-react";
+import { DotsThree, Eye, FloppyDisk, Shuffle } from "phosphor-react";
 import { useEffect, useState } from "react";
 
 import { WheelOptionModel } from "../model/WheelOptionModel";

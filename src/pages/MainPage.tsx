@@ -1,3 +1,4 @@
+import { Howl } from "howler";
 import { SpeakerHigh, SpeakerX } from "phosphor-react";
 import { useEffect, useState } from "react";
 

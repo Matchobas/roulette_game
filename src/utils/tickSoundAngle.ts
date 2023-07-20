@@ -16,11 +16,11 @@ export function tickSoundAngle(
   const reducedStartAngle = convertToDegrees(
     startAngle - fullRotations * endAngle
   );
-  if (
-    reducedStartAngle <= 270 &&
-    reducedStartAngle > 269 - framesOffset / 200 &&
-    newRotation
-  ) {
-    sound.play();
-  }
+  // if (
+  //   reducedStartAngle <= 270 &&
+  //   reducedStartAngle > 269 - framesOffset / 200 &&
+  //   newRotation
+  // ) {
+  //   sound.play();
+  // }
 }
